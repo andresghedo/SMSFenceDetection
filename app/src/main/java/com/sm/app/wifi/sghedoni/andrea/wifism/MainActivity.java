@@ -3,6 +3,7 @@ package com.sm.app.wifi.sghedoni.andrea.wifism;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,6 +16,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private String TAG = "[DebApp]MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /*
+    * Alla selezione del menu in alto
+    * */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -66,6 +72,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        Log.d(TAG, "ON OPTIONS ITEM SELECTED WHIT ID: " + id);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -82,20 +89,65 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Log.d(TAG, "Premuto l'evento del menu laterale camera");
         } else if (id == R.id.nav_gallery) {
-
+            Log.d(TAG, "Premuto l'evento del menu laterale gallery");
         } else if (id == R.id.nav_slideshow) {
-
+            Log.d(TAG, "Premuto l'evento del menu laterale slideshow");
         } else if (id == R.id.nav_manage) {
-
+            Log.d(TAG, "Premuto l'evento del menu laterale manage");
         } else if (id == R.id.nav_share) {
-
+            Log.d(TAG, "Premuto l'evento del menu laterale condividi");
         } else if (id == R.id.nav_send) {
-
+            Log.d(TAG, "Premuto l'evento del menu laterale send");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    //CYCLE ACTIVITY
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Log.d(TAG, "ON START CYCLE");
+    };
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        Log.d(TAG, "ON RESTART CYCLE");
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d(TAG, "ON RESUME CYCLE");
+    };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        Log.d(TAG, "ON PAUSE CYCLE");
+    };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Log.d(TAG, "ON STOP CYCLE");
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, "ON DESTROY CYCLE");
+    };
+
 }
