@@ -1,8 +1,11 @@
 package com.sm.app.wifi.sghedoni.andrea.wifism;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, MapFragment.OnMapFragmentInteractionListener {
 
     private String TAG = "[DebApp]MainActivity";
 
@@ -85,21 +90,41 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        // prendo l'id del menu che ho selezionato
         int id = item.getItemId();
+        //fragment che verrà chiamato
+        Fragment fragment = null;
+        //titolo in alto al cambiare dell item selezionato
+        String title = getString(R.string.app_name);
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_map_geofences) {
             // Handle the camera action
             Log.d(TAG, "Premuto l'evento del menu laterale camera");
-        } else if (id == R.id.nav_gallery) {
+
+            // Fragment mappa se ho scelto la mappa geofences
+            fragment = new MapFragment();
+            title = "Map Geofences";
+        } else if (id == R.id.nav_list_geofences) {
             Log.d(TAG, "Premuto l'evento del menu laterale gallery");
-        } else if (id == R.id.nav_slideshow) {
+
+            // ItenFragment se ho scelto la lista di geofences
+            fragment = new ItemFragment();
+            title = "List Geofences";
+        } else if (id == R.id.nav_info_credits) {
             Log.d(TAG, "Premuto l'evento del menu laterale slideshow");
-        } else if (id == R.id.nav_manage) {
-            Log.d(TAG, "Premuto l'evento del menu laterale manage");
-        } else if (id == R.id.nav_share) {
-            Log.d(TAG, "Premuto l'evento del menu laterale condividi");
-        } else if (id == R.id.nav_send) {
-            Log.d(TAG, "Premuto l'evento del menu laterale send");
+
+            title = "Credits";
+        }
+
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
+
+        // set the toolbar title
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -150,4 +175,13 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "ON DESTROY CYCLE");
     };
 
+    // implementa l'interfaccia relativa al ItemFragment che ho dovuto implementare(vedi implements nel MainActivity)
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+        Log.d(TAG, "BO");
+    };
+
+    // implementa l'interfacci relativa al MapFragment che ho dovuto implementare(vedi implements nel MainActivity) */
+    public void onMapFragmentInteraction(Uri uri) {
+        Log.d(TAG, "BO");
+    };
 }
