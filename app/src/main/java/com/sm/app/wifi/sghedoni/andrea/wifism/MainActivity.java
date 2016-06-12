@@ -17,10 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, MapFragment.OnMapFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener,GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private String TAG = "[DebApp]MainActivity";
 
@@ -48,6 +51,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        Log.d(TAG,mGoogleApiClient.toString());
     }
 
     @Override
@@ -180,8 +190,24 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "BO");
     };
 
-    // implementa l'interfacci relativa al MapFragment che ho dovuto implementare(vedi implements nel MainActivity) */
-    public void onMapFragmentInteraction(Uri uri) {
-        Log.d(TAG, "BO");
-    };
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+        Log.d(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+        Log.d(TAG, "Connessione APIs fallita!");
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Log.d(TAG, "Connessione APIs riuscita!");
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // The connection to Google Play services was lost for some reason.
+        Log.d(TAG, "Connection suspended");
+
+        // onConnected() will be called again automatically when the service reconnects
+    }
 }
