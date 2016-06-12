@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_map_geofences"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_map"
             android:title="Map Geofences" />
         <item
             android:id="@+id/nav_list_geofences"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_map_fence"
             android:title="List Geofences" />
     </group>
 
@@ -16,7 +16,7 @@
         <menu>
             <item
                 android:id="@+id/nav_info_credits"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_star_credits"
                 android:title="Share" />
         </menu>
     </item>
