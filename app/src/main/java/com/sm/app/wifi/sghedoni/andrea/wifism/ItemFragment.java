@@ -29,7 +29,7 @@ public class ItemFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String TAG = "[DebApp]ListGeofencesFragment";
+    private static final String TAG = "[DebApp]ListGeofences";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
