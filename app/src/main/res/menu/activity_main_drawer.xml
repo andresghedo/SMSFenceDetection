@@ -8,7 +8,7 @@
             android:title="Map Geofences" />
         <item
             android:id="@+id/nav_list_geofences"
-            android:icon="@drawable/ic_map_fence"
+            android:icon="@drawable/ic_map_multiple_fence"
             android:title="List Geofences" />
     </group>
 

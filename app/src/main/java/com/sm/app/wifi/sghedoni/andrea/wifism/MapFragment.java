@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -16,10 +15,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
+public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
 
     GoogleMap map = null;
     private static final String TAG = "[DebApp]MapFragment";
@@ -45,13 +45,15 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.enableMyLocation();
         // aggiunge i fences
         this.addGeoFences(map);
+
+        map.setOnMarkerClickListener(this);
     }
 
     /**
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-        // controllo nel manifest di avere 
+        // controllo nel manifest di avere
         if ((ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) && (map != null)) {
             Log.d(TAG, "Posizione personale concessa e mappa non nulla");
             map.setMyLocationEnabled(true);
@@ -65,10 +67,13 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         LatLng center = new LatLng(44.5781125, 10.8502881);
         Double radius = 100.00;//meters
         float stroke = 1.50f; //meters
+        String snippet = "Snippet Marker!!";
 
         m.addMarker(new MarkerOptions()
                 .position(center)
                 .draggable(true)
+                .title("Marker")
+                .snippet(snippet)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         m.addCircle(new CircleOptions()
                 .center(center)
@@ -85,6 +90,12 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         Toast.makeText(this.getContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        return false;
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Log.d(TAG, "Click on Marker");
         return false;
     }
 }
