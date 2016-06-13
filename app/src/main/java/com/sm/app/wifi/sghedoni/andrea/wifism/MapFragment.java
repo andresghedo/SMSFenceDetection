@@ -1,9 +1,13 @@
 package com.sm.app.wifi.sghedoni.andrea.wifism;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -15,7 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MapFragment extends SupportMapFragment implements OnMapReadyCallback {
+public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener {
 
     GoogleMap map = null;
     private static final String TAG = "[DebApp]MapFragment";
@@ -27,7 +31,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         this.getMapAsync(this);
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -36,7 +39,23 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
         // centro dove posizionare la mappa e lo zoom
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerForZoom, 16.0f));
+        //setto il pulsante per la propria posizione
+        map.setOnMyLocationButtonClickListener(this);
+        // attiva la possibilità di trovarsi tramite un click sul cerca posizione
+        this.enableMyLocation();
+        // aggiunge i fences
         this.addGeoFences(map);
+    }
+
+    /**
+     * Enables the My Location layer if the fine location permission has been granted.
+     */
+    private void enableMyLocation() {
+        // controllo nel manifest di avere 
+        if ((ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) && (map != null)) {
+            Log.d(TAG, "Posizione personale concessa e mappa non nulla");
+            map.setMyLocationEnabled(true);
+        }
     }
 
     // aggiungo un marker con un raggio azzurro che indica il geofence.
@@ -57,5 +76,15 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 .strokeWidth(stroke)
                 .strokeColor(Color.BLACK)
                 .fillColor(Color.argb(50, 121, 225, 241))); // cyano trasparente
+    }
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        // ascoltatore al click sul simbolo trova posizione
+        Toast.makeText(this.getContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        // Return false so that we don't consume the event and the default behavior still occurs
+        // (the camera animates to the user's current position).
+        return false;
     }
 }
