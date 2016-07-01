@@ -5,6 +5,7 @@
 
     <!-- START PERMISSION, Guardare in futuro se servono tutte e a cosa -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="22" />
@@ -37,6 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".PositionIntentService" />
+        <service android:name=".PositionService" />
     </application>
 
 </manifest>

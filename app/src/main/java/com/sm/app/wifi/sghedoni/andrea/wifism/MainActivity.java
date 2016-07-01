@@ -1,5 +1,7 @@
 package com.sm.app.wifi.sghedoni.andrea.wifism;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
 
@@ -42,13 +45,34 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
+        //Controller.setmGoogleApiClient(this.buildGoogleApiClient());
+        //Controller.mGoogleApiClient.connect();
+
+        //Log.d(TAG, Controller.mGoogleApiClient.toString());
+
+        //Controller.sendSMS(Controller.NUMER_PHONE_TESTING, "Messaggio che sto inviando dall'App Android!!!!", getApplicationContext());
+    }
+
+    protected synchronized GoogleApiClient buildGoogleApiClient() {
+        return new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+    }
 
-        //Controller.sendSMS(Controller.NUMER_PHONE_TESTING, "Messaggio che sto inviando dall'App Android!!!!", getApplicationContext());
+    private PendingIntent getGeofencePendingIntent() {
+
+        Log.d(TAG, "getGeofencePendingIntent");
+        // Reuse the PendingIntent if we already have it.
+        //if (mGeofencePendingIntent != null) {
+        //    return mGeofencePendingIntent;
+        //}
+        Intent intent = new Intent(this, PositionIntentService.class);
+
+        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
+        // addGeofences() and removeGeofences().
+        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override
@@ -115,6 +139,18 @@ public class MainActivity extends AppCompatActivity
             Log.d(TAG, "Premuto l'evento del menu laterale slideshow");
 
             title = "Credits";
+
+            startService(new Intent(this, PositionService.class));
+            /*try {
+                LocationRequest mLocationRequest = new LocationRequest();
+                mLocationRequest.setInterval(3000);
+                mLocationRequest.setFastestInterval(3000);
+                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                LocationServices.FusedLocationApi.requestLocationUpdates(Controller.mGoogleApiClient, mLocationRequest, getGeofencePendingIntent());
+            } catch (SecurityException securityException) {
+                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                Log.e(TAG, "Invalid location permission. " + "NON HAI I PERMESSI PER LA FINE LOCATION ", securityException);
+            }*/
         }
 
         if (fragment != null) {
@@ -173,6 +209,7 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
 
+        //Controller.mGoogleApiClient.disconnect();
         Log.d(TAG, "ON DESTROY CYCLE");
     };
 
