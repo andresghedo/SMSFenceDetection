@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WiFiSM.iml" filepath="$PROJECT_DIR$/WiFiSM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlertAppSM.iml" filepath="$PROJECT_DIR$/AlertAppSM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

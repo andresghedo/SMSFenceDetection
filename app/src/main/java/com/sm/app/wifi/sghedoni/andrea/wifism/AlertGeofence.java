@@ -1,3 +1,5 @@
+package com.sm.app.wifi.sghedoni.andrea.wifism;
+
 import java.util.ArrayList;
 
 /**
