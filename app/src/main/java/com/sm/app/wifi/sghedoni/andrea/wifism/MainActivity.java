@@ -2,6 +2,7 @@ package com.sm.app.wifi.sghedoni.andrea.wifism;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +23,9 @@ import com.google.android.gms.location.LocationServices;
 import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks,
+            NewGeofenceFragment.OnFragmentInteractionListener
+    {
 
     private String TAG = "[DebApp]MainActivity";
 
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         // CONTROLLER Istance Initialization
         Controller.getInstance();
+        Controller.setDbManager(getApplicationContext());
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -238,4 +242,9 @@ public class MainActivity extends AppCompatActivity
 
         // onConnected() will be called again automatically when the service reconnects
     }
-}
+
+        @Override
+        public void onFragmentInteraction(Uri uri) {
+
+        }
+    }

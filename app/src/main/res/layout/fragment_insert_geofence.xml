@@ -1,0 +1,91 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment_insert_geofence">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <GridLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="right|bottom"
+        android:columnCount="3"
+        android:rowCount="9"
+        android:rowOrderPreserved="false">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/textView2"
+            android:layout_columnSpan="2"
+            android:layout_rowSpan="5"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <EditText
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameFence"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:layout_rowSpan="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lat"
+            android:id="@+id/textView3"
+            android:layout_row="5"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/latFence"
+            android:layout_row="5"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lng"
+            android:id="@+id/textView4"
+            android:layout_row="6"
+            android:layout_column="1" />
+
+        <EditText
+            android:layout_width="297dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/lngFence"
+            android:layout_row="6"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Range"
+            android:id="@+id/textView5"
+            android:layout_row="7"
+            android:layout_column="1" />
+
+        <Spinner
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerRange"
+            android:layout_row="7"
+            android:layout_column="2" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/buttonSaveFence"
+            android:layout_row="8"
+            android:layout_column="2"
+            android:layout_gravity="bottom|right"
+            android:longClickable="true" />
+
+    </GridLayout>
+</FrameLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="range_geofence">
+        <item>50 m</item>
+        <item>100 m</item>
+        <item>250 m</item>
+        <item>500 m</item>
+        <item>1000 m (1km)</item>
+        <item>2000 m (2km)</item>
+    </string-array>
+</resources>

@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite.SQLiteDBManager;
 
 /**
  * Created by andrea on 01/07/16.
@@ -25,8 +26,6 @@ public class PositionService extends Service implements LocationListener, Google
     int mStartMode;
 
     GoogleApiClient mGoogleApiClient;
-
-    float x=1;
 
     /** interface for clients that bind */
     IBinder mBinder;
@@ -87,8 +86,8 @@ public class PositionService extends Service implements LocationListener, Google
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(3000);
-            mLocationRequest.setFastestInterval(3000);
+            mLocationRequest.setInterval(10000); // 10 sec
+            mLocationRequest.setFastestInterval(10000);  // 10 sec
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {

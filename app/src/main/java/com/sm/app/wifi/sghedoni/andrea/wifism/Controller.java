@@ -5,6 +5,8 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite.SQLiteDBManager;
+
 /**
  *  Classe Controller, implementa il pattern SINGLETON. .
  *  @author andreasd
@@ -18,10 +20,14 @@ public class Controller {
     /** testing number */
     public static String NUMER_PHONE_TESTING= "3337572709";
 
+    public static SQLiteDBManager dbManager = null;
+
     /** cerca l'istanza singleton, se la trova la torna altrimenti la crea */
     public static Controller getInstance() {
-        if(instance == null)
+        if(instance == null) {
+            Log.d(TAG, "New Istance of Controller is created!!");
             instance = new Controller();
+        }
         return instance;
     }
 
@@ -36,6 +42,11 @@ public class Controller {
             Toast.makeText(context, "SMS faild, please try again.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    public static void setDbManager(Context ctx) {
+        dbManager = new SQLiteDBManager(ctx);
+        Log.d(TAG, "New Istance of SQLiteDBManager!!");
     }
 
 }
