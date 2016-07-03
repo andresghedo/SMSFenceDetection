@@ -1,11 +1,11 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism;
+package com.sm.app.alert.sghedoni.andrea.dev;
 
 import android.content.Context;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite.SQLiteDBManager;
+import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.SQLiteDBManager;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Controller {
     /** testing number */
     public static String NUMER_PHONE_TESTING= "3337572709";
 
-    public static SQLiteDBManager dbManager = null;
+    private static SQLiteDBManager dbManager = null;
 
     public static ArrayList<Fence> fences = null;
 
@@ -48,6 +48,11 @@ public class Controller {
         }
     }
 
+    /***********************************************************************************************
+    *                                                                                              *
+    *                           Method for SQLiteDB Managment                                      *
+    *                                                                                              *
+    ***********************************************************************************************/
     public static void setDbManager(Context ctx) {
         dbManager = new SQLiteDBManager(ctx);
         Log.d(TAG, "New Istance of SQLiteDBManager!!");
@@ -55,6 +60,14 @@ public class Controller {
 
     public static void resumeFencesFromDb() {
         fences = dbManager.resumeFencesFromDb();
+    }
+
+    public static void removeFenceFromDB(int id) { dbManager.delete(id); }
+
+    public static void getLogFenceOnSQLiteDB() { dbManager.getLogOfFenceTableSQLiteDB(); }
+
+    public static int insertFenceOnSQLiteDB(String name, String lat, String lng, String range) {
+        return dbManager.insert(name, lat, lng, range);
     }
 
     public static void getLogFenceEntities() {

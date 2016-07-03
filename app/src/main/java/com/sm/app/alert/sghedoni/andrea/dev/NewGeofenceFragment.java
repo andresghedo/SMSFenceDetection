@@ -1,4 +1,4 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism;
+package com.sm.app.alert.sghedoni.andrea.dev;
 
 import android.content.Context;
 import android.net.Uri;
@@ -37,9 +37,6 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     private EditText nameFence;
     private EditText latFence;
     private EditText lngFence;
-
-
-    private OnFragmentInteractionListener mListener;
 
     public NewGeofenceFragment() {
         // Required empty public constructor
@@ -98,26 +95,17 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
     public void onAttach(Context context) {
+        Log.d(TAG, "onAttach");
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     @Override
@@ -130,20 +118,16 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
                 String range = spinnerRange.getSelectedItem().toString();
 
                 this.saveFenceInSqliteDB(name, lat, lng, range);
-                this.getLogOfDB();
+                Controller.getLogFenceOnSQLiteDB();
                 Log.d(TAG, "Saved Geofence!");
                 break;
         }
     }
 
     public void saveFenceInSqliteDB(String name, String lat, String lng, String range) {
-        int id = Controller.dbManager.insert(name, lat, lng, range);
+        int id = Controller.insertFenceOnSQLiteDB(name, lat, lng, range);
         Fence f = new Fence(id, name, lat, lng, range);
         Controller.fences.add(f);
-    }
-
-    public void getLogOfDB() {
-        Controller.dbManager.selectAll();
     }
 
     /**

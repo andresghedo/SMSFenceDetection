@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sm.app.wifi.sghedoni.andrea.wifism">
+    package="com.sm.app.alert.sghedoni.andrea.dev">
 
 
     <!-- START PERMISSION, Guardare in futuro se servono tutte e a cosa -->
@@ -29,7 +29,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.sm.app.alert.sghedoni.andrea.dev.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".PositionService" />
+        <service android:name="com.sm.app.alert.sghedoni.andrea.dev.PositionService" />
     </application>
 
 </manifest>

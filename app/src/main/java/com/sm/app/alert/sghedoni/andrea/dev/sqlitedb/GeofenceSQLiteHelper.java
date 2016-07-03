@@ -1,9 +1,11 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite;
+package com.sm.app.alert.sghedoni.andrea.dev.sqlitedb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.FenceEntrySQLiteDb;
 
 /**
  * Created by andrea on 02/07/16.

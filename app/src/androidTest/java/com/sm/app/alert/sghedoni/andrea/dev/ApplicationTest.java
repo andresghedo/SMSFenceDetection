@@ -1,4 +1,4 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism;
+package com.sm.app.alert.sghedoni.andrea.dev;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

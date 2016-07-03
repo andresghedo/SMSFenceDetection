@@ -1,4 +1,4 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite;
+package com.sm.app.alert.sghedoni.andrea.dev.sqlitedb;
 
 import android.provider.BaseColumns;
 

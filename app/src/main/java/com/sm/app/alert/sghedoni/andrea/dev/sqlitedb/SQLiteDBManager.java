@@ -1,4 +1,4 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite;
+package com.sm.app.alert.sghedoni.andrea.dev.sqlitedb;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.sm.app.wifi.sghedoni.andrea.wifism.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.FenceEntrySQLiteDb;
+import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.GeofenceSQLiteHelper;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class SQLiteDBManager {
         return (int)newRowId;
     }
 
-    public void selectAll() {
+    public void getLogOfFenceTableSQLiteDB() {
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -114,4 +116,12 @@ public class SQLiteDBManager {
         return toReturn;
     }
 
+    public void delete(int id) {
+        // Define 'where' part of query.
+        String selection = FenceEntrySQLiteDb._ID + " LIKE ?";
+        // Specify arguments in placeholder order.
+        String[] selectionArgs = { String.valueOf(id) };
+        // Issue SQL statement.
+        db.delete(FenceEntrySQLiteDb.TABLE_NAME, selection, selectionArgs);
+    }
 }

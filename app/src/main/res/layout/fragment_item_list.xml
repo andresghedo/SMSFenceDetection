@@ -14,7 +14,7 @@ tools:context=".ItemFragment">
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.sm.app.wifi.sghedoni.andrea.wifism.ItemFragment"
+    tools:context="com.sm.app.alert.sghedoni.andrea.dev.ItemFragment"
     tools:listitem="@layout/fragment_item"/>
 
     <android.support.design.widget.FloatingActionButton

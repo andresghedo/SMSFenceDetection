@@ -1,4 +1,4 @@
-package com.sm.app.wifi.sghedoni.andrea.wifism;
+package com.sm.app.alert.sghedoni.andrea.dev;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -80,13 +80,21 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             Log.d(TAG, "onCreateContextMenu");
             menu.setHeaderTitle("Choose an action");
-            MenuItem myActionItem = menu.add(0, 1, 1, "Delete");
+            MenuItem myActionItem = menu.add(0, 0, 0, "Delete");
             myActionItem.setOnMenuItemClickListener(this);
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             Log.d(TAG, "onMenuItemClick, item: " + item.toString());
+            switch (item.getItemId()) {
+                case 0:
+                    removeFence(this.mItem);
+                    break;
+                default:
+                    Log.d(TAG, "You pick item id n°: " + item.getItemId());
+            }
+
             return false;
         }
 
@@ -95,6 +103,19 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             Log.d(TAG, "onLongClick event, view: " + v.toString());
             Log.d(TAG, "Current Fence clicked: " + this.mItem.getName());
             return false;
+        }
+
+        public void removeFence(Fence toRemove) {
+            int position = mValues.indexOf(toRemove);
+            Controller.fences.remove(toRemove);
+            Controller.getLogFenceEntities();
+            Log.d(TAG, "Fence to remove in position : " + position);
+            Controller.removeFenceFromDB(toRemove.getId());
+            Controller.getLogFenceOnSQLiteDB();
+
+            mValues.remove(toRemove);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, mValues.size());
         }
     }
 }
