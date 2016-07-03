@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.service;
 
 import android.app.Service;
 import android.content.Intent;

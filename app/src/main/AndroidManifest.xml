@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.sm.app.alert.sghedoni.andrea.dev.PositionService" />
+        <service android:name=".service.PositionService" />
     </application>
 
 </manifest>
