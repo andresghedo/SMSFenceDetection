@@ -137,7 +137,9 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     }
 
     public void saveFenceInSqliteDB(String name, String lat, String lng, String range) {
-        Controller.dbManager.insert(name, lat, lng, range);
+        int id = Controller.dbManager.insert(name, lat, lng, range);
+        Fence f = new Fence(id, name, lat, lng, range);
+        Controller.fences.add(f);
     }
 
     public void getLogOfDB() {

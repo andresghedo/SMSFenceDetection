@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.sm.app.wifi.sghedoni.andrea.wifism.Fence;
+
+import java.util.ArrayList;
+
 /**
  * Created by andrea on 02/07/16.
  */
@@ -21,7 +25,7 @@ public class SQLiteDBManager {
         db = geofenceDbHelper.getWritableDatabase();
     }
 
-    public void insert(String name, String lat, String lng, String range) {
+    public int insert(String name, String lat, String lng, String range) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
@@ -36,6 +40,7 @@ public class SQLiteDBManager {
                 null,
                 values);
         Log.d(TAG, "Insert new row in " + FenceEntrySQLiteDb.TABLE_NAME + " , id: " + newRowId);
+        return (int)newRowId;
     }
 
     public void selectAll() {
@@ -83,6 +88,30 @@ public class SQLiteDBManager {
 
         c.close();
         //db.close();
+    }
+
+    public ArrayList<Fence> resumeFencesFromDb() {
+
+        ArrayList<Fence> toReturn = new ArrayList<Fence>();
+        Cursor c = db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
+        Log.d(TAG, "Resuming of all fences...");
+
+        if(c.moveToFirst()) {
+            do{
+                //assing values
+                int id = c.getInt(0);
+                String name = c.getString(1);
+                String lat = c.getString(2);
+                String lng = c.getString(3);
+                String range = c.getString(4);
+
+                Fence f = new Fence(id, name, lat, lng, range);
+                toReturn.add(f);
+            }while(c.moveToNext());
+        }
+
+        c.close();
+        return toReturn;
     }
 
 }

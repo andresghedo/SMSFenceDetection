@@ -39,7 +39,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".PositionIntentService" />
         <service android:name=".PositionService" />
     </application>
 

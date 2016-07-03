@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.sm.app.wifi.sghedoni.andrea.wifism.com.sm.app.wifi.sghedoni.andrea.db.sqllite.SQLiteDBManager;
 
+import java.util.ArrayList;
+
 /**
  *  Classe Controller, implementa il pattern SINGLETON. .
  *  @author andreasd
@@ -21,6 +23,8 @@ public class Controller {
     public static String NUMER_PHONE_TESTING= "3337572709";
 
     public static SQLiteDBManager dbManager = null;
+
+    public static ArrayList<Fence> fences = null;
 
     /** cerca l'istanza singleton, se la trova la torna altrimenti la crea */
     public static Controller getInstance() {
@@ -47,6 +51,16 @@ public class Controller {
     public static void setDbManager(Context ctx) {
         dbManager = new SQLiteDBManager(ctx);
         Log.d(TAG, "New Istance of SQLiteDBManager!!");
+    }
+
+    public static void resumeFencesFromDb() {
+        fences = dbManager.resumeFencesFromDb();
+    }
+
+    public static void getLogFenceEntities() {
+        Log.d(TAG, "Log of Fence Entities");
+        for (int i=0; i<fences.size(); i++)
+            Log.d(TAG, "FenceEntity name: " + fences.get(i).getName());
     }
 
 }

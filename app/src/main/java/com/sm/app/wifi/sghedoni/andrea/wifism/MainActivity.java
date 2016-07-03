@@ -1,8 +1,6 @@
 package com.sm.app.wifi.sghedoni.andrea.wifism;
 
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,13 +16,10 @@ import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ItemFragment.OnListFragmentInteractionListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks,
-            NewGeofenceFragment.OnFragmentInteractionListener
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
     {
 
     private String TAG = "[DebApp]MainActivity";
@@ -35,6 +30,9 @@ public class MainActivity extends AppCompatActivity
         // CONTROLLER Istance Initialization
         Controller.getInstance();
         Controller.setDbManager(getApplicationContext());
+        Controller.resumeFencesFromDb();
+        Controller.getLogFenceEntities();
+
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,20 +61,6 @@ public class MainActivity extends AppCompatActivity
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-    }
-
-    private PendingIntent getGeofencePendingIntent() {
-
-        Log.d(TAG, "getGeofencePendingIntent");
-        // Reuse the PendingIntent if we already have it.
-        //if (mGeofencePendingIntent != null) {
-        //    return mGeofencePendingIntent;
-        //}
-        Intent intent = new Intent(this, PositionIntentService.class);
-
-        // We use FLAG_UPDATE_CURRENT so that we get the same pending intent back when calling
-        // addGeofences() and removeGeofences().
-        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @Override
@@ -145,16 +129,6 @@ public class MainActivity extends AppCompatActivity
             title = "Credits";
 
             startService(new Intent(this, PositionService.class));
-            /*try {
-                LocationRequest mLocationRequest = new LocationRequest();
-                mLocationRequest.setInterval(3000);
-                mLocationRequest.setFastestInterval(3000);
-                mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                LocationServices.FusedLocationApi.requestLocationUpdates(Controller.mGoogleApiClient, mLocationRequest, getGeofencePendingIntent());
-            } catch (SecurityException securityException) {
-                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                Log.e(TAG, "Invalid location permission. " + "NON HAI I PERMESSI PER LA FINE LOCATION ", securityException);
-            }*/
         }
 
         if (fragment != null) {
@@ -217,11 +191,6 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "ON DESTROY CYCLE");
     };
 
-    // implementa l'interfaccia relativa al ItemFragment che ho dovuto implementare(vedi implements nel MainActivity)
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
-        Log.d(TAG, "BO");
-    };
-
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
@@ -242,9 +211,4 @@ public class MainActivity extends AppCompatActivity
 
         // onConnected() will be called again automatically when the service reconnects
     }
-
-        @Override
-        public void onFragmentInteraction(Uri uri) {
-
-        }
-    }
+}

@@ -13,16 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent;
-import com.sm.app.wifi.sghedoni.andrea.wifism.dummy.DummyContent.DummyItem;
-
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
  *
  * ItemFragment --> Sarà il Fragment relativo alla Lista dei GeoFences
  * In questo fragment sarà possibile creare, eliminare e modificare i geofences
@@ -34,7 +27,6 @@ public class ItemFragment extends Fragment {
     private static final String TAG = "[DebApp]ListGeofences";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,12 +50,7 @@ public class ItemFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+        Log.d(TAG, "OnAttach");
     }
 
     @Override
@@ -82,9 +69,9 @@ public class ItemFragment extends Fragment {
 
         // Set the adapter
         if (view instanceof FrameLayout) {
-            Log.d(TAG, "entro");
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(Controller.fences));
+            registerForContextMenu(recyclerView);
         }
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -100,6 +87,7 @@ public class ItemFragment extends Fragment {
                 ft.commit();
             }
         });
+
         return view;
     }
 
@@ -155,24 +143,7 @@ public class ItemFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
-
 
     /*********************************************** END LIFECYCLE ***********************************/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // Metodo che viene lasciato da implementare(io l'ho messo nella Main Activity) per quando fai click su un item della lista
-        void onListFragmentInteraction(DummyItem item);
-    }
 }
