@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -68,7 +70,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     private void addGeoFences(GoogleMap m) {
 
             Log.d(TAG, "Draw the fences on Map");
-            for (int i=0; i<Controller.fences.size(); i++) {
+            for (int i=0; i< Controller.fences.size(); i++) {
                 Fence fence = Controller.fences.get(i);
                 String snippet = fence.getAddress() + ", " + fence.getCity() + ", " + fence.getProvince() + ".";
                 this.drawFence(m, fence.getLat(), fence.getLng(), fence.getRange(), fence.isActive(), fence.getName(), snippet);

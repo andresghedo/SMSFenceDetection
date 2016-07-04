@@ -7,8 +7,8 @@
     <!-- TODO: Update blank fragment layout -->
 
     <GridLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="right|bottom"
         android:columnCount="1"
         android:rowCount="14"
@@ -16,8 +16,8 @@
 
         <!-- Text, 0,0 -->
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="120dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/new_fence_text"
             android:id="@+id/textView2"
@@ -35,7 +35,7 @@
 
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Name"
                 android:id="@+id/nameFenceTextView"
@@ -46,13 +46,13 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:layout_width="254dp"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/nameFence"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="90dp" />
+                android:layout_marginRight="130dp" />
         </GridLayout>
 
         <!-- Address, 0,2 -->
@@ -66,7 +66,7 @@
 
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Address"
                 android:id="@+id/textView4"
@@ -77,12 +77,12 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:layout_width="254dp"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="90dp"
+                android:layout_marginRight="130dp"
                 android:id="@+id/addressFence" />
         </GridLayout>
 
@@ -97,7 +97,7 @@
 
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="City"
                 android:id="@+id/textView5"
@@ -108,13 +108,13 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:layout_width="254dp"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/cityFence"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="90dp" />
+                android:layout_marginRight="130dp" />
         </GridLayout>
 
         <!-- Province, 0,4 -->
@@ -128,7 +128,7 @@
 
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Province"
                 android:id="@+id/textView6"
@@ -139,13 +139,13 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:layout_width="254dp"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/provinceFence"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_marginLeft="15dp"
-                android:layout_marginRight="90dp" />
+                android:layout_marginRight="130dp" />
         </GridLayout>
 
         <!-- Range, 0,5 -->
@@ -159,7 +159,7 @@
 
             <TextView
                 android:layout_width="80dp"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Range(m)"
                 android:id="@+id/textView7"
@@ -170,11 +170,14 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:layout_width="270dp"
-                android:layout_height="fill_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/spinnerRange"
                 android:layout_row="0"
-                android:layout_column="1" />
+                android:layout_column="1"
+                android:textAlignment="center"
+                android:layout_marginRight="130dp"
+                android:spinnerMode="dialog" />
 
         </GridLayout>
 

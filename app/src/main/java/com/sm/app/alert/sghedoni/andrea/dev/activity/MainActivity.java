@@ -1,6 +1,5 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +16,10 @@ import android.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
-import com.sm.app.alert.sghedoni.andrea.dev.service.PositionService;
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.R;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.ItemFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity
 
             title = "Credits";
 
-            startService(new Intent(this, PositionService.class));
+            //startService(new Intent(this, PositionService.class));
         }
 
         if (fragment != null) {

@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
 import android.content.Context;
 import android.location.Address;
@@ -17,11 +17,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.IOException;
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.R;
+
 import java.util.List;
 import java.util.Locale;
-
-import static java.util.Locale.*;
 
 /**
  * A simple {@link Fragment} subclass.
