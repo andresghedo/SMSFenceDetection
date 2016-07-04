@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -157,12 +158,19 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
             return;
         }
         int id = Controller.insertFenceOnSQLiteDB(name, address, city, province, lat + "", lng + "", range, 1);
         Fence f = new Fence(id, name, address, city, province, lat, lng, Double.parseDouble(range), true);
         Controller.fences.add(f);
         Toast.makeText(this.getContext(), "Added the fence: " + f.getName() + "!", Toast.LENGTH_LONG).show();
+
+        // redirect to new itemfragment
+        ItemFragment itemFragment = new ItemFragment();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, itemFragment);
+        ft.commit();
     }
 
     /**
