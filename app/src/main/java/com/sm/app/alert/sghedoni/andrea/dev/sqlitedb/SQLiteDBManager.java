@@ -27,13 +27,17 @@ public class SQLiteDBManager {
         db = geofenceDbHelper.getWritableDatabase();
     }
 
-    public int insert(String name, String lat, String lng, String range) {
+    public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_ADDRESS, address);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_CITY, city);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_PROVINCE, province);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_LAT, lat);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_LNG, lng);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_RANGE, range);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, active);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
@@ -52,6 +56,9 @@ public class SQLiteDBManager {
         String[] projection = {
                 FenceEntrySQLiteDb._ID,
                 FenceEntrySQLiteDb.COLUMN_FENCE_NAME,
+                FenceEntrySQLiteDb.COLUMN_FENCE_ADDRESS,
+                FenceEntrySQLiteDb.COLUMN_FENCE_CITY,
+                FenceEntrySQLiteDb.COLUMN_FENCE_PROVINCE,
                 FenceEntrySQLiteDb.COLUMN_FENCE_LAT,
                 FenceEntrySQLiteDb.COLUMN_FENCE_LNG,
                 FenceEntrySQLiteDb.COLUMN_FENCE_RANGE
@@ -79,12 +86,16 @@ public class SQLiteDBManager {
                 //assing values
                 String id = c.getString(0);
                 String name = c.getString(1);
-                String lat = c.getString(2);
-                String lng = c.getString(3);
-                String range = c.getString(4);
+                String address = c.getString(2);
+                String city = c.getString(3);
+                String province = c.getString(4);
+                String lat = c.getString(5);
+                String lng = c.getString(6);
+                String range = c.getString(7);
+                String active = c.getString(7);
 
                 //Do something Here with values
-                Log.d(TAG, "id: " + id + "name: " + name + "lat: " + lat + "lng: " + lng + "range: " + range);
+                Log.d(TAG, "ID: " + id + "  NAME: " + name + "  ADDRESS: " + address + "  CITY: " + city + "  PROV: " + province + "  LAT: " + lat + "  LNG:" + lng + "  RANGE:" + range + " ACTIVE:" + active);
             }while(c.moveToNext());
         }
 
@@ -103,11 +114,15 @@ public class SQLiteDBManager {
                 //assing values
                 int id = c.getInt(0);
                 String name = c.getString(1);
-                String lat = c.getString(2);
-                String lng = c.getString(3);
-                String range = c.getString(4);
+                String address = c.getString(2);
+                String city = c.getString(3);
+                String province = c.getString(4);
+                Double lat = Double.parseDouble(c.getString(5));
+                Double lng = Double.parseDouble(c.getString(6));
+                Double range = Double.parseDouble(c.getString(7));
+                boolean active = c.getInt(8) == 1;
 
-                Fence f = new Fence(id, name, lat, lng, range);
+                Fence f = new Fence(id, name, address, city, province, lat, lng, range, active);
                 toReturn.add(f);
             }while(c.moveToNext());
         }
@@ -124,4 +139,12 @@ public class SQLiteDBManager {
         // Issue SQL statement.
         db.delete(FenceEntrySQLiteDb.TABLE_NAME, selection, selectionArgs);
     }
+
+    public void updateFenceStatus(int id, int flag) {
+        String strFilter = "_id=" + id;
+        ContentValues args = new ContentValues();
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, flag);
+        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+    }
+
 }

@@ -18,6 +18,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
 
@@ -64,23 +67,37 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     // Lat Lang per ora sono cablate a via Palestro 3a formigine
     private void addGeoFences(GoogleMap m) {
 
-        LatLng center = new LatLng(44.5781125, 10.8502881);
-        Double radius = 100.00;//meters
-        float stroke = 1.50f; //meters
-        String snippet = "Snippet Marker!!";
+            Log.d(TAG, "Draw the fences on Map");
+            for (int i=0; i<Controller.fences.size(); i++) {
+                Fence fence = Controller.fences.get(i);
+                String snippet = fence.getAddress() + ", " + fence.getCity() + ", " + fence.getProvince() + ".";
+                this.drawFence(m, fence.getLat(), fence.getLng(), fence.getRange(), fence.isActive(), fence.getName(), snippet);
+            }
+    }
 
-        m.addMarker(new MarkerOptions()
+    private void drawFence(GoogleMap map, Double lat, Double lng, Double range, boolean active, String title, String snippet) {
+
+        LatLng center = new LatLng(lat, lng);
+        int green = Color.argb(50, 17, 157, 88);
+        int red = Color.argb(50, 216, 46, 46);
+
+        int color =  active ? green : red ;
+        int strokeColor = active ? Color.GREEN : Color.RED ;
+        float colorMarker = active ? BitmapDescriptorFactory.HUE_GREEN : BitmapDescriptorFactory.HUE_RED ;
+        float stroke = 1.50f;
+
+        map.addMarker(new MarkerOptions()
                 .position(center)
                 .draggable(true)
-                .title("Marker")
+                .title(title)
                 .snippet(snippet)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        m.addCircle(new CircleOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(colorMarker)));
+        map.addCircle(new CircleOptions()
                 .center(center)
-                .radius(radius)
+                .radius(range)
                 .strokeWidth(stroke)
-                .strokeColor(Color.BLACK)
-                .fillColor(Color.argb(50, 121, 225, 241))); // cyano trasparente
+                .strokeColor(strokeColor)
+                .fillColor(color));
     }
 
 

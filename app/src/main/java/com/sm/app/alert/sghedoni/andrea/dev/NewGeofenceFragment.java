@@ -1,6 +1,8 @@
 package com.sm.app.alert.sghedoni.andrea.dev;
 
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import static java.util.Locale.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +42,11 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     private String mParam2;
     private View view;
     private Button addGeogence;
-    private Spinner spinnerRange;
     private EditText nameFence;
-    private EditText latFence;
-    private EditText lngFence;
+    private EditText addressFence;
+    private EditText cityFence;
+    private EditText provinceFence;
+    private Spinner spinnerRange;
 
     public NewGeofenceFragment() {
         // Required empty public constructor
@@ -78,8 +88,9 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         addGeogence = (Button) view.findViewById(R.id.buttonSaveFence);
         spinnerRange = (Spinner) view.findViewById(R.id.spinnerRange);
         nameFence = (EditText) view.findViewById(R.id.nameFence);
-        latFence = (EditText) view.findViewById(R.id.latFence);
-        lngFence = (EditText) view.findViewById(R.id.lngFence);
+        addressFence = (EditText) view.findViewById(R.id.addressFence);
+        cityFence = (EditText) view.findViewById(R.id.cityFence);
+        provinceFence = (EditText) view.findViewById(R.id.provinceFence);
 
         addGeogence.setOnClickListener(this);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -113,21 +124,45 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         switch(v.getId()){
             case R.id.buttonSaveFence:
                 String name = nameFence.getText().toString();
-                String lat = latFence.getText().toString();
-                String lng = lngFence.getText().toString();
+                String address = addressFence.getText().toString();
+                String city = cityFence.getText().toString();
+                String province = provinceFence.getText().toString();
                 String range = spinnerRange.getSelectedItem().toString();
 
-                this.saveFenceInSqliteDB(name, lat, lng, range);
+                this.saveFenceInSqliteDB(name, address, city, province, range);
                 Controller.getLogFenceOnSQLiteDB();
                 Log.d(TAG, "Saved Geofence!");
                 break;
         }
     }
 
-    public void saveFenceInSqliteDB(String name, String lat, String lng, String range) {
-        int id = Controller.insertFenceOnSQLiteDB(name, lat, lng, range);
-        Fence f = new Fence(id, name, lat, lng, range);
+    public void saveFenceInSqliteDB(String name, String address, String city, String province, String range) {
+        Geocoder g = new Geocoder(this.getContext(), Locale.getDefault());
+        Double lat = null;
+        Double lng = null;
+        boolean active = true; // default whan you add a geofence is active
+        try {
+            String locationName = address + ", " + city + ", " + province ;
+            List<Address> addressesName = g.getFromLocationName(locationName, 10);
+            if (addressesName.size() > 0) {
+                lat = addressesName.get(0).getLatitude();
+                lng = addressesName.get(0).getLongitude();
+
+                for (int i=0; i<addressesName.size(); i++){
+                        Log.d(TAG, "INDIRIZZO TROVATO DAL NOME (" + i + ") :" + addressesName.get(i).toString());
+                    }
+            } else {
+                Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        int id = Controller.insertFenceOnSQLiteDB(name, address, city, province, lat + "", lng + "", range, 1);
+        Fence f = new Fence(id, name, address, city, province, lat, lng, Double.parseDouble(range), true);
         Controller.fences.add(f);
+        Toast.makeText(this.getContext(), "Added the fence: " + f.getName() + "!", Toast.LENGTH_LONG).show();
     }
 
     /**

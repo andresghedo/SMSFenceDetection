@@ -9,62 +9,104 @@ public class Fence {
 
     private String name;
 
-    private String lat;
+    private Double lat;
 
-    private String lng;
+    private Double lng;
 
-    private String range;
+    private Double range;
 
     private String address;
 
+    private String city;
+
+    private String province;
+
+    private boolean active;
+
     public Fence() {}
 
-    public Fence(int id, String name, String lat, String lng, String range) {
+    public Fence(int id, String name, String address, String city,String province, Double lat, Double lng, Double range, boolean active) {
         this.id = id;
         this.name = name;
         this.lat = lat;
         this.lng = lng;
-        this.range =range;
+        this.range = range;
+        this.address = address;
+        this.city = city;
+        this.province = province;
+        this.active = active;
     }
 
-    public int getId() {
-        return this.id;
-    }
+    /*
+    * ************** SETTER **************
+    * */
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public void setRange(Double range) {
+        this.range = range;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setProvince(String province) {
+        this.province = province ;
+    }
+
+    public void setActive(boolean flag) { this.active = flag; }
+
+    /*
+    * ************** GETTER **************
+    * */
+
+    public int getId() {
+        return this.id;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat;
-    }
-
-    public String getLat() {
+    public Double getLat() {
         return this.lat;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
-    public String getLng() {
+    public Double getLng() {
         return this.lng;
     }
 
-    public void setRange(String range) {
-        this.range = range;
-    }
-
-    public String getRange() {
+    public Double getRange() {
         return this.range;
     }
 
-    public String getAddress() { return this.address; }
+    public String getAddress() {
+        return this.address;
+    }
 
-    public void setAddress(String address) { this.address = address; }
+    public String getCity() {
+        return this.city;
+    }
+
+    public String getProvince() {
+        return this.province;
+    }
+
+    public boolean isActive() { return this.active; }
 
 }

@@ -7,4 +7,9 @@
     <string name="action_settings">Settings</string>
 
     <string name="hello_blank_fragment">Map of my Geofences</string>
+    <string name="new_fence_text">
+        Add a new Fence\n
+        Fill in the address, the city and the province of your fence.\n
+        Finally, select a range of validity
+    </string>
 </resources>

@@ -17,15 +17,20 @@ public class GeofenceSQLiteHelper extends SQLiteOpenHelper {
     private String TAG = "[DebApp] SQLiteOpenHelper";
 
     private static final String TEXT_TYPE = " TEXT";
+    private static final String INTEGER_DEFAULT_TYPE = " INTEGER DEFAULT 0";
     private static final String COMMA_SEP = ",";
     private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + FenceEntrySQLiteDb.TABLE_NAME;
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + FenceEntrySQLiteDb.TABLE_NAME + " (" +
                     FenceEntrySQLiteDb._ID + " INTEGER PRIMARY KEY," +
                     FenceEntrySQLiteDb.COLUMN_FENCE_NAME + TEXT_TYPE + COMMA_SEP +
+                    FenceEntrySQLiteDb.COLUMN_FENCE_ADDRESS + TEXT_TYPE + COMMA_SEP +
+                    FenceEntrySQLiteDb.COLUMN_FENCE_CITY + TEXT_TYPE + COMMA_SEP +
+                    FenceEntrySQLiteDb.COLUMN_FENCE_PROVINCE + TEXT_TYPE + COMMA_SEP +
                     FenceEntrySQLiteDb.COLUMN_FENCE_LAT + TEXT_TYPE + COMMA_SEP +
                     FenceEntrySQLiteDb.COLUMN_FENCE_LNG + TEXT_TYPE + COMMA_SEP +
-                    FenceEntrySQLiteDb.COLUMN_FENCE_RANGE + TEXT_TYPE +  " );";
+                    FenceEntrySQLiteDb.COLUMN_FENCE_RANGE + TEXT_TYPE + COMMA_SEP +
+                    FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE + INTEGER_DEFAULT_TYPE +  " );";
 
     public GeofenceSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

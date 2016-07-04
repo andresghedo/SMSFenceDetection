@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -39,6 +41,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).getId() + "");
         holder.mContentView.setText(mValues.get(position).getName());
+        holder.mSwitch.setChecked(mValues.get(position).isActive());
     }
 
     @Override
@@ -54,10 +57,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,
-    MenuItem.OnMenuItemClickListener, View.OnLongClickListener {
+    MenuItem.OnMenuItemClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public Switch mSwitch = null;
         public Fence mItem;
         private String TAG = "[DebApp] ViewHolder";
 
@@ -66,6 +70,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mSwitch = (Switch) view.findViewById(R.id.switchFence);
+            mSwitch.setOnCheckedChangeListener(this);
             mView.setOnCreateContextMenuListener(this);
             mView.setOnLongClickListener(this);
             Log.d(TAG, "Constructor");
@@ -116,6 +122,14 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             mValues.remove(toRemove);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, mValues.size());
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Log.d(TAG, "Switch changed! status of geofence " + this.mItem.getName() + "  : " + isChecked);
+            int index = Controller.fences.indexOf(this.mItem);
+            Controller.fences.get(index).setActive(isChecked);
+            Controller.updateFenceStatusOnSQLiteDB(this.mItem.getId(), isChecked);
         }
     }
 }

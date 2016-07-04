@@ -50,7 +50,7 @@ public class Controller {
 
     /***********************************************************************************************
     *                                                                                              *
-    *                           Method for SQLiteDB Managment                                      *
+    *                           Method for SQLiteDB Management                                     *
     *                                                                                              *
     ***********************************************************************************************/
     public static void setDbManager(Context ctx) {
@@ -66,8 +66,13 @@ public class Controller {
 
     public static void getLogFenceOnSQLiteDB() { dbManager.getLogOfFenceTableSQLiteDB(); }
 
-    public static int insertFenceOnSQLiteDB(String name, String lat, String lng, String range) {
-        return dbManager.insert(name, lat, lng, range);
+    public static int insertFenceOnSQLiteDB(String name, String address, String city, String province, String lat, String lng, String range, int active) {
+        return dbManager.insert(name, address, city, province, lat, lng, range, active);
+    }
+
+    public static void updateFenceStatusOnSQLiteDB(int id, boolean flag) {
+        int value =  flag ? 1 : 0;
+        dbManager.updateFenceStatus(id, value);
     }
 
     public static void getLogFenceEntities() {
