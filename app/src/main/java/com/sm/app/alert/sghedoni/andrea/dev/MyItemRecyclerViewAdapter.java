@@ -39,7 +39,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId() + "");
         holder.mContentView.setText(mValues.get(position).getName());
         holder.mSwitch.setChecked(mValues.get(position).isActive());
     }
@@ -59,7 +58,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener,
     MenuItem.OnMenuItemClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
         public Switch mSwitch = null;
         public Fence mItem;
@@ -68,7 +66,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
             mSwitch = (Switch) view.findViewById(R.id.switchFence);
             mSwitch.setOnCheckedChangeListener(this);
