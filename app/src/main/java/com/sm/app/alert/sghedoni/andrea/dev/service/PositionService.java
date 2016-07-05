@@ -6,12 +6,14 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 
 /**
  * Created by andrea on 01/07/16.
@@ -37,6 +39,7 @@ public class PositionService extends Service implements LocationListener, Google
         Log.d(TAG, "onCreate");
         mGoogleApiClient = this.buildGoogleApiClient();
         mGoogleApiClient.connect();
+        this.init();
     }
 
     /** The service is starting, due to a call to startService() */
@@ -67,6 +70,10 @@ public class PositionService extends Service implements LocationListener, Google
     /** Called when The service is no longer used and is being destroyed */
     @Override
     public void onDestroy() {
+
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+        Toast.makeText(this, "SERVIZIO POLLING DISTRUTTO!", Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
     }
 
@@ -84,8 +91,8 @@ public class PositionService extends Service implements LocationListener, Google
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(10000); // 10 sec
-            mLocationRequest.setFastestInterval(10000);  // 10 sec
+            mLocationRequest.setInterval(5000); // 5 sec
+            mLocationRequest.setFastestInterval(5000);  // 5 sec
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
@@ -107,5 +114,15 @@ public class PositionService extends Service implements LocationListener, Google
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
+        Controller.getLogFenceEntities();
+        Controller.getLogFenceOnSQLiteDB();
     }
+
+    private void init() {
+        Controller.getInstance();
+        Controller.setDbManager(getApplicationContext());
+        Controller.resumeFencesFromDb();
+    }
+
+
 }

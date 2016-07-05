@@ -1,31 +1,38 @@
 package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.sm.app.alert.sghedoni.andrea.dev.R;
+import com.sm.app.alert.sghedoni.andrea.dev.service.PositionService;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ServiceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link ServiceFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ServiceFragment extends Fragment {
+public class ServiceFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    protected static final String TAG = "[DebApp]ServiceFragment";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Switch switchGeofenceGoogleAPIs = null;
+    private Switch switchPolling5s = null;
+    private Switch switchBetterApproach = null;
+    private View view;
 
     public ServiceFragment() {
         // Required empty public constructor
@@ -62,7 +69,16 @@ public class ServiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_service, container, false);
+        this.view = inflater.inflate(R.layout.fragment_service, container, false);
+
+        this.switchGeofenceGoogleAPIs = (Switch) view.findViewById(R.id.switchGoogleAPIsStrategy);
+        this.switchGeofenceGoogleAPIs.setOnCheckedChangeListener(this);
+        this.switchPolling5s = (Switch) view.findViewById(R.id.switchPollingStrategy);
+        this.switchPolling5s.setOnCheckedChangeListener(this);
+        this.switchBetterApproach = (Switch) view.findViewById(R.id.switchBetterApproachStrategy);
+        this.switchBetterApproach.setOnCheckedChangeListener(this);
+        // Inflate the layout for this fragment
+        return this.view;
     }
 
     @Override
@@ -75,4 +91,30 @@ public class ServiceFragment extends Fragment {
         super.onDetach();
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Log.d(TAG, "Strategy switch " + (buttonView.getId() == R.id.switchGoogleAPIsStrategy) + " checked with value: " + isChecked);
+        switch(buttonView.getId()){
+            case R.id.switchGoogleAPIsStrategy:
+                Log.d(TAG, "Event on switch GoogleAPIs Strategy!");
+                break;
+            case R.id.switchPollingStrategy:
+                Log.d(TAG, "Event on switch Polling 5 sec Strategy!");
+                this.managePollingStrategyService(isChecked);
+                break;
+            case R.id.switchBetterApproachStrategy:
+                Log.d(TAG, "Event on switch Better Approach Strategy!");
+                break;
+        }
+    }
+
+    private void managePollingStrategyService(boolean status) {
+        if (status) {
+            getContext().startService(new Intent(getContext(), PositionService.class));
+            Log.d(TAG, "Starting PollingService ....... ");
+        } else {
+            getContext().stopService(new Intent(getContext(), PositionService.class));
+            Log.d(TAG, "Stopping PollingService ....... ");
+        }
+    }
 }
