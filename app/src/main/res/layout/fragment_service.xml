@@ -4,6 +4,428 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ServiceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="9"
+        android:columnCount="1">
 
+        <!-- Geofence GoogleApis Strategy  0,0 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:columnCount="2"
+            android:rowCount="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Geofence GoogleAPIs Strategy"
+                android:id="@+id/textStrategy1"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/switchGoogleAPIsStrategy"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_gravity="right" />
+        </GridLayout>
+
+        <!-- Icons GoogleApis  0,1 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:columnCount="3"
+            android:rowCount="1">
+
+            <!-- icons battery -->
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp">
+
+
+                <ImageView
+                    android:id="@+id/iconBatteryStrategy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_battery_90"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low"
+                    android:id="@+id/textBatteryStrategy1"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="center" />
+            </GridLayout>
+            <!-- icons precision -->
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconPrecisionStrategy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_gps_precision"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low Precision"
+                    android:id="@+id/textPrecisionStrategy1"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+            <!-- icons connection -->
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconConnectionStrategy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_network"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low Network"
+                    android:id="@+id/textConnectionStrategy1"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+
+        </GridLayout>
+
+        <!-- Polling Strategy  0,2 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:columnCount="2"
+            android:rowCount="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Polling Location every 5 seconds"
+                android:id="@+id/textStrategy2"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/switchPollingStrategy"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_gravity="right" />
+        </GridLayout>
+
+        <!-- icon Polling  0,3 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:columnCount="3"
+            android:rowCount="1">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/iconBatteryStrategy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_battery_90"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="High"
+                    android:id="@+id/textBatteryStrategy2"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="center" />
+            </GridLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconPrecisionStrategy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_gps_precision"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="High Precision"
+                    android:id="@+id/textPrecisionStrategy2"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconConnectionStrategy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_network"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low Network"
+                    android:id="@+id/textConnectionStrategy2"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+
+        </GridLayout>
+
+        <!-- better approach Strategy  0,4 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:columnCount="2"
+            android:rowCount="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Better Approach fence detection"
+                android:id="@+id/textStrategy3"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/switchBetterApproachStrategy"
+                android:layout_margin="@dimen/text_margin"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:layout_gravity="right" />
+        </GridLayout>
+
+        <!-- icon Better Approach Strategy 0,5 -->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:columnCount="3"
+            android:rowCount="1">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:id="@+id/iconBatteryStrategy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_battery_90"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low"
+                    android:id="@+id/textBatteryStrategy3"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:layout_gravity="center" />
+            </GridLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconPrecisionStrategy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_gps_precision"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="High Precision"
+                    android:id="@+id/textPrecisionStrategy3"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:columnCount="1"
+                android:rowCount="2"
+                android:layout_marginRight="30dp">
+
+                <ImageView
+                    android:id="@+id/iconConnectionStrategy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_network"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Low Network"
+                    android:id="@+id/textConnectionStrategy3"
+                    android:layout_column="0"
+                    android:layout_row="1" />
+            </GridLayout>
+
+        </GridLayout>
+    </GridLayout>
 </FrameLayout>
