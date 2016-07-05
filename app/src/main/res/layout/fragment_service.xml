@@ -2,15 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.sm.app.alert.sghedoni.andrea.dev.ServiceFragment">
+    tools:context=".fragment.ServiceFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="SERVICES"
-        android:id="@+id/textView8"
-        android:layout_gravity="center" />
 </FrameLayout>

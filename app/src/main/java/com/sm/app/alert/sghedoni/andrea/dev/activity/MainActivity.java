@@ -18,7 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
-import com.sm.app.alert.sghedoni.andrea.dev.ServiceFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ItemFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
