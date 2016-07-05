@@ -10,15 +10,14 @@
             android:id="@+id/nav_list_geofences"
             android:icon="@drawable/ic_map_multiple_fence"
             android:title="List Geofences" />
+        <item
+            android:id="@+id/nav_list_start_service"
+            android:icon="@drawable/ic_start_service_24dp"
+            android:title="Start Service" />
+        <item
+            android:id="@+id/nav_info_credits"
+            android:icon="@drawable/ic_star_credits"
+            android:title="Credits" />
     </group>
-
-    <item android:title="Info">
-        <menu>
-            <item
-                android:id="@+id/nav_info_credits"
-                android:icon="@drawable/ic_star_credits"
-                android:title="Share" />
-        </menu>
-    </item>
 
 </menu>

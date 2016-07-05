@@ -18,6 +18,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
+import com.sm.app.alert.sghedoni.andrea.dev.ServiceFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ItemFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
 
@@ -126,11 +128,17 @@ public class MainActivity extends AppCompatActivity
             // ItenFragment se ho scelto la lista di geofences
             fragment = new ItemFragment();
             title = "List Geofences";
+        } else if (id == R.id.nav_list_start_service) {
+            Log.d(TAG, "Premuto l'evento del menu start service");
+
+            fragment = new ServiceFragment();
+            title = "Start Service";
+            //startService(new Intent(this, PositionService.class));
         } else if (id == R.id.nav_info_credits) {
-            Log.d(TAG, "Premuto l'evento del menu laterale slideshow");
+            Log.d(TAG, "Premuto l'evento del menu credits");
 
+            fragment = new CreditsFragment();
             title = "Credits";
-
             //startService(new Intent(this, PositionService.class));
         }
 
