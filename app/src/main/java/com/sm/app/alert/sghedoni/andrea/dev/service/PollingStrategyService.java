@@ -77,7 +77,7 @@ public class PollingStrategyService extends Service implements LocationListener,
 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
-        Toast.makeText(this, "SERVIZIO POLLING DISTRUTTO!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, Constant.TOAST_TEXT_POLLING_SERVICE_STOP, Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
     }
 
@@ -95,8 +95,8 @@ public class PollingStrategyService extends Service implements LocationListener,
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(5*1000); // 5 sec
-            mLocationRequest.setFastestInterval(5*1000);  // 5 sec
+            mLocationRequest.setInterval(Constant.POLLING_UPDATE_REQUEST_MILLIS); // 5 sec
+            mLocationRequest.setFastestInterval(Constant.POLLING_UPDATE_REQUEST_MILLIS);  // 5 sec
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {

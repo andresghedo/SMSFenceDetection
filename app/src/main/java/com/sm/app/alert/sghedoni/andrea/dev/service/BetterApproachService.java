@@ -106,9 +106,9 @@ public class BetterApproachService extends Service implements LocationListener, 
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(40*1000); // 5 sec
-            mLocationRequest.setFastestInterval(40*1000);  // 5 sec
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            mLocationRequest.setInterval(10*1000); // 5 sec
+            mLocationRequest.setFastestInterval(10*1000);  // 5 sec
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
