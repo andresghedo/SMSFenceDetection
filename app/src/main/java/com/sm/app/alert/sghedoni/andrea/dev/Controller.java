@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.SQLiteDBManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  Classe Controller, implementa il pattern SINGLETON. .

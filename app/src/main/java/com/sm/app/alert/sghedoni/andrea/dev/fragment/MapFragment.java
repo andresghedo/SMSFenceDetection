@@ -20,10 +20,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
 
     GoogleMap map = null;

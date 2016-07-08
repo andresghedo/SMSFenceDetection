@@ -1,6 +1,5 @@
 package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +15,6 @@ import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.service.BetterApproachService;
 import com.sm.app.alert.sghedoni.andrea.dev.service.PollingStrategyService;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

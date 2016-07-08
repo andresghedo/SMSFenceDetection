@@ -15,9 +15,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
-
-import java.util.ArrayList;
 
 /**
  * Created by andrea on 01/07/16.

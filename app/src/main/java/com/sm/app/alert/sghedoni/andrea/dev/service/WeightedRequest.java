@@ -1,7 +1,5 @@
 package com.sm.app.alert.sghedoni.andrea.dev.service;
 
-import com.google.android.gms.location.LocationRequest;
-
 /**
  * Created by andrea on 08/07/16.
  */

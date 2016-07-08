@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.sm.app.alert.sghedoni.andrea.dev.Fence;
-import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.FenceEntrySQLiteDb;
-import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.GeofenceSQLiteHelper;
 
 import java.util.ArrayList;
 

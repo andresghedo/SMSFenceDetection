@@ -18,7 +18,7 @@ public class BetterApproachManager {
 
         float speedKmH = this.getSpeed(oldLocation, newLocation, deltaSecond);
         float distanceFenceToNewLocation = newLocation.distanceTo(fence.getLocation());
-        
+
         float evalDirection = this.getEvalDirection(oldLocation, newLocation, fence);
         float evalSpeed = this.getEvalSpeed(speedKmH);
         float evalDistance = this.getEvalDistance(distanceFenceToNewLocation - fence.getRange());
