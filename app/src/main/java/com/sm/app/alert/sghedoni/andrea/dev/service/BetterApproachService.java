@@ -15,11 +15,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 
-import java.util.ArrayList;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -40,13 +36,13 @@ public class BetterApproachService extends Service implements LocationListener, 
     /** indicates whether onRebind should be used */
     boolean mAllowRebind;
 
-    Location prevLocation;
+    BetterApproachManager betterApproachManager;
 
-    Location currentLocation;
+    WeightedRequest currentWR = null;
 
-    int prevLocationQueryInSecond = -1;
+    Location prevLocation = null;
 
-
+    long prevTimeLocationChangedEvent = -1;
 
     /** Called when the service is being created. */
     @Override
@@ -54,6 +50,7 @@ public class BetterApproachService extends Service implements LocationListener, 
         Log.d(TAG, "onCreate");
         mGoogleApiClient = this.buildGoogleApiClient();
         mGoogleApiClient.connect();
+        betterApproachManager = new BetterApproachManager();
         this.init();
     }
 
@@ -106,8 +103,8 @@ public class BetterApproachService extends Service implements LocationListener, 
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(10*1000); // 5 sec
-            mLocationRequest.setFastestInterval(10*1000);  // 5 sec
+            mLocationRequest.setInterval(Constant.UPDATE_REQUEST_MILLIS_5_SEC); // 5 sec
+            mLocationRequest.setFastestInterval(Constant.UPDATE_REQUEST_MILLIS_5_SEC);  // 5 sec
             mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
@@ -129,26 +126,63 @@ public class BetterApproachService extends Service implements LocationListener, 
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
-        this.getMatchedFences(location);
+        if ((prevLocation == null) || (prevTimeLocationChangedEvent<0)) {
+            prevLocation = location;
+            prevTimeLocationChangedEvent = this.getCurrentTimeInSecond();
+            return;
+        }
+        this.getMatchedFencesEvents(location);
+        prevLocation = location;
+        prevTimeLocationChangedEvent = this.getCurrentTimeInSecond();
     }
 
-    private ArrayList<Fence> getMatchedFences(Location current) {
-        ArrayList<Fence> matchedFences = new ArrayList<Fence>();
-        for (int i=0;i< Controller.fences.size();i++) {
-            Location l = new Location(Controller.fences.get(i).getName());
-            l.setLatitude(Controller.fences.get(i).getLat());
-            l.setLongitude(Controller.fences.get(i).getLng());
-            Calendar c = Calendar.getInstance();
-            long timeInMilliseconds = c.getTimeInMillis();
-            Log.d(TAG, "DISTANCE TO " + Controller.fences.get(i).getName() + " , meters: " + current.distanceTo(l) + " , Time: " + timeInMilliseconds + " , PROVIDED BY: " + l.getProvider());
+    private void getMatchedFencesEvents(Location current) {
+        WeightedRequest maxWR = null;
+        for (int i=0;i<Controller.fences.size();i++) {
+
+            WeightedRequest wr = betterApproachManager.getBetterRequest(current, prevLocation, this.getCurrentTimeInSecond() - prevTimeLocationChangedEvent, Controller.fences.get(i));
+            Log.d(TAG, "WeightedRequest for FENCE: " + Controller.fences.get(i).getName() + " | level: " + wr.getLevel() + " , priority: " + wr.getPriority() + " , updateTimeinMS: " + wr.getUpdateTimeMs());
+            if ((maxWR == null) || (wr.getLevel() > maxWR.getLevel()))
+                maxWR = wr;
         }
-        return null;
+        if (currentWR == null) {
+            this.replaceLocationRequestUpdates(maxWR);
+            currentWR = maxWR;
+            return;
+        }
+
+        if (maxWR.getLevel() != currentWR.getLevel())
+            this.replaceLocationRequestUpdates(maxWR);
+    }
+
+
+    private void replaceLocationRequestUpdates(WeightedRequest newRequest) {
+        Log.d(TAG, "Replaced LocatioRequest Updates");
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+        try {
+            LocationRequest mLocationRequest = new LocationRequest();
+            mLocationRequest.setInterval(newRequest.getUpdateTimeMs()); // 5 sec
+            mLocationRequest.setFastestInterval(newRequest.getUpdateTimeMs());  // 5 sec
+            mLocationRequest.setPriority(newRequest.getPriority());
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
+        } catch (SecurityException securityException) {
+            // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+            Log.e(TAG, "Invalid location permission. " + "NO PERMISSION FOR FINE LOCATION!! ", securityException);
+        }
+        currentWR = newRequest;
     }
 
     private void init() {
         Controller.getInstance();
         Controller.setDbManager(getApplicationContext());
         Controller.resumeFencesFromDb();
+    }
+
+    private long getCurrentTimeInSecond() {
+        Calendar c = Calendar.getInstance();
+        long timeInMilliseconds = c.getTimeInMillis();
+        return timeInMilliseconds/1000;
     }
 
 }

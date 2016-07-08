@@ -1,6 +1,7 @@
 package com.sm.app.alert.sghedoni.andrea.dev.service;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.google.android.gms.location.LocationRequest;
 import com.sm.app.alert.sghedoni.andrea.dev.Constant;
@@ -11,14 +12,16 @@ import com.sm.app.alert.sghedoni.andrea.dev.Fence;
  */
 public class BetterApproachManager {
 
-    public WeightedRequest getBetterRequest(Location newLocation, Location oldLocation, int seconds, Fence fence) {
+    protected static final String TAG = "[DebApp]BetterAManager";
 
-        float speedKmH = this.getSpeed(oldLocation, newLocation, seconds);
+    public WeightedRequest getBetterRequest(Location newLocation, Location oldLocation, long deltaSecond, Fence fence) {
+
+        float speedKmH = this.getSpeed(oldLocation, newLocation, deltaSecond);
         float distanceFenceToNewLocation = newLocation.distanceTo(fence.getLocation());
-
+        
         float evalDirection = this.getEvalDirection(oldLocation, newLocation, fence);
         float evalSpeed = this.getEvalSpeed(speedKmH);
-        float evalDistance = this.getEvalDistance(distanceFenceToNewLocation);
+        float evalDistance = this.getEvalDistance(distanceFenceToNewLocation - fence.getRange());
 
         float totalEval = evalDirection + evalSpeed + evalDistance;
 
@@ -57,21 +60,25 @@ public class BetterApproachManager {
     //if direction is right +1, else -1
     private float getEvalDirection(Location oldLocation, Location currentLocation, Fence fence) {
         if (oldLocation.distanceTo(fence.getLocation()) > currentLocation.distanceTo(fence.getLocation()))
-            return 1;
-        return -1;
+            return 0.5f;
+        return 0;
     }
 
     // return km/h speed
-    private float getSpeed(Location oldLocation, Location currentLocation, int seconds) {
+    private float getSpeed(Location oldLocation, Location currentLocation, long deltaSecond) {
         float meters = oldLocation.distanceTo(currentLocation);
-        float speedMS = meters / seconds;
+        Log.d(TAG, "Speed calculation, meters: " + meters);
+        Log.d(TAG, "Speed calculation, deltaSecond: " + deltaSecond);
+        float speedMS = meters / deltaSecond;
+        Log.d(TAG, "SpeedMS calculation, speedMS: " + speedMS);
+        Log.d(TAG, "SpeedKMH calculation, speedMS: " + speedMS*3.6);
         float conversion = 3.6f;
         return (speedMS * conversion);
     }
 
     private float getEvalSpeed(float speedKmH) {
 
-        float beta = 0.2f;
+        float beta = 0.1f;
         if (speedKmH >= 130)
             return 5 * beta;
         else if ((speedKmH >= 100) && (speedKmH < 130))
@@ -86,16 +93,16 @@ public class BetterApproachManager {
     }
 
     private float getEvalDistance(float distanceM) {
-        float alpha = 0.6f;
-        if (distanceM < 8000)
+        float alpha = 0.8f;
+        if (distanceM < 8000)                                       // < 8km
             return 5 * alpha;
-        else if ((distanceM >= 8000) && (distanceM < 30000))
+        else if ((distanceM >= 8000) && (distanceM < 30000))        // 8km - 30km
             return 4 * alpha;
-        else if ((distanceM >= 30000) && (distanceM < 50000))
+        else if ((distanceM >= 30000) && (distanceM < 50000))       // 30km - 50km
             return 3 * alpha;
-        else if ((distanceM >= 50000) && (distanceM < 100000))
+        else if ((distanceM >= 50000) && (distanceM < 100000))      // 50km - 100km
             return 2 * alpha;
-        else if (distanceM >= 100000)
+        else if (distanceM >= 100000)                               // > 8km
             return 1 * alpha;
         return 0;
     }

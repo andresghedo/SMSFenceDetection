@@ -118,18 +118,20 @@ public class PollingStrategyService extends Service implements LocationListener,
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
-        this.getMatchedFences(location);
+        this.getMatchedFencesEvents(location);
     }
 
-    private void getMatchedFences(Location currentLocation) {
+    private void getMatchedFencesEvents(Location currentLocation) {
         for (int i=0;i<Controller.fences.size();i++) {
 
             switch (Controller.getStatusBetweenFenceAndCurrentLocation(Controller.fences.get(i), currentLocation)) {
                 case Constant.FENCE_ENTER_EVENT:
+                    //logics
                     Controller.fences.get(i).setMatch(true);
                     Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), true);
                     break;
                 case Constant.FENCE_EXIT_EVENT:
+                    //logics
                     Controller.fences.get(i).setMatch(false);
                     Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), false);
                     break;

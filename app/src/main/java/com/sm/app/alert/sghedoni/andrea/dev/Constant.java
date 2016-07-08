@@ -30,7 +30,7 @@ public static final int DATABASE_VERSION                                        
     public static final long UPDATE_REQUEST_MILLIS_30_SEC                       = 30*1000; // 30sec
     public static final long UPDATE_REQUEST_MILLIS_1_MIN                        = 60*1000; // 1min
     public static final long UPDATE_REQUEST_MILLIS_3_MIN                        = 3*60*1000; // 3min
-    public static final long UPDATE_REQUEST_MILLIS_15_MIN                       = 15*60*1000; // 15min
-    public static final long UPDATE_REQUEST_MILLIS_25_MIN                       = 25*60*1000; // 25min
+    public static final long UPDATE_REQUEST_MILLIS_15_MIN                       = 5*60*1000; // 15min
+    public static final long UPDATE_REQUEST_MILLIS_25_MIN                       = 8*60*1000; // 25min
 
 }
