@@ -124,11 +124,13 @@ public class PollingStrategyService extends Service implements LocationListener,
             switch (Controller.getStatusBetweenFenceAndCurrentLocation(Controller.fences.get(i), currentLocation)) {
                 case Constant.FENCE_ENTER_EVENT:
                     //logics
+                    Controller.sendNotification("Entered in: " + Controller.fences.get(i).getName(), getApplicationContext());
                     Controller.fences.get(i).setMatch(true);
                     Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), true);
                     break;
                 case Constant.FENCE_EXIT_EVENT:
                     //logics
+                    Controller.sendNotification("Exited from: " + Controller.fences.get(i).getName(), getApplicationContext());
                     Controller.fences.get(i).setMatch(false);
                     Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), false);
                     break;
