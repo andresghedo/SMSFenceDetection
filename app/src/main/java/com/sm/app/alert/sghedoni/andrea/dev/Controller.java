@@ -22,8 +22,6 @@ public class Controller {
     private static Controller instance;
     /** istanza singleton */
     private static String TAG = "[DebApp]Controller";
-    /** testing number */
-    public static String NUMER_PHONE_TESTING= "3337572709";
 
     private static SQLiteDBManager dbManager = null;
 
@@ -42,8 +40,8 @@ public class Controller {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, msg, null, null);
-            Log.d(TAG, "Send SMS TO NUMER_PHONE_TESTING:  " + Controller.NUMER_PHONE_TESTING);
-            Toast.makeText(context, "SMS INVIATO A  " + Controller.NUMER_PHONE_TESTING, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "Send SMS TO NUMER_PHONE_TESTING:  " + Constant.NUMER_PHONE_TESTING);
+            Toast.makeText(context, "SMS INVIATO A  " + Constant.NUMER_PHONE_TESTING, Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
             Toast.makeText(context, "SMS faild, please try again.", Toast.LENGTH_LONG).show();

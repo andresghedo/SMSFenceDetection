@@ -5,15 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.FenceEntrySQLiteDb;
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 
 /**
  * Created by andrea on 02/07/16.
  */
 public class GeofenceSQLiteHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "AlertApp.db";
     private String TAG = "[DebApp] SQLiteOpenHelper";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -34,7 +32,7 @@ public class GeofenceSQLiteHelper extends SQLiteOpenHelper {
                     FenceEntrySQLiteDb.COLUMN_FENCE_MATCH + INTEGER_DEFAULT_TYPE +  " );";
 
     public GeofenceSQLiteHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, Constant.DATABASE_NAME, null, Constant.DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {

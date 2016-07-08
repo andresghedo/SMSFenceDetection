@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 
@@ -87,7 +88,7 @@ public class BetterApproachService extends Service implements LocationListener, 
 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
-        Toast.makeText(this, "SERVIZIO BETTER APPROACH DISTRUTTO!", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, Constant.TOAST_TEXT_BETTER_APP_SERVICE_STOP, Toast.LENGTH_LONG).show();
         Log.d(TAG, "onDestroy");
     }
 
@@ -129,8 +130,6 @@ public class BetterApproachService extends Service implements LocationListener, 
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
         this.getMatchedFences(location);
-        //Controller.getLogFenceEntities();
-        //Controller.getLogFenceOnSQLiteDB();
     }
 
     private ArrayList<Fence> getMatchedFences(Location current) {
@@ -151,6 +150,5 @@ public class BetterApproachService extends Service implements LocationListener, 
         Controller.setDbManager(getApplicationContext());
         Controller.resumeFencesFromDb();
     }
-
 
 }

@@ -20,9 +20,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     private ArrayList<Fence> mValues = null;
 
-    public MyItemRecyclerViewAdapter(Context c, ArrayList<Fence> items) {
-
-    }
+    public MyItemRecyclerViewAdapter(Context c, ArrayList<Fence> items) {}
 
     public MyItemRecyclerViewAdapter(ArrayList<Fence> items) {
         mValues = items;

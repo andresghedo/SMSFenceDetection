@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
@@ -27,7 +28,7 @@ import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
+        implements NavigationView.OnNavigationItemSelectedListener
     {
 
     private String TAG = "[DebApp]MainActivity";
@@ -54,21 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //Controller.setmGoogleApiClient(this.buildGoogleApiClient());
-        //Controller.mGoogleApiClient.connect();
-
-        //Log.d(TAG, Controller.mGoogleApiClient.toString());
-
-        //Controller.sendSMS(Controller.NUMER_PHONE_TESTING, "Messaggio che sto inviando dall'App Android!!!!", getApplicationContext());
-    }
-
-    protected synchronized GoogleApiClient buildGoogleApiClient() {
-        return new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
     }
 
     @Override
@@ -116,31 +102,20 @@ public class MainActivity extends AppCompatActivity
         //fragment che verrà chiamato
         Fragment fragment = null;
         //titolo in alto al cambiare dell item selezionato
-        String title = getString(R.string.app_name);
+        String title = Constant.TITLE_VIEW_APP;
 
         if (id == R.id.nav_map_geofences) {
-            // Handle the camera action
-            Log.d(TAG, "Premuto l'evento del menu laterale camera");
-
-            // Fragment mappa se ho scelto la mappa geofences
             fragment = new MapFragment();
-            title = "Map Geofences";
+            title = Constant.TITLE_VIEW_MAP_GEOFENCES;
         } else if (id == R.id.nav_list_geofences) {
-            Log.d(TAG, "Premuto l'evento del menu laterale gallery");
-
-            // ItenFragment se ho scelto la lista di geofences
             fragment = new ItemFragment();
-            title = "List Geofences";
+            title = Constant.TITLE_VIEW_LIST_GEOFENCES;
         } else if (id == R.id.nav_list_start_service) {
-            Log.d(TAG, "Premuto l'evento del menu start service");
-
             fragment = new ServiceFragment();
-            title = "Start Service";
+            title = Constant.TITLE_VIEW_START_SERVICE;
         } else if (id == R.id.nav_info_credits) {
-            Log.d(TAG, "Premuto l'evento del menu credits");
-
             fragment = new CreditsFragment();
-            title = "Credits";
+            title = Constant.TITLE_VIEW_CREDITS;
         }
 
         if (fragment != null) {
@@ -202,25 +177,4 @@ public class MainActivity extends AppCompatActivity
         //Controller.mGoogleApiClient.disconnect();
         Log.d(TAG, "ON DESTROY CYCLE");
     };
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
-        // onConnectionFailed.
-        Log.d(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
-        Log.d(TAG, "Connessione APIs fallita!");
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint) {
-        Log.d(TAG, "Connessione APIs riuscita!");
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        // The connection to Google Play services was lost for some reason.
-        Log.d(TAG, "Connection suspended");
-
-        // onConnected() will be called again automatically when the service reconnects
-    }
 }
