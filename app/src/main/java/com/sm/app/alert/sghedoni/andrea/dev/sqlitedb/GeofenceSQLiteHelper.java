@@ -30,7 +30,8 @@ public class GeofenceSQLiteHelper extends SQLiteOpenHelper {
                     FenceEntrySQLiteDb.COLUMN_FENCE_LAT + TEXT_TYPE + COMMA_SEP +
                     FenceEntrySQLiteDb.COLUMN_FENCE_LNG + TEXT_TYPE + COMMA_SEP +
                     FenceEntrySQLiteDb.COLUMN_FENCE_RANGE + TEXT_TYPE + COMMA_SEP +
-                    FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE + INTEGER_DEFAULT_TYPE +  " );";
+                    FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE + INTEGER_DEFAULT_TYPE + COMMA_SEP +
+                    FenceEntrySQLiteDb.COLUMN_FENCE_MATCH + INTEGER_DEFAULT_TYPE +  " );";
 
     public GeofenceSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -143,6 +143,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         Double lat = null;
         Double lng = null;
         boolean active = true; // default whan you add a geofence is active
+        boolean match = true; // default whan you add a geofence is active
         try {
             String locationName = address + ", " + city + ", " + province ;
             List<Address> addressesName = g.getFromLocationName(locationName, 10);
@@ -163,7 +164,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
             return;
         }
         int id = Controller.insertFenceOnSQLiteDB(name, address, city, province, lat + "", lng + "", range, 1);
-        Fence f = new Fence(id, name, address, city, province, lat, lng, Double.parseDouble(range), true);
+        Fence f = new Fence(id, name, address, city, province, lat, lng, Float.parseFloat(range), active, match);
         Controller.fences.add(f);
         Toast.makeText(this.getContext(), "Added the fence: " + f.getName() + "!", Toast.LENGTH_LONG).show();
 

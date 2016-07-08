@@ -1,5 +1,6 @@
 package com.sm.app.alert.sghedoni.andrea.dev.activity;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +23,8 @@ import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ItemFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks
@@ -133,13 +136,11 @@ public class MainActivity extends AppCompatActivity
 
             fragment = new ServiceFragment();
             title = "Start Service";
-            //startService(new Intent(this, PositionService.class));
         } else if (id == R.id.nav_info_credits) {
             Log.d(TAG, "Premuto l'evento del menu credits");
 
             fragment = new CreditsFragment();
             title = "Credits";
-            //startService(new Intent(this, PositionService.class));
         }
 
         if (fragment != null) {

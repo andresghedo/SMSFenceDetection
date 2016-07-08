@@ -1,6 +1,8 @@
 package com.sm.app.alert.sghedoni.andrea.dev;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.location.Location;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.SQLiteDBManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Classe Controller, implementa il pattern SINGLETON. .
@@ -48,6 +51,37 @@ public class Controller {
         }
     }
 
+    public static boolean isMyServiceRunning(Class<?> serviceClass, Context ctx) {
+        ActivityManager manager = (ActivityManager) ctx.getSystemService(ctx.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.d(TAG, "PROCESS " + serviceClass.getName() + " IS ACTIVE!!!");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getStatusBetweenFenceAndCurrentLocation(Fence fence, Location currentLocation) {
+        if (fence.isInRange(currentLocation)) {// I'M IN RANGE
+            if (fence.isMatch() == false) { // IF BEFORE NOT MATCHED...
+                Log.d(TAG, "ENTERED WHIT FENCE: " + fence.getName() + " , DISTANCE: " + fence.getLocation().distanceTo(currentLocation) + " , RANGE(m): " + fence.getRange() + " , STATUS: " + fence.isMatch());
+                return Constant.FENCE_ENTER_EVENT;
+            } else {
+                Log.d(TAG, "REMAINED IN: " + fence.getName() + " , DISTANCE: " + fence.getLocation().distanceTo(currentLocation) + " , RANGE(m): " + fence.getRange() + " , STATUS: " + fence.isMatch());
+                return Constant.FENCE_REMAINED_IN_EVENT;
+            }
+        } else {
+            if (fence.isMatch() == true) { // I'M NOT IN RANGE AND BEFORE MATCH EXITED
+                Log.d(TAG, "EXITED WHIT FENCE: " + fence.getName() + " , DISTANCE: " + fence.getLocation().distanceTo(currentLocation) + " , RANGE(m): " + fence.getRange() + " , STATUS: " + fence.isMatch());
+                return Constant.FENCE_EXIT_EVENT;
+            } else {
+                Log.d(TAG, "REMAINED OUT: " + fence.getName() + " , DISTANCE: " + fence.getLocation().distanceTo(currentLocation) + " , RANGE(m): " + fence.getRange() + " , STATUS: " + fence.isMatch());
+                return Constant.FENCE_REMAINED_OUT_EVENT;
+            }
+        }
+    }
+
     /***********************************************************************************************
     *                                                                                              *
     *                           Method for SQLiteDB Management                                     *
@@ -73,6 +107,15 @@ public class Controller {
     public static void updateFenceStatusOnSQLiteDB(int id, boolean flag) {
         int value =  flag ? 1 : 0;
         dbManager.updateFenceStatus(id, value);
+    }
+
+    public static void updateFenceMatchOnSQLiteDB(int id, boolean match) {
+        int value =  match ? 1 : 0;
+        dbManager.updateMatchFence(id, value);
+    }
+
+    public static void setAllFencesMatchedFalse() {
+        dbManager.setAllFencesMatchedFalse();
     }
 
     public static void getLogFenceEntities() {

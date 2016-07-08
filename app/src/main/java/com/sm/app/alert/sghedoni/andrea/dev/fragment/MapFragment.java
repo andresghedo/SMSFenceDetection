@@ -73,7 +73,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
             for (int i=0; i< Controller.fences.size(); i++) {
                 Fence fence = Controller.fences.get(i);
                 String snippet = fence.getAddress() + ", " + fence.getCity() + ", " + fence.getProvince() + ".";
-                this.drawFence(m, fence.getLat(), fence.getLng(), fence.getRange(), fence.isActive(), fence.getName(), snippet);
+                this.drawFence(m, fence.getLat(), fence.getLng(), Double.parseDouble(fence.getRange().toString()), fence.isActive(), fence.getName(), snippet);
             }
     }
 
@@ -101,7 +101,6 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
                 .strokeColor(strokeColor)
                 .fillColor(color));
     }
-
 
     @Override
     public boolean onMyLocationButtonClick() {

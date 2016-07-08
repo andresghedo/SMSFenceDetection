@@ -1,5 +1,6 @@
 package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,12 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
-import com.sm.app.alert.sghedoni.andrea.dev.service.PositionService;
+import com.sm.app.alert.sghedoni.andrea.dev.service.BetterApproachService;
+import com.sm.app.alert.sghedoni.andrea.dev.service.PollingStrategyService;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,7 +34,6 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Switch switchGeofenceGoogleAPIs = null;
     private Switch switchPolling5s = null;
     private Switch switchBetterApproach = null;
     private View view;
@@ -71,12 +75,18 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_service, container, false);
 
-        this.switchGeofenceGoogleAPIs = (Switch) view.findViewById(R.id.switchGoogleAPIsStrategy);
-        this.switchGeofenceGoogleAPIs.setOnCheckedChangeListener(this);
         this.switchPolling5s = (Switch) view.findViewById(R.id.switchPollingStrategy);
         this.switchPolling5s.setOnCheckedChangeListener(this);
         this.switchBetterApproach = (Switch) view.findViewById(R.id.switchBetterApproachStrategy);
         this.switchBetterApproach.setOnCheckedChangeListener(this);
+        if (Controller.isMyServiceRunning(PollingStrategyService.class, getContext())) {
+            this.switchPolling5s.setChecked(true);
+            this.switchBetterApproach.setClickable(false);
+        }
+        if (Controller.isMyServiceRunning(BetterApproachService.class, getContext())) {
+            this.switchBetterApproach.setChecked(true);
+            this.switchPolling5s.setClickable(false);
+        }
         // Inflate the layout for this fragment
         return this.view;
     }
@@ -93,28 +103,44 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Log.d(TAG, "Strategy switch " + (buttonView.getId() == R.id.switchGoogleAPIsStrategy) + " checked with value: " + isChecked);
+
         switch(buttonView.getId()){
-            case R.id.switchGoogleAPIsStrategy:
-                Log.d(TAG, "Event on switch GoogleAPIs Strategy!");
-                break;
             case R.id.switchPollingStrategy:
                 Log.d(TAG, "Event on switch Polling 5 sec Strategy!");
                 this.managePollingStrategyService(isChecked);
                 break;
             case R.id.switchBetterApproachStrategy:
                 Log.d(TAG, "Event on switch Better Approach Strategy!");
+                this.manageBetterApproachStrategyService(isChecked);
                 break;
         }
     }
 
     private void managePollingStrategyService(boolean status) {
         if (status) {
-            getContext().startService(new Intent(getContext(), PositionService.class));
+            getContext().startService(new Intent(getContext(), PollingStrategyService.class));
+            Controller.setAllFencesMatchedFalse();
+            this.switchBetterApproach.setClickable(false);
             Log.d(TAG, "Starting PollingService ....... ");
         } else {
-            getContext().stopService(new Intent(getContext(), PositionService.class));
+            getContext().stopService(new Intent(getContext(), PollingStrategyService.class));
+            Controller.setAllFencesMatchedFalse();
+            this.switchBetterApproach.setClickable(true);
             Log.d(TAG, "Stopping PollingService ....... ");
+        }
+    }
+
+    private void manageBetterApproachStrategyService(boolean status) {
+        if (status) {
+            getContext().startService(new Intent(getContext(), BetterApproachService.class));
+            Controller.setAllFencesMatchedFalse();
+            this.switchPolling5s.setClickable(false);
+            Log.d(TAG, "Starting Better Approach Strategy Service ....... ");
+        } else {
+            getContext().stopService(new Intent(getContext(), BetterApproachService.class));
+            Controller.setAllFencesMatchedFalse();
+            this.switchPolling5s.setClickable(true);
+            Log.d(TAG, "Stopping Better Approach StrategyS ervice ....... ");
         }
     }
 }

@@ -13,14 +13,18 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+
+import java.util.ArrayList;
 
 /**
  * Created by andrea on 01/07/16.
  */
-public class PositionService extends Service implements LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class PollingStrategyService extends Service implements LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
-    protected static final String TAG = "[DebApp]PositionService";
+    protected static final String TAG = "[DebApp]PollingSService";
 
     /** indicates how to behave if the service is killed */
     int mStartMode;
@@ -91,8 +95,8 @@ public class PositionService extends Service implements LocationListener, Google
         Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(5000); // 5 sec
-            mLocationRequest.setFastestInterval(5000);  // 5 sec
+            mLocationRequest.setInterval(5*1000); // 5 sec
+            mLocationRequest.setFastestInterval(5*1000);  // 5 sec
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
@@ -114,8 +118,27 @@ public class PositionService extends Service implements LocationListener, Google
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
-        Controller.getLogFenceEntities();
-        Controller.getLogFenceOnSQLiteDB();
+        this.getMatchedFences(location);
+    }
+
+    private void getMatchedFences(Location currentLocation) {
+        for (int i=0;i<Controller.fences.size();i++) {
+
+            switch (Controller.getStatusBetweenFenceAndCurrentLocation(Controller.fences.get(i), currentLocation)) {
+                case Constant.FENCE_ENTER_EVENT:
+                    Controller.fences.get(i).setMatch(true);
+                    Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), true);
+                    break;
+                case Constant.FENCE_EXIT_EVENT:
+                    Controller.fences.get(i).setMatch(false);
+                    Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), false);
+                    break;
+                case Constant.FENCE_REMAINED_IN_EVENT:
+                    break;
+                case Constant.FENCE_REMAINED_OUT_EVENT:
+                    break;
+            }
+        }
     }
 
     private void init() {

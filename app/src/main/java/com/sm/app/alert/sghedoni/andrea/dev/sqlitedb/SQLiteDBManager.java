@@ -119,10 +119,11 @@ public class SQLiteDBManager {
                 String province = c.getString(4);
                 Double lat = Double.parseDouble(c.getString(5));
                 Double lng = Double.parseDouble(c.getString(6));
-                Double range = Double.parseDouble(c.getString(7));
+                Float range = Float.parseFloat(c.getString(7));
                 boolean active = c.getInt(8) == 1;
+                boolean match = c.getInt(9) == 1;
 
-                Fence f = new Fence(id, name, address, city, province, lat, lng, range, active);
+                Fence f = new Fence(id, name, address, city, province, lat, lng, range, active, match);
                 toReturn.add(f);
             }while(c.moveToNext());
         }
@@ -144,6 +145,21 @@ public class SQLiteDBManager {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, flag);
+        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+    }
+
+    public void setAllFencesMatchedFalse() {
+        String filterAll = "1";
+        int falseMatch = 0;
+        ContentValues args = new ContentValues();
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, falseMatch);
+        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, filterAll, null);
+    }
+
+    public void updateMatchFence(int id, int match) {
+        String strFilter = "_id=" + id;
+        ContentValues args = new ContentValues();
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, match);
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 

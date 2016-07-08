@@ -1,5 +1,7 @@
 package com.sm.app.alert.sghedoni.andrea.dev;
 
+import android.location.Location;
+
 /**
  * Created by andrea on 02/07/16.
  */
@@ -13,7 +15,7 @@ public class Fence {
 
     private Double lng;
 
-    private Double range;
+    private Float range;
 
     private String address;
 
@@ -23,9 +25,13 @@ public class Fence {
 
     private boolean active;
 
+    private boolean match;
+
+    private Location location;
+
     public Fence() {}
 
-    public Fence(int id, String name, String address, String city,String province, Double lat, Double lng, Double range, boolean active) {
+    public Fence(int id, String name, String address, String city, String province, Double lat, Double lng, Float range, boolean active, boolean match) {
         this.id = id;
         this.name = name;
         this.lat = lat;
@@ -35,6 +41,10 @@ public class Fence {
         this.city = city;
         this.province = province;
         this.active = active;
+        this.match = match;
+        this.location = new Location(this.name);
+        this.location.setLongitude(this.lng);
+        this.location.setLatitude(this.lat);
     }
 
     /*
@@ -49,11 +59,7 @@ public class Fence {
         this.lat = lat;
     }
 
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
-
-    public void setRange(Double range) {
+    public void setLng(Float range) {
         this.range = range;
     }
 
@@ -70,6 +76,8 @@ public class Fence {
     }
 
     public void setActive(boolean flag) { this.active = flag; }
+
+    public void setMatch(boolean match) { this.match = match; }
 
     /*
     * ************** GETTER **************
@@ -91,7 +99,7 @@ public class Fence {
         return this.lng;
     }
 
-    public Double getRange() {
+    public Float getRange() {
         return this.range;
     }
 
@@ -109,4 +117,14 @@ public class Fence {
 
     public boolean isActive() { return this.active; }
 
+    public boolean isMatch() { return this.match; }
+
+    public Location getLocation() { return this.location; }
+
+    public boolean isInRange(Location l) {
+
+        if (l.distanceTo(this.location) <= this.range)
+            return true;
+        return false;
+    }
 }

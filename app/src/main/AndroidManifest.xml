@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".service.PositionService" />
+        <service android:name=".service.PollingStrategyService" />
+        <service android:name=".service.BetterApproachService" />
     </application>
 
 </manifest>
