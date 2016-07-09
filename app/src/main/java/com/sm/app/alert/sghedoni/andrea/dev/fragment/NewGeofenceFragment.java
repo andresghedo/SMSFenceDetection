@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
@@ -33,15 +34,10 @@ import java.util.Locale;
  * create an instance of this fragment.
  */
 public class NewGeofenceFragment extends Fragment implements View.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private String TAG = "[DebApp]NewGeofenceFragment";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private View view;
     private Button addGeogence;
     private EditText nameFence;
@@ -49,6 +45,9 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     private EditText cityFence;
     private EditText provinceFence;
     private Spinner spinnerRange;
+    private boolean update;
+    private int idFenceToUpdate;
+    private int positionFenceToUpdateinController;
 
     public NewGeofenceFragment() {
         // Required empty public constructor
@@ -66,8 +65,6 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     public static NewGeofenceFragment newInstance(String param1, String param2) {
         NewGeofenceFragment fragment = new NewGeofenceFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,9 +72,12 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.update = false;
+        this.idFenceToUpdate = -1;
+        Log.d(TAG, "onCreate");
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            this.update = true;
+            this.idFenceToUpdate = getArguments().getInt(Constant.BUNDLE_FENCE_TO_UPDATE_ID);
         }
     }
 
@@ -95,15 +95,32 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         provinceFence = (EditText) view.findViewById(R.id.provinceFence);
 
         addGeogence.setOnClickListener(this);
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
                 R.array.range_geofence, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinnerRange.setAdapter(adapter);
 
+        if ((this.update) && (this.idFenceToUpdate >= 0)) {
+            this.setUpdateData();
+        }
+
         return view;
+    }
+
+    public void setUpdateData() {
+        positionFenceToUpdateinController = Controller.getPositionFenceInArrayById(this.idFenceToUpdate);
+        if(positionFenceToUpdateinController >= 0) {
+            Fence fence = Controller.fences.get(positionFenceToUpdateinController);
+            this.nameFence.setText(fence.getName());
+            this.addressFence.setText(fence.getAddress());
+            this.cityFence.setText(fence.getCity());
+            this.provinceFence.setText(fence.getProvince());
+            //number
+            //text sms
+            int index = (int)Constant.SPINNER_RANGE_POSITIONS.get(fence.getRange());
+            this.spinnerRange.setSelection(index);
+            //event
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -125,49 +142,82 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.buttonSaveFence:
-                String name = nameFence.getText().toString();
-                String address = addressFence.getText().toString();
-                String city = cityFence.getText().toString();
+                String name     = nameFence.getText().toString();
+                String address  = addressFence.getText().toString();
+                String city     = cityFence.getText().toString();
                 String province = provinceFence.getText().toString();
-                String range = spinnerRange.getSelectedItem().toString();
+                String range    = spinnerRange.getSelectedItem().toString();
 
-                this.saveFenceInSqliteDB(name, address, city, province, range);
+                this.saveChangesInSQLiteDB(name, address, city, province, range);
                 Controller.getLogFenceOnSQLiteDB();
-                Log.d(TAG, "Saved Geofence!");
                 break;
         }
     }
 
-    public void saveFenceInSqliteDB(String name, String address, String city, String province, String range) {
-        Geocoder g = new Geocoder(this.getContext(), Locale.getDefault());
-        Double lat = null;
-        Double lng = null;
-        boolean active = true; // default whan you add a geofence is active
-        boolean match = true; // default whan you add a geofence is active
-        try {
-            String locationName = address + ", " + city + ", " + province ;
-            List<Address> addressesName = g.getFromLocationName(locationName, 10);
-            if (addressesName.size() > 0) {
-                lat = addressesName.get(0).getLatitude();
-                lng = addressesName.get(0).getLongitude();
+    public void saveChangesInSQLiteDB(String name, String address, String city, String province, String range) {
 
-                for (int i=0; i<addressesName.size(); i++){
-                        Log.d(TAG, "INDIRIZZO TROVATO DAL NOME (" + i + ") :" + addressesName.get(i).toString());
-                    }
-            } else {
-                Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
-                return;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+        Double[] latLng = this.getLatLngByAddress(address, city, province);
+        if (latLng == null)
             return;
-        }
+        Double lat = latLng[0];
+        Double lng = latLng[1];
+        if(update)
+            this.updateFenceInSqliteDB(name, address, city, province, lat, lng, range);
+        else
+            this.saveFenceInSqliteDB(name, address, city, province, lat, lng, range);
+
+        // redirect to new itemfragment
+        this.fragmentTransaction();
+    }
+
+    public void saveFenceInSqliteDB(String name, String address, String city, String province, Double lat, Double lng, String range) {
+        boolean active = true; // default whan you add a geofence is active
+        boolean match = false; // default whan you add a geofence is not in fence
+
         int id = Controller.insertFenceOnSQLiteDB(name, address, city, province, lat + "", lng + "", range, 1);
         Fence f = new Fence(id, name, address, city, province, lat, lng, Float.parseFloat(range), active, match);
         Controller.fences.add(f);
         Toast.makeText(this.getContext(), "Added the fence: " + f.getName() + "!", Toast.LENGTH_LONG).show();
+    }
 
+    public void updateFenceInSqliteDB(String name, String address, String city, String province, Double lat, Double lng, String range) {
+        Fence fence = Controller.fences.get(positionFenceToUpdateinController);
+
+        fence.setName(name);
+        fence.setAddress(address);
+        fence.setCity(city);
+        fence.setProvince(province);
+        fence.setRange(Float.parseFloat(range));
+        fence.setLat(lat);
+        fence.setLng(lng);
+
+        Controller.updateAllAttributeOnSQLiteDB(fence.getId(), name, address, city, province, lat + "", lng + "", range);
+
+        Toast.makeText(this.getContext(), "Updated the fence: " + Controller.fences.get(positionFenceToUpdateinController).getName() + "!", Toast.LENGTH_LONG).show();
+    }
+
+    public Double[] getLatLngByAddress(String address, String city, String province) {
+        Geocoder g = new Geocoder(this.getContext(), Locale.getDefault());
+        Double[] latLng = new Double[2];
+        try {
+            String locationName = address + ", " + city + ", " + province ;
+            List<Address> addressesName = g.getFromLocationName(locationName, 10);
+            if (addressesName.size() > 0) {
+                latLng[0] = addressesName.get(0).getLatitude();
+                latLng[1] = addressesName.get(0).getLongitude();
+                return latLng;
+            } else {
+                Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
+    public void fragmentTransaction() {
         // redirect to new itemfragment
         ItemFragment itemFragment = new ItemFragment();
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -175,16 +225,6 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         ft.commit();
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

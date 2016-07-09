@@ -116,6 +116,7 @@ public class SQLiteDBManager {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, flag);
+
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
@@ -124,6 +125,7 @@ public class SQLiteDBManager {
         int falseMatch = 0;
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, falseMatch);
+
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, filterAll, null);
     }
 
@@ -131,6 +133,21 @@ public class SQLiteDBManager {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, match);
+
+        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+    }
+
+    public void updateAll(int id, String name, String address, String city, String province, String lat, String lng, String range) {
+        String strFilter = "_id=" + id;
+        ContentValues args = new ContentValues();
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_ADDRESS, address);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_CITY, city);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_PROVINCE, province);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_LAT, lat);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_LNG, lng);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_RANGE, range);
+
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 

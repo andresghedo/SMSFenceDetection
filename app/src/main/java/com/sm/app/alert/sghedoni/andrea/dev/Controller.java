@@ -91,6 +91,13 @@ public class Controller {
         }
     }
 
+    public static int getPositionFenceInArrayById(int id) {
+        for (int i=0; i<fences.size(); i++)
+            if(fences.get(i).getId() == id)
+                return i;
+        return -1;
+    }
+
     /***********************************************************************************************
     *                                                                                              *
     *                           Method for SQLiteDB Management                                     *
@@ -121,6 +128,10 @@ public class Controller {
     public static void updateFenceMatchOnSQLiteDB(int id, boolean match) {
         int value =  match ? 1 : 0;
         dbManager.updateMatchFence(id, value);
+    }
+
+    public static void updateAllAttributeOnSQLiteDB(int id, String name, String address, String city, String province, String lat, String lng, String range) {
+        dbManager.updateAll(id, name, address, city, province, lat, lng, range);
     }
 
     public static void setAllFencesMatchedFalse() {

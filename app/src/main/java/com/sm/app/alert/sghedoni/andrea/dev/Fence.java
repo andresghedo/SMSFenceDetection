@@ -59,8 +59,8 @@ public class Fence {
         this.lat = lat;
     }
 
-    public void setLng(Float range) {
-        this.range = range;
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
     public void setAddress(String address) {
@@ -78,6 +78,8 @@ public class Fence {
     public void setActive(boolean flag) { this.active = flag; }
 
     public void setMatch(boolean match) { this.match = match; }
+
+    public void setRange(Float range) { this.range = range; }
 
     /*
     * ************** GETTER **************

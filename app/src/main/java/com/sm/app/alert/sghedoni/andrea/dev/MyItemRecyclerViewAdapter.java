@@ -1,6 +1,11 @@
 package com.sm.app.alert.sghedoni.andrea.dev;
 
+import android.support.v7.app.ActionBar;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -13,6 +18,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.NewGeofenceFragment;
+
 import java.util.ArrayList;
 
 
@@ -20,10 +27,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     private ArrayList<Fence> mValues = null;
 
-    public MyItemRecyclerViewAdapter(Context c, ArrayList<Fence> items) {}
+    private FragmentActivity fa;
 
-    public MyItemRecyclerViewAdapter(ArrayList<Fence> items) {
-        mValues = items;
+    public MyItemRecyclerViewAdapter(ArrayList<Fence> items, FragmentActivity fa) {
+        this.mValues = items;
+        this.fa = fa;
     }
 
     @Override
@@ -61,6 +69,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public Fence mItem;
         private String TAG = "[DebApp] ViewHolder";
 
+
         public ViewHolder(View view) {
             super(view);
             mView = view;
@@ -81,8 +90,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             Log.d(TAG, "onCreateContextMenu");
             menu.setHeaderTitle("Choose an action");
-            MenuItem myActionItem = menu.add(0, 0, 0, "Delete");
-            myActionItem.setOnMenuItemClickListener(this);
+            MenuItem deleteActionItem = menu.add(0, 0, 0, "Delete");
+            MenuItem updateActionItem = menu.add(0, 1, 1, "Update/Show");
+            deleteActionItem.setOnMenuItemClickListener(this);
+            updateActionItem.setOnMenuItemClickListener(this);
         }
 
         @Override
@@ -91,6 +102,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             switch (item.getItemId()) {
                 case 0:
                     removeFence(this.mItem);
+                    break;
+                case 1:
+                    Log.d(TAG, "Update geofence");
+                    getFragmentUpdate(this.mItem);
                     break;
                 default:
                     Log.d(TAG, "You pick item id n°: " + item.getItemId());
@@ -117,6 +132,19 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             mValues.remove(toRemove);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, mValues.size());
+        }
+
+        public void getFragmentUpdate(Fence fence) {
+            Bundle bundle = new Bundle();
+            bundle.putInt(Constant.BUNDLE_FENCE_TO_UPDATE_ID, fence.getId());
+            // set Fragmentclass Arguments
+            NewGeofenceFragment fragment = new NewGeofenceFragment();
+            fragment.setArguments(bundle);
+            if (fragment != null) {
+                FragmentTransaction ft = fa.getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
         }
 
         @Override
