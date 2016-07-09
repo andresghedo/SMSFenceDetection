@@ -68,6 +68,10 @@ public class Controller {
     }
 
     public static String getStatusBetweenFenceAndCurrentLocation(Fence fence, Location currentLocation) {
+
+        if (!fence.isActive())
+            return Constant.FENCE_DISACTIVE;
+
         if (fence.isInRange(currentLocation)) {// I'M IN RANGE
             if (fence.isMatch() == false) { // IF BEFORE NOT MATCHED...
                 Log.d(TAG, "ENTERED WHIT FENCE: " + fence.getName() + " , DISTANCE: " + fence.getLocation().distanceTo(currentLocation) + " , RANGE(m): " + fence.getRange() + " , STATUS: " + fence.isMatch());

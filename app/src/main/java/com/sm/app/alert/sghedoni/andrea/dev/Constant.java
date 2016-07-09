@@ -8,6 +8,7 @@ public class Constant {
     public static final String FENCE_EXIT_EVENT                                 = "EXIT";
     public static final String FENCE_REMAINED_IN_EVENT                          = "REMAINED_IN";
     public static final String FENCE_REMAINED_OUT_EVENT                         = "REMAINED_OUT";
+    public static final String FENCE_DISACTIVE                                  = "FENCE_DISACTIVE";
 
 public static final int DATABASE_VERSION                                        = 1;
     public static final String DATABASE_NAME                                    = "AlertApp.db";

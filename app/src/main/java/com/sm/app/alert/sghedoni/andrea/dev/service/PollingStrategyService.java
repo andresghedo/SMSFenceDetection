@@ -138,6 +138,8 @@ public class PollingStrategyService extends Service implements LocationListener,
                     break;
                 case Constant.FENCE_REMAINED_OUT_EVENT:
                     break;
+                case Constant.FENCE_DISACTIVE:
+                    break;
             }
         }
     }
