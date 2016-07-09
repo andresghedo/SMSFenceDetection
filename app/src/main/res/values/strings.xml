@@ -1,13 +1,26 @@
 <resources>
-    <string name="app_name">Alert My Location</string>
 
+    <string name="app_name">Alert My Location</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
-
     <string name="hello_blank_fragment">Map of my Geofences</string>
-    <string name="new_fence_text">
-        Add a new Fence!\n
-    </string>
+    <string name="new_fence_text"> Add a new Fence!\n</string>
+
+    <string-array name="range_geofence">
+        <item>50</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </string-array>
+
+    <string-array name="event_geofence">
+        <item>ENTER</item>
+        <item>EXIT</item>
+        <item>ENTER/EXIT</item>
+    </string-array>
+
 </resources>

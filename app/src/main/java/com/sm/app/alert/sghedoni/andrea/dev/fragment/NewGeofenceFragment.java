@@ -45,6 +45,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     private EditText cityFence;
     private EditText provinceFence;
     private Spinner spinnerRange;
+    private Spinner spinnerEvent;
     private boolean update;
     private int idFenceToUpdate;
     private int positionFenceToUpdateinController;
@@ -89,16 +90,23 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
 
         addGeogence = (Button) view.findViewById(R.id.buttonSaveFence);
         spinnerRange = (Spinner) view.findViewById(R.id.spinnerRange);
+        spinnerEvent = (Spinner) view.findViewById(R.id.spinnerEvent);
         nameFence = (EditText) view.findViewById(R.id.nameFence);
         addressFence = (EditText) view.findViewById(R.id.addressFence);
         cityFence = (EditText) view.findViewById(R.id.cityFence);
         provinceFence = (EditText) view.findViewById(R.id.provinceFence);
 
         addGeogence.setOnClickListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
+        ArrayAdapter<CharSequence> adapterRange = ArrayAdapter.createFromResource(getActivity(),
                 R.array.range_geofence, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerRange.setAdapter(adapter);
+        adapterRange.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+        ArrayAdapter<CharSequence> adapterEvent = ArrayAdapter.createFromResource(getActivity(),
+                R.array.event_geofence, android.R.layout.simple_spinner_item);
+        adapterEvent.setDropDownViewResource(android.R.layout.select_dialog_singlechoice);
+
+        spinnerRange.setAdapter(adapterRange);
+        spinnerEvent.setAdapter(adapterEvent);
 
         if ((this.update) && (this.idFenceToUpdate >= 0)) {
             this.setUpdateData();
