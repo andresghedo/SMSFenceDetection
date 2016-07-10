@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     tools:context=".fragment.CreditsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:layout_width="181dp"
         android:layout_height="66dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="CREDITS TO ME"
+        android:text="@string/credits_string"
         android:id="@+id/textView3"
         android:layout_gravity="center" />
 </FrameLayout>

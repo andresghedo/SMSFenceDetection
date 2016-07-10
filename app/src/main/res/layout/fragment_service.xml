@@ -10,11 +10,6 @@
         android:rowCount="9"
         android:columnCount="1">
 
-        <!-- Geofence GoogleApis Strategy  0,0 -->
-
-        <!-- Icons GoogleApis  0,1 -->
-
-        <!-- Polling Strategy  0,2 -->
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -27,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Polling Location every 5 seconds"
+                android:text="@string/labelPollingStrategy"
                 android:id="@+id/textStrategy2"
                 android:layout_row="0"
                 android:layout_column="0"
@@ -68,20 +63,20 @@
                     android:id="@+id/iconBatteryStrategy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_battery_90"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconBattery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="High"
+                    android:text="@string/labelBatteryHigh"
                     android:id="@+id/textBatteryStrategy2"
                     android:layout_column="0"
                     android:layout_row="1"
@@ -100,20 +95,20 @@
                     android:id="@+id/iconPrecisionStrategy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_gps_precision"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconPrecision" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="High Precision"
+                    android:text="@string/labelPrecision"
                     android:id="@+id/textPrecisionStrategy2"
                     android:layout_column="0"
                     android:layout_row="1" />
@@ -131,20 +126,20 @@
                     android:id="@+id/iconConnectionStrategy2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_network"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconnetwork" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Low Network"
+                    android:text="@string/labelLowNetwork"
                     android:id="@+id/textConnectionStrategy2"
                     android:layout_column="0"
                     android:layout_row="1" />
@@ -165,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Better Approach fence detection"
+                android:text="@string/labelBetterApproach"
                 android:id="@+id/textStrategy3"
                 android:layout_row="0"
                 android:layout_column="0"
@@ -206,20 +201,21 @@
                     android:id="@+id/iconBatteryStrategy3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_battery_90"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconBattery"
+                    android:contextClickable="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Low"
+                    android:text="@string/labelBatteryLow"
                     android:id="@+id/textBatteryStrategy3"
                     android:layout_column="0"
                     android:layout_row="1"
@@ -238,20 +234,20 @@
                     android:id="@+id/iconPrecisionStrategy3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_gps_precision"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconPrecision" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="High Precision"
+                    android:text="@string/labelPrecision"
                     android:id="@+id/textPrecisionStrategy3"
                     android:layout_column="0"
                     android:layout_row="1" />
@@ -269,20 +265,20 @@
                     android:id="@+id/iconConnectionStrategy3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
                     android:src="@drawable/ic_network"
                     android:layout_row="0"
                     android:layout_column="0"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/iconnetwork" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Low Network"
+                    android:text="@string/labelLowNetwork"
                     android:id="@+id/textConnectionStrategy3"
                     android:layout_column="0"
                     android:layout_row="1" />

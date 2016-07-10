@@ -6,6 +6,26 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Map of my Geofences</string>
     <string name="new_fence_text"> Add a new Fence!\n</string>
+    <string name="credits_string">CREDITS TO ME</string>
+    <string name="labelName">Name</string>
+    <string name="labelAddress">Address</string>
+    <string name="labelButtonSave">Save</string>
+    <string name="labelEvent">Event</string>
+    <string name="labelRange">Range(m)</string>
+    <string name="labelTextSMS">Text SMS</string>
+    <string name="labelNumber">Number</string>
+    <string name="labelProvince">Province</string>
+    <string name="labelCity">City</string>
+    <string name="fenceIcon">fenceIcon</string>
+    <string name="labelPollingStrategy">Polling Location every 5 seconds</string>
+    <string name="labelBetterApproach">Better Approach fence detection</string>
+    <string name="labelLowNetwork">Low Network</string>
+    <string name="labelPrecision">High Precision</string>
+    <string name="labelBatteryHigh">High</string>
+    <string name="labelBatteryLow">Low</string>
+    <string name="iconBattery">iconBattery</string>
+    <string name="iconPrecision">iconPrecision</string>
+    <string name="iconnetwork">iconNetwork</string>
 
     <string-array name="range_geofence">
         <item>50</item>
