@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +14,16 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.MyItemRecyclerViewAdapter;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
  *
- * ItemFragment --> Sarà il Fragment relativo alla Lista dei GeoFences
+ * FenceListFragment --> Sarà il Fragment relativo alla Lista dei GeoFences
  * In questo fragment sarà possibile creare, eliminare e modificare i geofences
  */
-public class ItemFragment extends Fragment {
+public class FenceListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -39,13 +35,13 @@ public class ItemFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemFragment() {
+    public FenceListFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static ItemFragment newInstance(int columnCount) {
-        ItemFragment fragment = new ItemFragment();
+    public static FenceListFragment newInstance(int columnCount) {
+        FenceListFragment fragment = new FenceListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -77,7 +73,7 @@ public class ItemFragment extends Fragment {
         // Set the adapter
         if (view instanceof FrameLayout) {
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(Controller.fences, getActivity()));
+            recyclerView.setAdapter(new FenceRecyclerViewAdapter(Controller.fences, getActivity()));
             registerForContextMenu(recyclerView);
         }
 

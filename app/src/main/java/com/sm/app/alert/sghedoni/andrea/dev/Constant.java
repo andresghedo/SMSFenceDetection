@@ -1,7 +1,6 @@
 package com.sm.app.alert.sghedoni.andrea.dev;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by andrea on 08/07/16.
@@ -40,7 +39,13 @@ public static final int DATABASE_VERSION                                        
     public static final long UPDATE_REQUEST_MILLIS_25_MIN                       = 8*60*1000; // 25min
 
     public static final String BUNDLE_FENCE_TO_UPDATE_ID                        = "FENCE_TO_UPDATE";
-    public final static HashMap SPINNER_RANGE_POSITIONS = new HashMap();
+
+    public final static int SPINNER_EVENT_ENTER                                 = 0;
+    public final static int SPINNER_EVENT_EXIT                                  = 1;
+    public final static int SPINNER_EVENT_ENTER_AND_EXIT                        = 2;
+
+    public final static HashMap SPINNER_RANGE_POSITIONS                         = new HashMap();
+
     static {
         SPINNER_RANGE_POSITIONS.put(50.0f,    0);
         SPINNER_RANGE_POSITIONS.put(100.0f,   1);

@@ -1,10 +1,7 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 
-import android.support.v7.app.ActionBar;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,18 +15,21 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
-import com.sm.app.alert.sghedoni.andrea.dev.fragment.NewGeofenceFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.R;
 
 import java.util.ArrayList;
 
 
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class FenceRecyclerViewAdapter extends RecyclerView.Adapter<FenceRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<Fence> mValues = null;
 
     private FragmentActivity fa;
 
-    public MyItemRecyclerViewAdapter(ArrayList<Fence> items, FragmentActivity fa) {
+    public FenceRecyclerViewAdapter(ArrayList<Fence> items, FragmentActivity fa) {
         this.mValues = items;
         this.fa = fa;
     }

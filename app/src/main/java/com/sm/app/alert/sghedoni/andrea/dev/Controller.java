@@ -101,16 +101,20 @@ public class Controller {
     public static void processFenceEvent(Fence fence, Location currentLocation, Context ctx) {
         switch (getStatusBetweenFenceAndCurrentLocation(fence, currentLocation)) {
             case Constant.FENCE_ENTER_EVENT:
-                //logics
-                Controller.sendNotification("Entered in: " + fence.getName(), ctx);
-                fence.setMatch(true);
                 Controller.updateFenceMatchOnSQLiteDB(fence.getId(), true);
+                fence.setMatch(true);
+                if ((fence.getEvent() != Constant.SPINNER_EVENT_ENTER) && (fence.getEvent() != Constant.SPINNER_EVENT_ENTER_AND_EXIT))
+                    break;
+                Controller.sendSMS(fence.getNumber(), fence.getTextSMS(), ctx);
+                Controller.sendNotification("Entered in: " + fence.getName(), ctx);
                 break;
             case Constant.FENCE_EXIT_EVENT:
-                //logics
-                Controller.sendNotification("Exited from: " + fence.getName(), ctx);
-                fence.setMatch(false);
                 Controller.updateFenceMatchOnSQLiteDB(fence.getId(), false);
+                fence.setMatch(false);
+                if ((fence.getEvent() != Constant.SPINNER_EVENT_EXIT) && (fence.getEvent() != Constant.SPINNER_EVENT_ENTER_AND_EXIT))
+                    break;
+                Controller.sendSMS(fence.getNumber(), fence.getTextSMS(), ctx);
+                Controller.sendNotification("Exited from: " + fence.getName(), ctx);
                 break;
             case Constant.FENCE_REMAINED_IN_EVENT:
                 break;
@@ -139,8 +143,8 @@ public class Controller {
 
     public static void getLogFenceOnSQLiteDB() { dbManager.getLogOfFenceTableSQLiteDB(); }
 
-    public static int insertFenceOnSQLiteDB(String name, String address, String city, String province, String lat, String lng, String range, int active) {
-        return dbManager.insert(name, address, city, province, lat, lng, range, active);
+    public static int insertFenceOnSQLiteDB(String name, String address, String city, String province, String lat, String lng, String range, int active, String number, String textSMS, int event) {
+        return dbManager.insert(name, address, city, province, lat, lng, range, active, number, textSMS, event);
     }
 
     public static void updateFenceStatusOnSQLiteDB(int id, boolean flag) {
@@ -153,8 +157,8 @@ public class Controller {
         dbManager.updateMatchFence(id, value);
     }
 
-    public static void updateAllAttributeOnSQLiteDB(int id, String name, String address, String city, String province, String lat, String lng, String range) {
-        dbManager.updateAll(id, name, address, city, province, lat, lng, range);
+    public static void updateAllAttributeOnSQLiteDB(int id, String name, String address, String city, String province, String lat, String lng, String range, String number, String textSMS, int event) {
+        dbManager.updateAll(id, name, address, city, province, lat, lng, range, number, textSMS, event);
     }
 
     public static void setAllFencesMatchedFalse() {

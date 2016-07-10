@@ -1,6 +1,5 @@
 package com.sm.app.alert.sghedoni.andrea.dev.activity;
 
-import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,18 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
-import com.sm.app.alert.sghedoni.andrea.dev.fragment.ItemFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.FenceListFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
@@ -108,7 +102,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new MapFragment();
             title = Constant.TITLE_VIEW_MAP_GEOFENCES;
         } else if (id == R.id.nav_list_geofences) {
-            fragment = new ItemFragment();
+            fragment = new FenceListFragment();
             title = Constant.TITLE_VIEW_LIST_GEOFENCES;
         } else if (id == R.id.nav_list_start_service) {
             fragment = new ServiceFragment();

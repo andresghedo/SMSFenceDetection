@@ -29,9 +29,15 @@ public class Fence {
 
     private Location location;
 
+    private String number;
+
+    private String textSMS;
+
+    int event;
+
     public Fence() {}
 
-    public Fence(int id, String name, String address, String city, String province, Double lat, Double lng, Float range, boolean active, boolean match) {
+    public Fence(int id, String name, String address, String city, String province, Double lat, Double lng, Float range, boolean active, boolean match, String number, String textSMS, int event) {
         this.id = id;
         this.name = name;
         this.lat = lat;
@@ -45,6 +51,9 @@ public class Fence {
         this.location = new Location(this.name);
         this.location.setLongitude(this.lng);
         this.location.setLatitude(this.lat);
+        this.number = number;
+        this.textSMS = textSMS;
+        this.event = event;
     }
 
     /*
@@ -80,6 +89,12 @@ public class Fence {
     public void setMatch(boolean match) { this.match = match; }
 
     public void setRange(Float range) { this.range = range; }
+
+    public void setNumber(String number) { this.number = number; }
+
+    public void setTextSMS(String textSMS) { this.textSMS = textSMS; }
+
+    public void setEvent(int event) { this.event = event; }
 
     /*
     * ************** GETTER **************
@@ -129,4 +144,10 @@ public class Fence {
             return true;
         return false;
     }
+
+    public String getNumber() { return this.number; }
+
+    public String getTextSMS() { return this.textSMS; }
+
+    public int getEvent() { return this.event; }
 }

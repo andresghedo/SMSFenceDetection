@@ -16,6 +16,9 @@ public abstract class FenceEntrySQLiteDb implements BaseColumns {
     public static final String COLUMN_FENCE_RANGE       = "range";
     public static final String COLUMN_FENCE_ACTIVE      = "active";
     public static final String COLUMN_FENCE_MATCH       = "match";
+    public static final String COLUMN_FENCE_NUMBER      = "number";
+    public static final String COLUMN_FENCE_SMS_TEXT    = "textsms";
+    public static final String COLUMN_FENCE_EVENT       = "event";
 }
 
 

@@ -136,11 +136,12 @@ public class BetterApproachService extends Service implements LocationListener, 
         prevTimeLocationChangedEvent = this.getCurrentTimeInSecond();
     }
 
-    private void getMatchedFencesEvents(Location current) {
+    private void getMatchedFencesEvents(Location currentLocation) {
         WeightedRequest maxWR = null;
         for (int i=0;i<Controller.fences.size();i++) {
 
-            WeightedRequest wr = betterApproachManager.getBetterRequest(current, prevLocation, this.getCurrentTimeInSecond() - prevTimeLocationChangedEvent, Controller.fences.get(i));
+            Controller.processFenceEvent(Controller.fences.get(i), currentLocation, getApplicationContext());
+            WeightedRequest wr = betterApproachManager.getBetterRequest(currentLocation, prevLocation, this.getCurrentTimeInSecond() - prevTimeLocationChangedEvent, Controller.fences.get(i));
             Log.d(TAG, "WeightedRequest for FENCE: " + Controller.fences.get(i).getName() + " | level: " + wr.getLevel() + " , priority: " + wr.getPriority() + " , updateTimeinMS: " + wr.getUpdateTimeMs());
             if ((maxWR == null) || (wr.getLevel() > maxWR.getLevel()))
                 maxWR = wr;

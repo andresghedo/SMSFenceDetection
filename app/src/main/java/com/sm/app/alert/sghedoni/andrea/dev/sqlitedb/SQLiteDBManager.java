@@ -25,7 +25,7 @@ public class SQLiteDBManager {
         db = geofenceDbHelper.getWritableDatabase();
     }
 
-    public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active) {
+    public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active, String number, String textSMS, int event) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
@@ -36,6 +36,9 @@ public class SQLiteDBManager {
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_LNG, lng);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_RANGE, range);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, active);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NUMBER, number);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_SMS_TEXT, textSMS);
+        values.put(FenceEntrySQLiteDb.COLUMN_FENCE_EVENT, event);
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
@@ -64,9 +67,14 @@ public class SQLiteDBManager {
                 String lng = c.getString(6);
                 String range = c.getString(7);
                 String active = c.getString(8);
+                String match = c.getString(9);
+                String number = c.getString(10);
+                String textSMS = c.getString(11);
+                String event = c.getString(12);
 
                 //Do something Here with values
-                Log.d(TAG, "ID: " + id + "  NAME: " + name + "  ADDRESS: " + address + "  CITY: " + city + "  PROV: " + province + "  LAT: " + lat + "  LNG:" + lng + "  RANGE:" + range + " ACTIVE:" + active);
+                Log.d(TAG, "ID: " + id + "  NAME: " + name + "  ADDRESS: " + address + "  CITY: " + city + "  PROV: " + province + "  LAT: " + lat + "  LNG:" + lng + "  RANGE:" + range + " ACTIVE:" + active
+                        + "MATCH: " + match + " NUMBER: " + number + " textSMS: " + textSMS + " EVENT: " + event);
             }while(c.moveToNext());
         }
 
@@ -93,8 +101,11 @@ public class SQLiteDBManager {
                 Float range = Float.parseFloat(c.getString(7));
                 boolean active = c.getInt(8) == 1;
                 boolean match = c.getInt(9) == 1;
+                String number = c.getString(10);
+                String textSMS = c.getString(11);
+                int event = c.getInt(12);
 
-                Fence f = new Fence(id, name, address, city, province, lat, lng, range, active, match);
+                Fence f = new Fence(id, name, address, city, province, lat, lng, range, active, match, number, textSMS, event);
                 toReturn.add(f);
             }while(c.moveToNext());
         }
@@ -137,7 +148,7 @@ public class SQLiteDBManager {
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
-    public void updateAll(int id, String name, String address, String city, String province, String lat, String lng, String range) {
+    public void updateAll(int id, String name, String address, String city, String province, String lat, String lng, String range, String number, String textSMS, int event) {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
@@ -147,6 +158,9 @@ public class SQLiteDBManager {
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_LAT, lat);
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_LNG, lng);
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_RANGE, range);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_NUMBER, number);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_SMS_TEXT, textSMS);
+        args.put(FenceEntrySQLiteDb.COLUMN_FENCE_EVENT, event);
 
         db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
