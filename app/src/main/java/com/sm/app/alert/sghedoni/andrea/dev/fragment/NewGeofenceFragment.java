@@ -6,7 +6,9 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
+import com.sm.app.alert.sghedoni.andrea.dev.activity.MainActivity;
 
 import java.util.List;
 import java.util.Locale;
@@ -76,6 +79,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         this.update = false;
         this.idFenceToUpdate = -1;
         Log.d(TAG, "onCreate");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_ADD_NEW_FENCE );
         if (getArguments() != null) {
             this.update = true;
             this.idFenceToUpdate = getArguments().getInt(Constant.BUNDLE_FENCE_TO_UPDATE_ID);
@@ -119,6 +123,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         positionFenceToUpdateinController = Controller.getPositionFenceInArrayById(this.idFenceToUpdate);
         if(positionFenceToUpdateinController >= 0) {
             Fence fence = Controller.fences.get(positionFenceToUpdateinController);
+            ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_UPDATE_FENCE + ": " + fence.getName());
             this.nameFence.setText(fence.getName());
             this.addressFence.setText(fence.getAddress());
             this.cityFence.setText(fence.getCity());

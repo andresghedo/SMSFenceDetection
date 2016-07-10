@@ -1,6 +1,7 @@
 package com.sm.app.alert.sghedoni.andrea.dev.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.sm.app.alert.sghedoni.andrea.dev.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.Fence;
 
 /**
  * Created by andrea on 01/07/16.
@@ -120,27 +122,7 @@ public class PollingStrategyService extends Service implements LocationListener,
 
     private void getMatchedFencesEvents(Location currentLocation) {
         for (int i=0;i<Controller.fences.size();i++) {
-
-            switch (Controller.getStatusBetweenFenceAndCurrentLocation(Controller.fences.get(i), currentLocation)) {
-                case Constant.FENCE_ENTER_EVENT:
-                    //logics
-                    Controller.sendNotification("Entered in: " + Controller.fences.get(i).getName(), getApplicationContext());
-                    Controller.fences.get(i).setMatch(true);
-                    Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), true);
-                    break;
-                case Constant.FENCE_EXIT_EVENT:
-                    //logics
-                    Controller.sendNotification("Exited from: " + Controller.fences.get(i).getName(), getApplicationContext());
-                    Controller.fences.get(i).setMatch(false);
-                    Controller.updateFenceMatchOnSQLiteDB(Controller.fences.get(i).getId(), false);
-                    break;
-                case Constant.FENCE_REMAINED_IN_EVENT:
-                    break;
-                case Constant.FENCE_REMAINED_OUT_EVENT:
-                    break;
-                case Constant.FENCE_DISACTIVE:
-                    break;
-            }
+            Controller.processFenceEvent(Controller.fences.get(i), currentLocation, getApplicationContext());
         }
     }
 

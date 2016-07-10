@@ -98,6 +98,29 @@ public class Controller {
         return -1;
     }
 
+    public static void processFenceEvent(Fence fence, Location currentLocation, Context ctx) {
+        switch (getStatusBetweenFenceAndCurrentLocation(fence, currentLocation)) {
+            case Constant.FENCE_ENTER_EVENT:
+                //logics
+                Controller.sendNotification("Entered in: " + fence.getName(), ctx);
+                fence.setMatch(true);
+                Controller.updateFenceMatchOnSQLiteDB(fence.getId(), true);
+                break;
+            case Constant.FENCE_EXIT_EVENT:
+                //logics
+                Controller.sendNotification("Exited from: " + fence.getName(), ctx);
+                fence.setMatch(false);
+                Controller.updateFenceMatchOnSQLiteDB(fence.getId(), false);
+                break;
+            case Constant.FENCE_REMAINED_IN_EVENT:
+                break;
+            case Constant.FENCE_REMAINED_OUT_EVENT:
+                break;
+            case Constant.FENCE_DISACTIVE:
+                break;
+        }
+    }
+
     /***********************************************************************************************
     *                                                                                              *
     *                           Method for SQLiteDB Management                                     *
