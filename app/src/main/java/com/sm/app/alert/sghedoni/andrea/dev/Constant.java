@@ -3,7 +3,8 @@ package com.sm.app.alert.sghedoni.andrea.dev;
 import java.util.HashMap;
 
 /**
- * Created by andrea on 08/07/16.
+ *  Class that provides Constants
+ *  @author Andrea Sghedoni
  */
 public class Constant {
     public static final String FENCE_ENTER_EVENT                                = "ENTER";

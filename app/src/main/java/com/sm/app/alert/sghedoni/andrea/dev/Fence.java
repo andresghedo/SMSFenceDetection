@@ -3,36 +3,51 @@ package com.sm.app.alert.sghedoni.andrea.dev;
 import android.location.Location;
 
 /**
- * Created by andrea on 02/07/16.
+ * Class that map a fence.
+ * @author Andrea Sghedoni
  */
 public class Fence {
 
+    /* Unique id */
     private int id;
 
+    /* Fence tag name */
     private String name;
 
+    /* Latitude of fence center */
     private Double lat;
 
+    /* Longitude of fence center */
     private Double lng;
 
+    /* Range of detection */
     private Float range;
 
+    /* Address of fence center */
     private String address;
 
+    /* City of fence center */
     private String city;
 
+    /* Province of fence center */
     private String province;
 
+    /* Fence active/disactive */
     private boolean active;
 
+    /* Current Position match with this fence */
     private boolean match;
 
+    /* Location of Fence */
     private Location location;
 
+    /* Number for SMS forwording */
     private String number;
 
+    /* Text of SMS to send */
     private String textSMS;
 
+    /* Event to detect(ENETR, EXIT, ENT/EXIT). See SPINNER_EVENT_* Constants */
     int event;
 
     public Fence() {}
@@ -56,9 +71,9 @@ public class Fence {
         this.event = event;
     }
 
-    /*
-    * ************** SETTER **************
-    * */
+    /**********************************************************************************************
+    *                                      SETTER                                                 *
+    ***********************************************************************************************/
 
     public void setName(String name) {
         this.name = name;
@@ -96,9 +111,9 @@ public class Fence {
 
     public void setEvent(int event) { this.event = event; }
 
-    /*
-    * ************** GETTER **************
-    * */
+    /*********************************************************************************************
+    *                                      GETTER                                                *
+    **********************************************************************************************/
 
     public int getId() {
         return this.id;
