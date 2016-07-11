@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.service.BetterApproachService;
 import com.sm.app.alert.sghedoni.andrea.dev.service.PollingStrategyService;

@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,6 @@ public class SQLiteDBManager {
     }
 
     public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active, String number, String textSMS, int event) {
-        // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_ADDRESS, address);
@@ -40,7 +39,6 @@ public class SQLiteDBManager {
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_SMS_TEXT, textSMS);
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_EVENT, event);
 
-        // Insert the new row, returning the primary key value of the new row
         long newRowId;
         newRowId = db.insert(
                 FenceEntrySQLiteDb.TABLE_NAME,

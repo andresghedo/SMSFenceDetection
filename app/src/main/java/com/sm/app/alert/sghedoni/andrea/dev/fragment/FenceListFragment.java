@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 
 /**

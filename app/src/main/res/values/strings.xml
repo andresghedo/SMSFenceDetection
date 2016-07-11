@@ -26,6 +26,14 @@
     <string name="iconBattery">iconBattery</string>
     <string name="iconPrecision">iconPrecision</string>
     <string name="iconnetwork">iconNetwork</string>
+    <string name="imageHome">imageHome</string>
+    <string name="textSMSHome">Contacts are notified of the event, automatically!</string>
+    <string name="textMovementHome">Move between the fences (ENTER/EXIT)</string>
+    <string name="textStartServiceHome">Start the service</string>
+    <string name="textPickHome">Pick your fences</string>
+    <string name="imageHomedescription">imageHomedescription</string>
+    <string name="imageSMSDescription">imageSMSDescription</string>
+    <string name="imageMovementDescription">imageMovementDescription</string>
 
     <string-array name="range_geofence">
         <item>50</item>

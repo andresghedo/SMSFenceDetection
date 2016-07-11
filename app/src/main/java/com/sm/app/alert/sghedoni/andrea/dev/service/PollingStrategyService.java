@@ -1,7 +1,6 @@
 package com.sm.app.alert.sghedoni.andrea.dev.service;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -14,9 +13,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 
 /**
  * Created by andrea on 01/07/16.

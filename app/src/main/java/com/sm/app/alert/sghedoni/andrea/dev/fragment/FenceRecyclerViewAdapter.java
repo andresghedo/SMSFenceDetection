@@ -15,9 +15,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 
 import java.util.ArrayList;
@@ -151,8 +151,13 @@ public class FenceRecyclerViewAdapter extends RecyclerView.Adapter<FenceRecycler
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             Log.d(TAG, "Switch changed! status of geofence " + this.mItem.getName() + "  : " + isChecked);
             int index = Controller.fences.indexOf(this.mItem);
-            Controller.fences.get(index).setActive(isChecked);
-            Controller.updateFenceStatusOnSQLiteDB(this.mItem.getId(), isChecked);
+            Fence fence = Controller.fences.get(index);
+            fence.setActive(isChecked);
+            Controller.updateFenceStatusOnSQLiteDB(fence.getId(), isChecked);
+            if(!isChecked){
+                Controller.updateFenceMatchOnSQLiteDB(fence.getId(), false);
+                fence.setMatch(false);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.utils;
 
 import java.util.HashMap;
 
@@ -24,6 +24,7 @@ public static final int DATABASE_VERSION                                        
     public static final String TOAST_TEXT_BETTER_APP_SERVICE_STOP               = "Better Approach Strategy is stopped!";
 
     public static final String TITLE_VIEW_APP                                   = "Alert My Location";
+    public static final String TITLE_VIEW_HOME                                  = "Home";
     public static final String TITLE_VIEW_MAP_GEOFENCES                         = "Map Geofences";
     public static final String TITLE_VIEW_LIST_GEOFENCES                        = "List Geofences";
     public static final String TITLE_VIEW_START_SERVICE                         = "Start Service";
@@ -31,13 +32,13 @@ public static final int DATABASE_VERSION                                        
     public static final String TITLE_VIEW_UPDATE_FENCE                          = "Update Fence";
     public static final String TITLE_VIEW_ADD_NEW_FENCE                         = "Add a new Fence";
 
-    public static final long POLLING_UPDATE_REQUEST_MILLIS                      = 5*1000; // 5sec
-    public static final long UPDATE_REQUEST_MILLIS_5_SEC                        = 5*1000; // 5sec
-    public static final long UPDATE_REQUEST_MILLIS_30_SEC                       = 30*1000; // 30sec
-    public static final long UPDATE_REQUEST_MILLIS_1_MIN                        = 60*1000; // 1min
-    public static final long UPDATE_REQUEST_MILLIS_3_MIN                        = 3*60*1000; // 3min
-    public static final long UPDATE_REQUEST_MILLIS_15_MIN                       = 5*60*1000; // 15min
-    public static final long UPDATE_REQUEST_MILLIS_25_MIN                       = 8*60*1000; // 25min
+    public static final long POLLING_UPDATE_REQUEST_MILLIS                      = 5*1000;       // 5 sec
+    public static final long UPDATE_REQUEST_MILLIS_5_SEC                        = 5*1000;       // 5 sec
+    public static final long UPDATE_REQUEST_MILLIS_30_SEC                       = 30*1000;      // 30 sec
+    public static final long UPDATE_REQUEST_MILLIS_1_MIN                        = 60*1000;      // 1 min
+    public static final long UPDATE_REQUEST_MILLIS_3_MIN                        = 3*60*1000;    // 3 min
+    public static final long UPDATE_REQUEST_MILLIS_5_MIN                        = 5*60*1000;    // 5 min
+    public static final long UPDATE_REQUEST_MILLIS_8_MIN                        = 8*60*1000;    // 8 min
 
     public static final String BUNDLE_FENCE_TO_UPDATE_ID                        = "FENCE_TO_UPDATE";
 

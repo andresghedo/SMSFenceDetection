@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.entity;
 
 import android.location.Location;
 

@@ -1,4 +1,4 @@
-package com.sm.app.alert.sghedoni.andrea.dev;
+package com.sm.app.alert.sghedoni.andrea.dev.utils;
 
 import android.app.ActivityManager;
 import android.app.NotificationManager;
@@ -14,7 +14,9 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.activity.MainActivity;
+import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 import com.sm.app.alert.sghedoni.andrea.dev.sqlitedb.SQLiteDBManager;
 
 import java.util.ArrayList;

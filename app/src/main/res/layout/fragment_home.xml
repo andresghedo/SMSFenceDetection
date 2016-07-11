@@ -1,0 +1,159 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|top"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:id="@+id/imageView2"
+                android:background="@mipmap/icon_alert_my_location"
+                android:contentDescription="@string/imageHome"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/app_name"
+                android:id="@+id/imageHome"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textAlignment="center"
+                android:textStyle="normal|italic" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageFenceHome"
+                android:background="@drawable/ic_map_multiple_fence"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/imageHomedescription" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/textPickHome"
+                android:id="@+id/textPickFenceHome"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageStartHome"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_start_service" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/textStartServiceHome"
+                android:id="@+id/textStartServiceHome"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageMovementHome"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_movements"
+                android:contentDescription="@string/imageMovementDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/textMovementHome"
+                android:id="@+id/textMovementHome"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000000"
+                android:layout_marginRight="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="1"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/imageSMSHome"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_sms"
+                android:contentDescription="@string/imageSMSDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/textSMSHome"
+                android:id="@+id/textSMSHome"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:textColor="#000000"
+                android:layout_marginRight="20dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

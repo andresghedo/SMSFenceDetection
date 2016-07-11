@@ -17,9 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.activity.MainActivity;
 

@@ -13,8 +13,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 
 import java.util.Calendar;
 

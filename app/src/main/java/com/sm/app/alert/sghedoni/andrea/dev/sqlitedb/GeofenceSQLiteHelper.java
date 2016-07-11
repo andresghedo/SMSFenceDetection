@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
 
 /**
  * Created by andrea on 02/07/16.

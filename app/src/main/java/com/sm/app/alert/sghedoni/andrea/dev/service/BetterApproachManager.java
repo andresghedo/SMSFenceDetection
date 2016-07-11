@@ -4,8 +4,8 @@ import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.location.LocationRequest;
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Fence;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 
 /**
  * Created by andrea on 06/07/16.
@@ -26,14 +26,14 @@ public class BetterApproachManager {
         float totalEval = evalDirection + evalSpeed + evalDistance;
 
         int level = Math.round(totalEval);
-        long updateTimeMs = Constant.UPDATE_REQUEST_MILLIS_25_MIN;
+        long updateTimeMs = Constant.UPDATE_REQUEST_MILLIS_8_MIN;
         int priority = LocationRequest.PRIORITY_LOW_POWER;
 
         switch (level){
             case (0):
                 break;
             case (1):
-                updateTimeMs = Constant.UPDATE_REQUEST_MILLIS_15_MIN;
+                updateTimeMs = Constant.UPDATE_REQUEST_MILLIS_5_MIN;
                 break;
             case (2):
                 updateTimeMs = Constant.UPDATE_REQUEST_MILLIS_3_MIN;
@@ -102,8 +102,10 @@ public class BetterApproachManager {
             return 3 * alpha;
         else if ((distanceM >= 50000) && (distanceM < 100000))      // 50km - 100km
             return 2 * alpha;
-        else if (distanceM >= 100000)                               // > 8km
+        else if ((distanceM >= 100000) && (distanceM < 200000))     // 100km - 200km
             return 1 * alpha;
+        else if (distanceM >= 200000)                               // >= 200000km
+            return 0;
         return 0;
     }
 }

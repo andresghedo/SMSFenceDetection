@@ -13,8 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.sm.app.alert.sghedoni.andrea.dev.Constant;
-import com.sm.app.alert.sghedoni.andrea.dev.Controller;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.HomeFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
@@ -49,6 +50,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        HomeFragment fragment = new HomeFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
     }
 
     @Override
@@ -98,7 +104,10 @@ public class MainActivity extends AppCompatActivity
         //titolo in alto al cambiare dell item selezionato
         String title = Constant.TITLE_VIEW_APP;
 
-        if (id == R.id.nav_map_geofences) {
+        if (id == R.id.nav_map_home) {
+            fragment = new HomeFragment();
+            title = Constant.TITLE_VIEW_HOME;
+        }else if (id == R.id.nav_map_geofences) {
             fragment = new MapFragment();
             title = Constant.TITLE_VIEW_MAP_GEOFENCES;
         } else if (id == R.id.nav_list_geofences) {
