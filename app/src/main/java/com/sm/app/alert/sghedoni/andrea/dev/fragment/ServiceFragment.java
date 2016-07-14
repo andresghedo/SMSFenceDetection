@@ -116,7 +116,6 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
     private void managePollingStrategyService(boolean status) {
         if (status) {
             getContext().startService(new Intent(getContext(), PollingStrategyService.class));
-            Controller.setAllFencesMatchedFalse();
             this.switchBetterApproach.setClickable(false);
             Log.d(TAG, "Starting PollingService ....... ");
         } else {
@@ -130,7 +129,6 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
     private void manageBetterApproachStrategyService(boolean status) {
         if (status) {
             getContext().startService(new Intent(getContext(), BetterApproachService.class));
-            Controller.setAllFencesMatchedFalse();
             this.switchPolling5s.setClickable(false);
             Log.d(TAG, "Starting Better Approach Strategy Service ....... ");
         } else {

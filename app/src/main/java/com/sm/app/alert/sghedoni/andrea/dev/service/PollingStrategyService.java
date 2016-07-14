@@ -98,7 +98,7 @@ public class PollingStrategyService extends Service implements LocationListener,
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-            Log.e(TAG, "Invalid location permission. " + "NON HAI I PERMESSI PER LA FINE LOCATION ", securityException);
+            Log.e(TAG, "Invalid location permission. " + "You don't have permission for FINE LOCATION ", securityException);
         }
     }
 

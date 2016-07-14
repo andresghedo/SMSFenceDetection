@@ -4,11 +4,46 @@
     android:layout_height="match_parent"
     tools:context=".fragment.CreditsFragment">
 
-    <TextView
-        android:layout_width="181dp"
-        android:layout_height="66dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/credits_string"
-        android:id="@+id/textView3"
-        android:layout_gravity="center" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|top">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/myname"
+            android:id="@+id/textView2"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/gmail_contact"
+            android:id="@+id/textView3"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/unibo_contact"
+            android:id="@+id/textView11"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/github_contact"
+            android:id="@+id/textView12"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center" />
+    </LinearLayout>
 </FrameLayout>

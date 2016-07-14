@@ -11,18 +11,17 @@ import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 import java.util.ArrayList;
 
 /**
- * Created by andrea on 02/07/16.
+ *  Class that manage SQLiteDB.
+ *  @author Andrea Sghedoni
  */
 public class SQLiteDBManager {
 
-    private GeofenceSQLiteHelper geofenceDbHelper;
     private SQLiteDatabase db;
     private String TAG="[DebApp]SQLiteDBManager";
 
     public SQLiteDBManager(Context ctx) {
         Log.d(TAG, "Opening new connection db...");
-        geofenceDbHelper = new GeofenceSQLiteHelper(ctx);
-        db = geofenceDbHelper.getWritableDatabase();
+        this.db = new GeofenceSQLiteHelper(ctx).getWritableDatabase();
     }
 
     public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active, String number, String textSMS, int event) {
@@ -40,7 +39,7 @@ public class SQLiteDBManager {
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_EVENT, event);
 
         long newRowId;
-        newRowId = db.insert(
+        newRowId = this.db.insert(
                 FenceEntrySQLiteDb.TABLE_NAME,
                 null,
                 values);
@@ -50,7 +49,7 @@ public class SQLiteDBManager {
 
     public void getLogOfFenceTableSQLiteDB() {
 
-        Cursor c = db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
+        Cursor c = this.db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
         Log.d(TAG, "In Database: ");
 
         if(c.moveToFirst()) {
@@ -83,7 +82,7 @@ public class SQLiteDBManager {
     public ArrayList<Fence> resumeFencesFromDb() {
 
         ArrayList<Fence> toReturn = new ArrayList<Fence>();
-        Cursor c = db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
+        Cursor c = this.db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
         Log.d(TAG, "Resuming of all fences...");
 
         if(c.moveToFirst()) {
@@ -118,7 +117,7 @@ public class SQLiteDBManager {
         // Specify arguments in placeholder order.
         String[] selectionArgs = { String.valueOf(id) };
         // Issue SQL statement.
-        db.delete(FenceEntrySQLiteDb.TABLE_NAME, selection, selectionArgs);
+        this.db.delete(FenceEntrySQLiteDb.TABLE_NAME, selection, selectionArgs);
     }
 
     public void updateFenceStatus(int id, int flag) {
@@ -126,7 +125,7 @@ public class SQLiteDBManager {
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_ACTIVE, flag);
 
-        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+        this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
     public void setAllFencesMatchedFalse() {
@@ -135,7 +134,7 @@ public class SQLiteDBManager {
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, falseMatch);
 
-        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, filterAll, null);
+        this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, filterAll, null);
     }
 
     public void updateMatchFence(int id, int match) {
@@ -143,7 +142,7 @@ public class SQLiteDBManager {
         ContentValues args = new ContentValues();
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_MATCH, match);
 
-        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+        this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
     public void updateAll(int id, String name, String address, String city, String province, String lat, String lng, String range, String number, String textSMS, int event) {
@@ -160,7 +159,7 @@ public class SQLiteDBManager {
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_SMS_TEXT, textSMS);
         args.put(FenceEntrySQLiteDb.COLUMN_FENCE_EVENT, event);
 
-        db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
+        this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
 }

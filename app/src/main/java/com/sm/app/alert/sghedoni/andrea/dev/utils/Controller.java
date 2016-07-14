@@ -39,7 +39,6 @@ public class Controller {
     /* get singleton istance */
     public static Controller getInstance() {
         if(instance == null) {
-            Log.d(TAG, "New Istance of Controller is created!!");
             instance = new Controller();
         }
         return instance;
@@ -50,7 +49,6 @@ public class Controller {
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, msg, null, null);
-            Log.d(TAG, "Send SMS TO NUMER_PHONE:  " + number);
             Toast.makeText(context, "SEND SMS ALERT TO  " + number, Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
@@ -181,7 +179,6 @@ public class Controller {
     /* Set DB Manager*/
     public static void setDbManager(Context ctx) {
         dbManager = new SQLiteDBManager(ctx);
-        Log.d(TAG, "New Istance of SQLiteDBManager!!");
     }
 
     /* Set fences from SQLiteDB */

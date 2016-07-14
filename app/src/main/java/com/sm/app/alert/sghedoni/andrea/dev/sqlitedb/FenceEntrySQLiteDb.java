@@ -3,7 +3,7 @@ package com.sm.app.alert.sghedoni.andrea.dev.sqlitedb;
 import android.provider.BaseColumns;
 
 /**
- * Created by andrea on 02/07/16.
+ *  Class that provide TABLE and COLUMNS NAMES
  */
 public abstract class FenceEntrySQLiteDb implements BaseColumns {
     public static final String TABLE_NAME               = "fence";

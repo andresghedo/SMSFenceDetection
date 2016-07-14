@@ -34,6 +34,10 @@
     <string name="imageHomedescription">imageHomedescription</string>
     <string name="imageSMSDescription">imageSMSDescription</string>
     <string name="imageMovementDescription">imageMovementDescription</string>
+    <string name="myname">Andrea Sghedoni</string>
+    <string name="gmail_contact">andre.sghedoni@gmail.com</string>
+    <string name="unibo_contact">andrea.sghedoni4@studio.unibo.it</string>
+    <string name="github_contact">https://github.com/andresghedo/</string>
 
     <string-array name="range_geofence">
         <item>50</item>
