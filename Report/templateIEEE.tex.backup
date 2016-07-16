@@ -16,7 +16,6 @@
 
 
 \usepackage{subfigure}
-\usepackage{soul}
 
 \usepackage{algorithmic}
 \usepackage[ruled,vlined]{algorithm2e}
@@ -134,14 +133,33 @@ Only one of the two services can be active at a given time.
 The performance differences between the two services implemented is the true heart of the project, you will see in the results that the polling startegy produces a battery consumption exaggerated relative to the other auto-adaptive strategy.
 
 \section{Implementation}
-[Descrivi come e\' stato implementato il sistema, ossia tecnologie utilizzate, linguaggi, APIs, etc. Nel caso, fornisci pseudo-codice degli algoritmi
-piu\' interessanti sviluppati nel progetto.]
 Android Studio is the official IDE for Android, where you can test code on different device emulators and monitor log.
 The development of a native Android app requires the use of object-oriented language JAVA.
 With regard to the persistence of the information (basically the Fence objects with their attributes) entered by the user it has been necessary to create and maintain a DataBase SQLite.
 We have used various services of google map api Android, from the representation of the map (markers, fence circles) to use of location services (location update requests).
 In addition, the Geocoding service allows the user to select the center of fence, with an address directly and not with latitude and longitude.
-Git is used as a version control system, very important for step-by-step development and progress monitoring.
+Git is used as a version control system, very important for step-by-step development and progress monitoring.\\
+Location monitoring and fence events detection are the most important jobs that she must implement.\\
+The first strategy acts polling, which get GPS position every 5 seconds (costant updates). LocationRequest, in this method, use $PRIORITY\_HIGH\_ACCURACY$ like priority parameter.\\
+The second strategy is a smart approach, which goal is a better low battery consumption.
+This method uses the most expensive in terms of energy resources, such as a GPS sensor, only when absolutely necessary. This means that if the device is very close to the fences will access the location more frequently, 
+looking for accurate precision. Conversely if your smartphone is away from fences, recorded by the user, the position is monitored less frequently and not with the use of GPS sensor, but taking it from the network.\\
+The approach is self-adaptive and dynamically change the frequency and precision of the location updates.
+The algorithm is based on 3 balaced parameters: distance (between center fence and current location), device speed and direction (between device and fence).
+Each of these parameters are mapped on a scale from 0 to 5, and multiplied by a coefficient, the total of the three parameters approximate sum indicates the frequency and 
+the accuracy of the position updates.
+
+\begin{subequations}\label{grp}
+  \begin{align}
+    \alpha&=0.8\label{second}\\
+    \beta&=0.1\label{third}\\
+    \gamma&=0.1\label{fourth}
+  \end{align}
+\end{subequations}
+
+\begin{equation}
+\boxed{f_i = \alpha f(distance) + \beta f(direction) + \gamma f(speed)}
+\end{equation}
 
 \begin{table}[h]
   \centering
@@ -159,7 +177,7 @@ Git is used as a version control system, very important for step-by-step develop
   \caption{Distance evaluation}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
   \centering
     \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
     \hline
@@ -174,7 +192,7 @@ Git is used as a version control system, very important for step-by-step develop
   \caption{Speed evaluation}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
   \centering
     \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
     \hline
@@ -186,31 +204,21 @@ Git is used as a version control system, very important for step-by-step develop
   \caption{Direction evaluation}
 \end{table}
 
-\begin{subequations}\label{grp}
-\begin{align}
-\alpha&=0.8\label{second}\\
-\beta&=0.1\label{third}\\
-\gamma&=0.1\label{fourth}
-\end{align}
-\end{subequations}
 
-\begin{equation}
-\boxed{f_i = \alpha f(distance) + \beta f(direction) + \gamma f(speed)}
-\end{equation}
-
-\begin{table}[h]
+\begin{table}
   \centering
-    \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
+    \begin{tabular}{|P{1cm}|P{2cm}|P{5.5cm}|}
     \hline
-    Speed(Km/h) & f(speed)\\ \hline
-    $>$ 130 & 5\\ \hline
-    130-100 & 4\\ \hline
-    100-60 & 3\\ \hline
-    60-20 & 2\\ \hline
-    $<$ 20 & 1\\ \hline
+    $f_i$ & Interval(second) & LocationRequest Precision \\ \hline
+    5 & 5 &  \tiny$PRIORITY\_HIGH\_ACCURACY$ \\ \hline
+    4 & 30 &  \tiny$PRIORITY\_BALANCED\_POWER\_ACCURACY$ \\ \hline
+    3 & 60 &  \tiny$PRIORITY\_BALANCED\_POWER\_ACCURACY$ \\ \hline
+    2 & 180 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
+    1 & 300 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
+    0 & 480 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
    \end{tabular}
   \newline\newline
-  \caption{title}\label{tab2}
+  \caption{Evaluation strategies}
 \end{table}
  
 \section{Performance evaluation}
