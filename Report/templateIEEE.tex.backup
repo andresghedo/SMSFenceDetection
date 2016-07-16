@@ -16,6 +16,7 @@
 
 
 \usepackage{subfigure}
+\usepackage{soul}
 
 \usepackage{algorithmic}
 \usepackage[ruled,vlined]{algorithm2e}
@@ -199,18 +200,17 @@ Git is used as a version control system, very important for step-by-step develop
 
 \begin{table}[h]
   \centering
-    \begin{tabular}{|P{1cm}|P{2cm}|P{5.5cm}|}
+    \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
     \hline
-    $f_i$ & Interval(second) & LocationRequest Precision \\ \hline
-    5 & 5 &  \tiny$PRIORITY\_HIGH\_ACCURACY$ \\ \hline
-    4 & 30 &  \tiny$PRIORITY\_BALANCED\_POWER\_ACCURACY$ \\ \hline
-    3 & 60 &  \tiny$PRIORITY\_BALANCED\_POWER\_ACCURACY$ \\ \hline
-    2 & 180 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
-    1 & 300 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
-    0 & 480 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
+    Speed(Km/h) & f(speed)\\ \hline
+    $>$ 130 & 5\\ \hline
+    130-100 & 4\\ \hline
+    100-60 & 3\\ \hline
+    60-20 & 2\\ \hline
+    $<$ 20 & 1\\ \hline
    \end{tabular}
   \newline\newline
-  \caption{Evaluation strategies}
+  \caption{title}\label{tab2}
 \end{table}
  
 \section{Performance evaluation}
