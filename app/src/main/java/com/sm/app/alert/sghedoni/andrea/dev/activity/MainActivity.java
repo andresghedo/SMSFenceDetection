@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.HomeFragment;
+import com.sm.app.alert.sghedoni.andrea.dev.fragment.InfoFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.R;
@@ -86,7 +87,10 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "ON OPTIONS ITEM SELECTED WHIT ID: " + id);
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_info) {
+            Fragment fragment = new InfoFragment();
+            String title = Constant.TITLE_VIEW_INFO;
+            this.runFragment(fragment, title);
             return true;
         }
 
@@ -121,6 +125,11 @@ public class MainActivity extends AppCompatActivity
             title = Constant.TITLE_VIEW_CREDITS;
         }
 
+        this.runFragment(fragment, title);
+        return true;
+    }
+
+    private void runFragment(Fragment fragment, String title) {
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
@@ -134,7 +143,6 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     //CYCLE ACTIVITY

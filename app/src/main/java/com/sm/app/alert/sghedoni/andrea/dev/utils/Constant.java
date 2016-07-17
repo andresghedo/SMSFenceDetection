@@ -29,6 +29,7 @@ public class Constant {
     public static final String TITLE_VIEW_CREDITS                               = "Credits";
     public static final String TITLE_VIEW_UPDATE_FENCE                          = "Update Fence";
     public static final String TITLE_VIEW_ADD_NEW_FENCE                         = "Add a new Fence";
+    public static final String TITLE_VIEW_INFO                                  = "Info";
 
     public static final long POLLING_UPDATE_REQUEST_MILLIS                      = 5*1000;       // 5 sec
     public static final long UPDATE_REQUEST_MILLIS_5_SEC                        = 5*1000;       // 5 sec

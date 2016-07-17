@@ -3,7 +3,7 @@
     <string name="app_name">Alert My Location</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_info">Info</string>
     <string name="hello_blank_fragment">Map of my Geofences</string>
     <string name="new_fence_text"> Add a new Fence!\n</string>
     <string name="credits_string">CREDITS TO ME</string>
@@ -38,6 +38,9 @@
     <string name="gmail_contact">andre.sghedoni@gmail.com</string>
     <string name="unibo_contact">andrea.sghedoni4@studio.unibo.it</string>
     <string name="github_contact">https://github.com/andresghedo/</string>
+    <string name="string_info_year">Alert My Location is an accademic project A.A. 2015/16</string>
+    <string name="string_info_uni">Master Degree on Computer Science, Mobile Systems Course\n@\nAlma Mater Studiorum, University of Bologna</string>
+    <string name="uniBoIcon">uniBoIcon</string>
 
     <string-array name="range_geofence">
         <item>50</item>

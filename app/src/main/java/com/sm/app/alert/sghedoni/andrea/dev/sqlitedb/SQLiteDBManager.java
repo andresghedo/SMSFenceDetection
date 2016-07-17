@@ -19,11 +19,13 @@ public class SQLiteDBManager {
     private SQLiteDatabase db;
     private String TAG="[DebApp]SQLiteDBManager";
 
+    /* New SQLite DB connection */
     public SQLiteDBManager(Context ctx) {
         Log.d(TAG, "Opening new connection db...");
         this.db = new GeofenceSQLiteHelper(ctx).getWritableDatabase();
     }
 
+    /* Persist new fence in SQLite DB, return the unique id of new entry */
     public int insert(String name, String address, String city, String province, String lat, String lng, String range, int active, String number, String textSMS, int event) {
         ContentValues values = new ContentValues();
         values.put(FenceEntrySQLiteDb.COLUMN_FENCE_NAME, name);
@@ -43,10 +45,10 @@ public class SQLiteDBManager {
                 FenceEntrySQLiteDb.TABLE_NAME,
                 null,
                 values);
-        Log.d(TAG, "Insert new row in " + FenceEntrySQLiteDb.TABLE_NAME + " , id: " + newRowId);
         return (int)newRowId;
     }
 
+    /* Log of all SQLite DB entries */
     public void getLogOfFenceTableSQLiteDB() {
 
         Cursor c = this.db.rawQuery("SELECT * FROM " + FenceEntrySQLiteDb.TABLE_NAME + " WHERE 1;", null);
@@ -54,7 +56,6 @@ public class SQLiteDBManager {
 
         if(c.moveToFirst()) {
             do{
-                //assing values
                 String id = c.getString(0);
                 String name = c.getString(1);
                 String address = c.getString(2);
@@ -69,16 +70,14 @@ public class SQLiteDBManager {
                 String textSMS = c.getString(11);
                 String event = c.getString(12);
 
-                //Do something Here with values
                 Log.d(TAG, "ID: " + id + "  NAME: " + name + "  ADDRESS: " + address + "  CITY: " + city + "  PROV: " + province + "  LAT: " + lat + "  LNG:" + lng + "  RANGE:" + range + " ACTIVE:" + active
                         + "MATCH: " + match + " NUMBER: " + number + " textSMS: " + textSMS + " EVENT: " + event);
             }while(c.moveToNext());
         }
-
         c.close();
-        //db.close();
     }
 
+    /* Get all fences from DB and maps them in Fence Java Object, return the ArrayList of these entities */
     public ArrayList<Fence> resumeFencesFromDb() {
 
         ArrayList<Fence> toReturn = new ArrayList<Fence>();
@@ -111,15 +110,14 @@ public class SQLiteDBManager {
         return toReturn;
     }
 
+    /* delete fence entry by id */
     public void delete(int id) {
-        // Define 'where' part of query.
         String selection = FenceEntrySQLiteDb._ID + " LIKE ?";
-        // Specify arguments in placeholder order.
         String[] selectionArgs = { String.valueOf(id) };
-        // Issue SQL statement.
         this.db.delete(FenceEntrySQLiteDb.TABLE_NAME, selection, selectionArgs);
     }
 
+    /* update status of a fence, ACTIVE or DISABLED */
     public void updateFenceStatus(int id, int flag) {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
@@ -128,6 +126,7 @@ public class SQLiteDBManager {
         this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
+    /* set that all fences not match with current location */
     public void setAllFencesMatchedFalse() {
         String filterAll = "1";
         int falseMatch = 0;
@@ -137,6 +136,7 @@ public class SQLiteDBManager {
         this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, filterAll, null);
     }
 
+    /* update fence match, is current location in fence range? */
     public void updateMatchFence(int id, int match) {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();
@@ -145,6 +145,7 @@ public class SQLiteDBManager {
         this.db.update(FenceEntrySQLiteDb.TABLE_NAME, args, strFilter, null);
     }
 
+    /* update all data of a fence entry */
     public void updateAll(int id, String name, String address, String city, String province, String lat, String lng, String range, String number, String textSMS, int event) {
         String strFilter = "_id=" + id;
         ContentValues args = new ContentValues();

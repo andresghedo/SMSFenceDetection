@@ -32,10 +32,12 @@ public class GeofenceSQLiteHelper extends SQLiteOpenHelper {
                     FenceEntrySQLiteDb.COLUMN_FENCE_SMS_TEXT + TEXT_TYPE + COMMA_SEP +
                     FenceEntrySQLiteDb.COLUMN_FENCE_EVENT + INTEGER_DEFAULT_TYPE +  " );";
 
+    /* Creation of DB, first time */
     public GeofenceSQLiteHelper(Context context) {
         super(context, Constant.DATABASE_NAME, null, Constant.DATABASE_VERSION);
     }
 
+    /* Creation of table */
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
     }
