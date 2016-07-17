@@ -35,7 +35,7 @@ public class Fence {
     /* Fence active/disactive */
     private boolean active;
 
-    /* Current Position match with this fence */
+    /* is Current Position match with this fence?? TRUE or FALSE */
     private boolean match;
 
     /* Location of Fence */

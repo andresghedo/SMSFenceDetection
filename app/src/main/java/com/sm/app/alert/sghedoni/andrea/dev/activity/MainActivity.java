@@ -23,6 +23,11 @@ import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.FenceListFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
 
+/**
+ *  Main and unique Activity in the project.
+ *  The different screens are contained in Fragments.
+ *  @author Andrea Sghedoni
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener
     {
@@ -34,8 +39,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         // CONTROLLER Istance Initialization
         Controller.getInstance();
+        // Set DB Manager
         Controller.setDbManager(getApplicationContext());
+        // Resume all fences in Controller ArrayList
         Controller.resumeFencesFromDb();
+        // Log of SQLiteDB
         Controller.getLogFenceEntities();
 
 
@@ -75,18 +83,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    /*
-    * Alla selezione del menu in alto
-    * */
+    /* Click on action bar menù. */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        Log.d(TAG, "ON OPTIONS ITEM SELECTED WHIT ID: " + id);
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_info) {
             Fragment fragment = new InfoFragment();
             String title = Constant.TITLE_VIEW_INFO;
@@ -100,27 +103,30 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        // prendo l'id del menu che ho selezionato
+
         int id = item.getItemId();
-        //fragment che verrà chiamato
         Fragment fragment = null;
-        //titolo in alto al cambiare dell item selezionato
+        // Fragment title
         String title = Constant.TITLE_VIEW_APP;
 
         if (id == R.id.nav_map_home) {
+            // Home Fragment
             fragment = new HomeFragment();
             title = Constant.TITLE_VIEW_HOME;
         }else if (id == R.id.nav_map_geofences) {
+            // Map Fragment
             fragment = new MapFragment();
             title = Constant.TITLE_VIEW_MAP_GEOFENCES;
         } else if (id == R.id.nav_list_geofences) {
+            // Fence List(and add) List
             fragment = new FenceListFragment();
             title = Constant.TITLE_VIEW_LIST_GEOFENCES;
         } else if (id == R.id.nav_list_start_service) {
+            // Service Fragment
             fragment = new ServiceFragment();
             title = Constant.TITLE_VIEW_START_SERVICE;
         } else if (id == R.id.nav_info_credits) {
+            // Credits Fragment
             fragment = new CreditsFragment();
             title = Constant.TITLE_VIEW_CREDITS;
         }
@@ -129,6 +135,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /* Commit of Fragment */
     private void runFragment(Fragment fragment, String title) {
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -145,47 +152,33 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    //CYCLE ACTIVITY
     @Override
     protected void onStart() {
         super.onStart();
-
-        Log.d(TAG, "ON START CYCLE");
     };
 
     @Override
     protected void onRestart() {
         super.onRestart();
-
-        Log.d(TAG, "ON RESTART CYCLE");
     };
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        Log.d(TAG, "ON RESUME CYCLE");
     };
 
     @Override
     protected void onPause() {
         super.onPause();
-
-        Log.d(TAG, "ON PAUSE CYCLE");
     };
 
     @Override
     protected void onStop() {
         super.onStop();
-
-        Log.d(TAG, "ON STOP CYCLE");
     };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        //Controller.mGoogleApiClient.disconnect();
-        Log.d(TAG, "ON DESTROY CYCLE");
     };
 }

@@ -137,7 +137,7 @@ public class Controller {
         }
     }
 
-    /*Method that posts a notification in the notification bar when a transition is detected.*/
+    /* Method that posts a notification in the notification bar when a transition is detected.*/
     public static void sendNotification(String notificationDetails, Context ctx) {
 
         Intent notificationIntent = new Intent(ctx, MainActivity.class);
@@ -154,7 +154,7 @@ public class Controller {
                         R.drawable.ic_map_fence))
                 .setColor(Color.RED)
                 .setContentTitle(notificationDetails)
-                .setContentText("Clicke here to open AlertApp!!")
+                .setContentText(Constant.NOTIFICATION_TEXT)
                 .setContentIntent(notificationPendingIntent);
 
         builder.setAutoCancel(true);

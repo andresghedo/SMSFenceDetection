@@ -17,24 +17,27 @@ import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 
 /**
- * Created by andrea on 01/07/16.
+ *  Service that implements the Polling Strategy.
+ *  It check location every 5 sec, with PRIORITY_HIGH_ACCURACY.
+ *  @author Andrea Sghedoni
  */
 public class PollingStrategyService extends Service implements LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     protected static final String TAG = "[DebApp]PollingSService";
 
-    /** indicates how to behave if the service is killed */
+    /* indicates how to behave if the service is killed */
     int mStartMode;
 
+    /* GoogleApiClient for Google Maps Android APIs */
     GoogleApiClient mGoogleApiClient;
 
-    /** interface for clients that bind */
+    /* interface for clients that bind */
     IBinder mBinder;
 
-    /** indicates whether onRebind should be used */
+    /* indicates whether onRebind should be used */
     boolean mAllowRebind;
 
-    /** Called when the service is being created. */
+    /* Called when the service is being created. */
     @Override
     public void onCreate() {
         Log.d(TAG, "onCreate");
@@ -43,43 +46,40 @@ public class PollingStrategyService extends Service implements LocationListener,
         this.init();
     }
 
-    /** The service is starting, due to a call to startService() */
+    /* The service is starting, due to a call to startService() */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand" + mGoogleApiClient.toString());
         return mStartMode;
     }
 
-    /** A client is binding to the service with bindService() */
+    /* A client is binding to the service with bindService() */
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
 
-    /** Called when all clients have unbound with unbindService() */
+    /* Called when all clients have unbound with unbindService() */
     @Override
     public boolean onUnbind(Intent intent) {
         return mAllowRebind;
     }
 
-    /** Called when a client is binding to the service with bindService()*/
+    /* Called when a client is binding to the service with bindService()*/
     @Override
     public void onRebind(Intent intent) {
 
     }
 
-    /** Called when The service is no longer used and is being destroyed */
+    /* Called when The service is no longer used and is being destroyed */
     @Override
     public void onDestroy() {
-
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
         Toast.makeText(this, Constant.TOAST_TEXT_POLLING_SERVICE_STOP, Toast.LENGTH_LONG).show();
-        Log.d(TAG, "onDestroy");
     }
 
     protected synchronized GoogleApiClient buildGoogleApiClient() {
-        Log.d(TAG, "buildGoogleApiClient dal Service");
         return new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -87,9 +87,10 @@ public class PollingStrategyService extends Service implements LocationListener,
                 .build();
     }
 
+    /* When Google APIs are ready, requestLocationUpdates is strated! */
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d(TAG, "Connessione APIs riuscita dal Service!");
+        Log.d(TAG, "Connection G APIs OK!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(Constant.POLLING_UPDATE_REQUEST_MILLIS); // 5 sec
@@ -104,26 +105,27 @@ public class PollingStrategyService extends Service implements LocationListener,
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(TAG, "Connessione APIs sospesa dal Service!");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d(TAG, "Connessione APIs fallita dal Service!");
+        Log.d(TAG, "Connection G APIs fail!");
     }
 
+    /* called every 5 sec for location update*/
     @Override
     public void onLocationChanged(Location location) {
-        Log.d(TAG, "LocationChanged: " + location.toString());
         this.getMatchedFencesEvents(location);
     }
 
+    /* Method that call a Controller method (status monitoring between fence and current location) */
     private void getMatchedFencesEvents(Location currentLocation) {
         for (int i=0;i<Controller.fences.size();i++) {
             Controller.processFenceEvent(Controller.fences.get(i), currentLocation, getApplicationContext());
         }
     }
 
+    /* initialization */
     private void init() {
         Controller.getInstance();
         Controller.setDbManager(getApplicationContext());

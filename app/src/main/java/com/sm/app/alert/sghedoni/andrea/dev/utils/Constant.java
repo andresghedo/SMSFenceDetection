@@ -20,6 +20,9 @@ public class Constant {
     public static final String TOAST_TEXT_POLLING_SERVICE_STOP                  = "Polling Startegy is stopped!";
     public static final String TOAST_TEXT_BETTER_APP_SERVICE_START              = "Better Approach Startegy is starting...";
     public static final String TOAST_TEXT_BETTER_APP_SERVICE_STOP               = "Better Approach Strategy is stopped!";
+    public static final String TOAST_TEXT_NO_ADDRESS_FOUND                      = "No address found!";
+
+    public static final String SNACKBAR_TEXT_NEW_FENCE                          = "Add a new fence!";
 
     public static final String TITLE_VIEW_APP                                   = "Alert My Location";
     public static final String TITLE_VIEW_HOME                                  = "Home";
@@ -30,6 +33,8 @@ public class Constant {
     public static final String TITLE_VIEW_UPDATE_FENCE                          = "Update Fence";
     public static final String TITLE_VIEW_ADD_NEW_FENCE                         = "Add a new Fence";
     public static final String TITLE_VIEW_INFO                                  = "Info";
+
+    public static final String NOTIFICATION_TEXT                                = "Clicke here to open AlertApp!!";
 
     public static final long POLLING_UPDATE_REQUEST_MILLIS                      = 5*1000;       // 5 sec
     public static final long UPDATE_REQUEST_MILLIS_5_SEC                        = 5*1000;       // 5 sec
@@ -44,6 +49,10 @@ public class Constant {
     public final static int SPINNER_EVENT_ENTER                                 = 0;
     public final static int SPINNER_EVENT_EXIT                                  = 1;
     public final static int SPINNER_EVENT_ENTER_AND_EXIT                        = 2;
+
+    public final static float ALPHA                                             = 0.8f;
+    public final static float BETA                                              = 0.1f;
+    public final static float GAMMA                                             = 0.1f;
 
     public final static HashMap SPINNER_RANGE_POSITIONS                         = new HashMap();
 

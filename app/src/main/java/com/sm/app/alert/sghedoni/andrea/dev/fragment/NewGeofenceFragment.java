@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,17 +25,8 @@ import com.sm.app.alert.sghedoni.andrea.dev.activity.MainActivity;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NewGeofenceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NewGeofenceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NewGeofenceFragment extends Fragment implements View.OnClickListener {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private String TAG = "[DebApp]NewGeofenceFragment";
 
     private View view;
@@ -54,18 +44,8 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     private int positionFenceToUpdateinController;
 
     public NewGeofenceFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_insert_geofence.
-     */
-    // TODO: Rename and change types and number of parameters
     public static NewGeofenceFragment newInstance(String param1, String param2) {
         NewGeofenceFragment fragment = new NewGeofenceFragment();
         Bundle args = new Bundle();
@@ -78,7 +58,6 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         this.update = false;
         this.idFenceToUpdate = -1;
-        Log.d(TAG, "onCreate");
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_ADD_NEW_FENCE );
         if (getArguments() != null) {
             this.update = true;
@@ -89,7 +68,6 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_insert_geofence, container, false);
 
         addGeogence = (Button) view.findViewById(R.id.buttonSaveFence);
@@ -138,13 +116,8 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-    }
-
     @Override
     public void onAttach(Context context) {
-        Log.d(TAG, "onAttach");
         super.onAttach(context);
     }
 
@@ -228,27 +201,21 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
                 latLng[1] = addressesName.get(0).getLongitude();
                 return latLng;
             } else {
-                Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), Constant.TOAST_TEXT_NO_ADDRESS_FOUND, Toast.LENGTH_LONG).show();
                 return null;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this.getContext(), "No address found!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getContext(), Constant.TOAST_TEXT_NO_ADDRESS_FOUND, Toast.LENGTH_LONG).show();
             return null;
         }
     }
 
     public void fragmentTransaction() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_LIST_GEOFENCES );
-        // redirect to new itemfragment
         FenceListFragment fenceListFragment = new FenceListFragment();
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fenceListFragment);
         ft.commit();
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

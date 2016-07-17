@@ -39,7 +39,7 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
         LatLng centerForZoom = new LatLng(44.5781125, 10.8502881);
 
         // centro dove posizionare la mappa e lo zoom
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerForZoom, 16.0f));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerForZoom, 6.0f));
         //setto il pulsante per la propria posizione
         map.setOnMyLocationButtonClickListener(this);
         // attiva la possibilità di trovarsi tramite un click sul cerca posizione

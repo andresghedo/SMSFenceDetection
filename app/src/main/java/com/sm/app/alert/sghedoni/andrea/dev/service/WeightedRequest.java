@@ -1,14 +1,19 @@
 package com.sm.app.alert.sghedoni.andrea.dev.service;
 
 /**
- * Created by andrea on 08/07/16.
+ *  Class that provides attribute of a Location Request.
+ *  These attribute are found by "Better Approach" evaluation.
+ *  @author Andrea Sghedoni
  */
 public class WeightedRequest {
 
+    /* eval level 5(max),4,3,2,1,0(min) */
     private int level;
 
+    /* time in ms between location updates */
     private long updateTimeMs;
 
+    /* accuracy of location */
     private int priority;
 
     public WeightedRequest() {}
