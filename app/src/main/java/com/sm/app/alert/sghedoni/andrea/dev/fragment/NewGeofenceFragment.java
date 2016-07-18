@@ -3,7 +3,6 @@ package com.sm.app.alert.sghedoni.andrea.dev.fragment;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +24,11 @@ import com.sm.app.alert.sghedoni.andrea.dev.activity.MainActivity;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Fragment that show a form to create/update a fence.
+ *
+ * @author Andrea Sghedoni
+ */
 public class NewGeofenceFragment extends Fragment implements View.OnClickListener {
 
     private String TAG = "[DebApp]NewGeofenceFragment";
@@ -58,7 +62,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         this.update = false;
         this.idFenceToUpdate = -1;
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_ADD_NEW_FENCE );
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_ADD_NEW_FENCE);
         if (getArguments() != null) {
             this.update = true;
             this.idFenceToUpdate = getArguments().getInt(Constant.BUNDLE_FENCE_TO_UPDATE_ID);
@@ -99,6 +103,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
+    /* if Fragment is for fence updating, set fence current data in view elements */
     public void setUpdateData() {
         positionFenceToUpdateinController = Controller.getPositionFenceInArrayById(this.idFenceToUpdate);
         if(positionFenceToUpdateinController >= 0) {
@@ -126,6 +131,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         super.onDetach();
     }
 
+    /* click on save/update button */
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -145,6 +151,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /* check if the event is creation or updating */
     public void saveChangesInSQLiteDB(String name, String address, String city, String province, String range, String number, String textSMS, int event) {
 
         Double[] latLng = this.getLatLngByAddress(address, city, province);
@@ -157,10 +164,10 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         else
             this.saveFenceInSqliteDB(name, address, city, province, lat, lng, range, number, textSMS, event);
 
-        // redirect to new itemfragment
         this.fragmentTransaction();
     }
 
+    /* add a new fence on SQLite DB */
     public void saveFenceInSqliteDB(String name, String address, String city, String province, Double lat, Double lng, String range, String number, String textSMS, int event) {
         boolean active = true; // default whan you add a geofence is active
         boolean match = false; // default whan you add a geofence is not in fence
@@ -171,6 +178,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         Toast.makeText(this.getContext(), "Added the fence: " + f.getName() + "!", Toast.LENGTH_LONG).show();
     }
 
+    /* update a fence on SQLite DB */
     public void updateFenceInSqliteDB(String name, String address, String city, String province, Double lat, Double lng, String range, String number, String textSMS, int event) {
         Fence fence = Controller.fences.get(positionFenceToUpdateinController);
 
@@ -190,6 +198,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         Toast.makeText(this.getContext(), "Updated the fence: " + Controller.fences.get(positionFenceToUpdateinController).getName() + "!", Toast.LENGTH_LONG).show();
     }
 
+    /* get Lat/lng from an addres thanks to Google Geocoder */
     public Double[] getLatLngByAddress(String address, String city, String province) {
         Geocoder g = new Geocoder(this.getContext(), Locale.getDefault());
         Double[] latLng = new Double[2];
@@ -211,6 +220,7 @@ public class NewGeofenceFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    /* fragment redirect */
     public void fragmentTransaction() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(Constant.TITLE_VIEW_LIST_GEOFENCES );
         FenceListFragment fenceListFragment = new FenceListFragment();

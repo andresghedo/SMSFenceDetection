@@ -17,9 +17,8 @@ import com.sm.app.alert.sghedoni.andrea.dev.service.BetterApproachService;
 import com.sm.app.alert.sghedoni.andrea.dev.service.PollingStrategyService;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ServiceFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *  Fragment where user may choose a startegy.
+ *  @author Andrea Sghedoni
  */
 public class ServiceFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
@@ -50,6 +49,7 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
         this.switchPolling5s.setOnCheckedChangeListener(this);
         this.switchBetterApproach = (Switch) view.findViewById(R.id.switchBetterApproachStrategy);
         this.switchBetterApproach.setOnCheckedChangeListener(this);
+        // check if a service is already running
         if (Controller.isMyServiceRunning(PollingStrategyService.class, getContext())) {
             this.switchPolling5s.setChecked(true);
             this.switchBetterApproach.setClickable(false);
@@ -71,6 +71,7 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
         super.onDetach();
     }
 
+    /* event on fence switch */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -86,6 +87,7 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
         }
     }
 
+    /* start/stop of polling service */
     private void managePollingStrategyService(boolean status) {
         if (status) {
             getContext().startService(new Intent(getContext(), PollingStrategyService.class));
@@ -99,6 +101,7 @@ public class ServiceFragment extends Fragment implements CompoundButton.OnChecke
         }
     }
 
+    /* start/stop of better auto-adaptive approach service */
     private void manageBetterApproachStrategyService(boolean status) {
         if (status) {
             getContext().startService(new Intent(getContext(), BetterApproachService.class));

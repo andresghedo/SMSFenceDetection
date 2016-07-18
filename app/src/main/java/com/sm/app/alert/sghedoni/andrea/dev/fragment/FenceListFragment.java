@@ -52,6 +52,7 @@ public class FenceListFragment extends Fragment {
             registerForContextMenu(recyclerView);
         }
 
+        // new fence floating button click
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

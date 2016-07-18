@@ -17,9 +17,14 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.sm.app.alert.sghedoni.andrea.dev.utils.Constant;
 import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import com.sm.app.alert.sghedoni.andrea.dev.entity.Fence;
 
+/**
+ *  Fragment that show on a map user fences.
+ *  @author Andrea Sghedoni
+ */
 public class MapFragment extends SupportMapFragment implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMarkerClickListener {
 
     GoogleMap map = null;
@@ -28,23 +33,17 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        // mi permette di implementare il metodo onMapReady cosi da ricavarmi mappa e farci operazioni non appena caricata
         this.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        Log.d(TAG, "La mappa si è caricata");
         LatLng centerForZoom = new LatLng(44.5781125, 10.8502881);
 
-        // centro dove posizionare la mappa e lo zoom
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centerForZoom, 6.0f));
-        //setto il pulsante per la propria posizione
         map.setOnMyLocationButtonClickListener(this);
-        // attiva la possibilità di trovarsi tramite un click sul cerca posizione
         this.enableMyLocation();
-        // aggiunge i fences
         this.addGeoFences(map);
 
         map.setOnMarkerClickListener(this);
@@ -54,15 +53,11 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-        // controllo nel manifest di avere
         if ((ContextCompat.checkSelfPermission(this.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) && (map != null)) {
-            Log.d(TAG, "Posizione personale concessa e mappa non nulla");
             map.setMyLocationEnabled(true);
         }
     }
 
-    // aggiungo un marker con un raggio azzurro che indica il geofence.
-    // Lat Lang per ora sono cablate a via Palestro 3a formigine
     private void addGeoFences(GoogleMap m) {
 
             Log.d(TAG, "Draw the fences on Map");
@@ -100,16 +95,12 @@ public class MapFragment extends SupportMapFragment implements OnMapReadyCallbac
 
     @Override
     public boolean onMyLocationButtonClick() {
-        // ascoltatore al click sul simbolo trova posizione
-        Toast.makeText(this.getContext(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
+        Toast.makeText(this.getContext(), Constant.SEARCH_MY_LOCATION_TEXT, Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Log.d(TAG, "Click on Marker");
         return false;
     }
 }

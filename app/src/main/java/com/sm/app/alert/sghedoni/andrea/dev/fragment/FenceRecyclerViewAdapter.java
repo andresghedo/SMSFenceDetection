@@ -22,7 +22,10 @@ import com.sm.app.alert.sghedoni.andrea.dev.R;
 
 import java.util.ArrayList;
 
-
+/**
+ *  Custom Adapter for fence list
+ *  @author Andrea Sghedoni
+ */
 public class FenceRecyclerViewAdapter extends RecyclerView.Adapter<FenceRecyclerViewAdapter.ViewHolder> {
 
     private ArrayList<Fence> mValues = null;
@@ -88,23 +91,21 @@ public class FenceRecyclerViewAdapter extends RecyclerView.Adapter<FenceRecycler
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            Log.d(TAG, "onCreateContextMenu");
-            menu.setHeaderTitle("Choose an action");
-            MenuItem deleteActionItem = menu.add(0, 0, 0, "Delete");
-            MenuItem updateActionItem = menu.add(0, 1, 1, "Update/Show");
+            menu.setHeaderTitle(Constant.MENU_TEXT_FENCE_TITLE);
+            MenuItem deleteActionItem = menu.add(0, 0, 0, Constant.MENU_TEXT_FENCE_DELETE);
+            MenuItem updateActionItem = menu.add(0, 1, 1,Constant.MENU_TEXT_FENCE_UPDATE);
             deleteActionItem.setOnMenuItemClickListener(this);
             updateActionItem.setOnMenuItemClickListener(this);
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            Log.d(TAG, "onMenuItemClick, item: " + item.toString());
+
             switch (item.getItemId()) {
                 case 0:
                     removeFence(this.mItem);
                     break;
                 case 1:
-                    Log.d(TAG, "Update geofence");
                     getFragmentUpdate(this.mItem);
                     break;
                 default:
@@ -116,8 +117,6 @@ public class FenceRecyclerViewAdapter extends RecyclerView.Adapter<FenceRecycler
 
         @Override
         public boolean onLongClick(View v) {
-            Log.d(TAG, "onLongClick event, view: " + v.toString());
-            Log.d(TAG, "Current Fence clicked: " + this.mItem.getName());
             return false;
         }
 

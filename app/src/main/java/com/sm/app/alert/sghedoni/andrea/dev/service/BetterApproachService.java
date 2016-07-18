@@ -19,7 +19,8 @@ import com.sm.app.alert.sghedoni.andrea.dev.utils.Controller;
 import java.util.Calendar;
 
 /**
- * Created by andrea on 01/07/16.
+ * Service that run Better autp-adaptive Approach, in background.
+ * @author Andrea Sghedoni
  */
 public class BetterApproachService extends Service implements LocationListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
@@ -86,11 +87,9 @@ public class BetterApproachService extends Service implements LocationListener, 
         LocationServices.FusedLocationApi.removeLocationUpdates(
                 mGoogleApiClient, this);
         Toast.makeText(this, Constant.TOAST_TEXT_BETTER_APP_SERVICE_STOP, Toast.LENGTH_LONG).show();
-        Log.d(TAG, "onDestroy");
     }
 
     protected synchronized GoogleApiClient buildGoogleApiClient() {
-        Log.d(TAG, "buildGoogleApiClient dal Service");
         return new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -100,7 +99,6 @@ public class BetterApproachService extends Service implements LocationListener, 
 
     @Override
     public void onConnected(Bundle bundle) {
-        Log.d(TAG, "Connessione APIs riuscita dal Service!");
         try {
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(Constant.UPDATE_REQUEST_MILLIS_5_SEC); // 5 sec
@@ -109,20 +107,19 @@ public class BetterApproachService extends Service implements LocationListener, 
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (LocationListener) this);
         } catch (SecurityException securityException) {
             // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-            Log.e(TAG, "Invalid location permission. " + "NON HAI I PERMESSI PER LA FINE LOCATION ", securityException);
+            Log.e(TAG, "Invalid location permission. " + "YOU don't have permission for FINE LOCATION ", securityException);
         }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(TAG, "Connessione APIs sospesa dal Service!");
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.d(TAG, "Connessione APIs fallita dal Service!");
     }
 
+    /* Every location changed event */
     @Override
     public void onLocationChanged(Location location) {
         Log.d(TAG, "LocationChanged: " + location.toString());
@@ -136,6 +133,10 @@ public class BetterApproachService extends Service implements LocationListener, 
         prevTimeLocationChangedEvent = this.getCurrentTimeInSecond();
     }
 
+    /* Method that checks current location with every fence(and its range).
+    *  Every fence status is mapped on a weighted request.
+    *  The weighted request that has the maximum level is settes as LocationUpdates.
+    * */
     private void getMatchedFencesEvents(Location currentLocation) {
         WeightedRequest maxWR = null;
         for (int i=0;i<Controller.fences.size();i++) {
