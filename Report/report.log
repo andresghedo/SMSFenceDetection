@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.7.12)  18 JUL 2016 20:19
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.7.12)  19 JUL 2016 14:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**templateIEEE.tex
-(./templateIEEE.tex
+**report.tex
+(./report.tex
 LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/IEEEtran/IEEEtran.cls
@@ -382,22 +382,8 @@ File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 ))
 \Gin@req@height=\dimen140
 \Gin@req@width=\dimen141
-)
-(./templateIEEE.aux
-
-LaTeX Warning: Label `NomeRiferimento' multiply defined.
-
-
-LaTeX Warning: Label `NomeRiferimento' multiply defined.
-
-
-LaTeX Warning: Label `NomeRiferimento' multiply defined.
-
-
-LaTeX Warning: Label `NomeRiferimento' multiply defined.
-
-)
-\openout1 = `templateIEEE.aux'.
+) (./report.aux)
+\openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
 LaTeX Font Info:    ... okay on input line 64.
@@ -427,9 +413,9 @@ LaTeX Info: Redefining \ref on input line 64.
 LaTeX Info: Redefining \pageref on input line 64.
 LaTeX Info: Redefining \nameref on input line 64.
 
-(./templateIEEE.out) (./templateIEEE.out)
+(./report.out) (./report.out)
 \@outlinefile=\write3
-\openout3 = `templateIEEE.out'.
+\openout3 = `report.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -462,7 +448,7 @@ e
 ))
 LaTeX Font Info:    Calculating math sizes for size <11> on input line 86.
 
-<./images/architecture.png, id=36, 366.36874pt x 297.11pt>
+<./images/architecture.png, id=40, 366.36874pt x 297.11pt>
 File: ./images/architecture.png Graphic file (type png)
 
 <use ./images/architecture.png>
@@ -472,62 +458,62 @@ Package pdftex.def Info: ./images/architecture.png used on input line 135.
 
 
 ]
-Overfull \hbox (2.99779pt too wide) in paragraph at lines 189--189
- []|$\OML/cmm/m/it/5 PRIORITY[]BALANCED[]POWER[]ACCURACY$| 
- []
-
-
 Overfull \hbox (2.99779pt too wide) in paragraph at lines 190--190
  []|$\OML/cmm/m/it/5 PRIORITY[]BALANCED[]POWER[]ACCURACY$| 
  []
 
+
+Overfull \hbox (2.99779pt too wide) in paragraph at lines 191--191
+ []|$\OML/cmm/m/it/5 PRIORITY[]BALANCED[]POWER[]ACCURACY$| 
+ []
+
 [2 <./images/architecture.png>]
-Overfull \hbox (3.45335pt too wide) in paragraph at lines 223--223
+Overfull \hbox (3.45335pt too wide) in paragraph at lines 225--225
  []|\OT1/ptm/m/n/8 distance 
  []
 
 
-Overfull \hbox (3.17346pt too wide) in paragraph at lines 223--223
+Overfull \hbox (3.17346pt too wide) in paragraph at lines 225--225
  []|\OT1/ptm/m/n/8 Time(h)| 
  []
 
 
-Overfull \hbox (3.45335pt too wide) in paragraph at lines 235--235
+Overfull \hbox (3.45335pt too wide) in paragraph at lines 237--237
  []|\OT1/ptm/m/n/8 distance 
  []
 
 
-Overfull \hbox (3.17346pt too wide) in paragraph at lines 235--235
+Overfull \hbox (3.17346pt too wide) in paragraph at lines 237--237
  []|\OT1/ptm/m/n/8 Time(h)| 
  []
 
 
-Overfull \hbox (3.45335pt too wide) in paragraph at lines 247--247
+Overfull \hbox (3.45335pt too wide) in paragraph at lines 249--249
  []|\OT1/ptm/m/n/8 distance 
  []
 
 
-Overfull \hbox (3.17346pt too wide) in paragraph at lines 247--247
+Overfull \hbox (3.17346pt too wide) in paragraph at lines 249--249
  []|\OT1/ptm/m/n/8 Time(h)| 
  []
 
 
-Overfull \hbox (3.45335pt too wide) in paragraph at lines 259--259
+Overfull \hbox (3.45335pt too wide) in paragraph at lines 261--261
  []|\OT1/ptm/m/n/8 distance 
  []
 
 
-Overfull \hbox (3.17346pt too wide) in paragraph at lines 259--259
+Overfull \hbox (3.17346pt too wide) in paragraph at lines 261--261
  []|\OT1/ptm/m/n/8 Time(h)| 
  []
 
 
-Overfull \hbox (6.26953pt too wide) in paragraph at lines 260--260
+Overfull \hbox (6.26953pt too wide) in paragraph at lines 262--262
  []|\OT1/ptm/m/n/8 IN/OUT- 
  []
 
 
-Overfull \hbox (6.26953pt too wide) in paragraph at lines 261--261
+Overfull \hbox (6.26953pt too wide) in paragraph at lines 263--263
  []|\OT1/ptm/m/n/8 IN/OUT- 
  []
 
@@ -541,34 +527,7 @@ Missing character: There is no € in font ptmb7t!
 Missing character: There is no “ in font ptmb7t!
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
-Missing character: There is no â in font ptmb7t!
-Missing character: There is no € in font ptmb7t!
-Missing character: There is no “ in font ptmb7t!
-[3pdfTeX warning (ext4): destination with the same identifier (name{cite.NomeRi
-ferimento}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.304 \newpage
-              pdfTeX warning (ext4): destination with the same identifier (name
-{cite.NomeRiferimento}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.304 \newpage
-              pdfTeX warning (ext4): destination with the same identifier (name
-{cite.NomeRiferimento}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.304 \newpage
-              pdfTeX warning (ext4): destination with the same identifier (name
-{cite.NomeRiferimento}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.304 \newpage
-              ]
+[3]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -580,30 +539,26 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 348.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 357.
 [4
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 348.
- (./templateIEEE.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 348.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 348.
-Package rerunfilecheck Info: File `templateIEEE.out' has not changed.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 357.
+ (./report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 357.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 357.
+Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: EC19A13771066DDD932CC1C61E111AD3;383.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 348.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 357.
  ) 
 Here is how much of TeX's memory you used:
- 8115 strings out of 493304
- 120240 string characters out of 6139871
- 240507 words of memory out of 5000000
- 11475 multiletter control sequences out of 15000+600000
+ 8133 strings out of 493304
+ 120434 string characters out of 6139871
+ 241902 words of memory out of 5000000
+ 11489 multiletter control sequences out of 15000+600000
  41802 words of font info for 83 fonts, out of 8000000 for 9000
  960 hyphenation exceptions out of 8191
- 32i,14n,30p,246b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,14n,30p,243b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/
@@ -615,10 +570,10 @@ cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/times/utmri8a.pfb>
-Output written on templateIEEE.pdf (4 pages, 144308 bytes).
+Output written on report.pdf (4 pages, 145092 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 127 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  70 words of extra memory for PDF output out of 10000 (max. 10000000)
 

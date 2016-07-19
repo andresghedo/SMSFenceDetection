@@ -74,8 +74,8 @@
 \author{
 Andrea Sghedoni MATR.0000736038\IEEEauthorrefmark{1},
 \\
-\IEEEauthorblockA{\IEEEauthorrefmark{1} DISI, University of Bologna, Italy \\
- \\
+\IEEEauthorblockA{\IEEEauthorrefmark{1} DISI, University of Bologna, Italy, 2016 \\
+\\
 Email: andrea.sghedoni4@studio.unibo.it}}
 
 
@@ -109,19 +109,19 @@ This method, if it is merged with the use of GPS, drains battery in few hours.
 Considering also that the user, of course, does not use the smartphone only for geofencing, but developers must also take account of all the other apps that users install, use and need.\\
 The main goal project is to implement an intelligent mechanism where current location is monitored frequently and with the GPS only if you are close to a fence, 
 while controlling the position less frequently (and via network, to a lower consumption) as that the device moves away from the user-selected geofences.
-The approach is based on an auto-adaptive mechanism, where the algorithm tries to use certain resources only when necessary, details will still in Implementation Section.
+The approach is based on an auto-adaptive mechanism, where the algorithm tries to use certain resources only when necessary, details will still in Section~\ref{sec:implementation}.
 The app was developed as project part of Mobile Systems exam @ Alma mater Studiorum, Bologna.\\
 The main use case of My Location Alert app is automatically alert a phone number(via SMS) of enter/exit events from a specific geographic area. 
 
 \section{Related works}
 In GooglePlay Store there are several apps that deal with the theme of geofencing, one of them is 
-\textit{``EgiGeoZone Geofence``} where you can create geofences and choose between different actions(tracking, logging, email) to be made when enter/exit events are detected.
+\textit{``EgiGeoZone Geofence``}(see Reference~\ref{bib:egigeozone}), where you can create geofences and choose between different actions(tracking, logging, email) to be made when enter/exit events are detected.
 Here you need to provide the center of the fence in terms of latitude and longitude, this approach is not completely user-friendly.
 Nowadays LBSs are becoming an important part of the Apps that we install every day on our smartphones, so developers need to be careful how they use 
 these services and the effects they may have.
-This article, see [X] in references, provided the basis for learning to better the world of localization, especially show the differences between geolocation sources, 
+This article, see Reference~\ref{bib:lbss}, provided the basis for learning to better the world of localization, especially show the differences between geolocation sources, 
 such as networks, WiFi and GPS.
-Another interesting article is [Y], which shows proactive idea for the use of the different location technologies.\\
+Another interesting paper is in Reference~\ref{bib:proactive}, which shows proactive idea for the use of the different location technologies.\\
 Can be seen as an important starting point from a developer can start to implement his own tracking strategy(or any other background service), taking account of having 
 to manage different technologies at the same time.
 
@@ -145,10 +145,11 @@ It exposes data and methods that should be available and accessed from anywhere 
 Mainly, it provides the current user fence list and acts as interface to the SQLite DB, providing functions that implement CRUD verbs.\\
 \textit{Services} implement the monitoring and detection strategies of registred fences, which run in the background even when the app is not open.
 Only one of the two services can be active at a given time.
-The performance differences between the two services implemented is the true heart of the project, you will see in the Performance evaluation section
+The performance differences between the two services implemented is the true heart of the project, you will see in the Section~\ref{sec:performance}
 that the polling startegy produces a battery consumption exaggerated relative to the other auto-adaptive strategy.
 
 \section{Implementation}
+\label{sec:implementation}
 Android Studio is the official IDE for Android, where you can test code on different device emulators and monitor log.
 The development of a native Android App requires the use of object-oriented language JAVA.
 With regard to the persistence of the user information(basically the Fence objects with their attributes) it has been necessary to create and maintain a SQLite DataBase.
@@ -163,12 +164,12 @@ This means that if the device is very close to the fences will access the locati
 Conversely if user smartphone is away from fences, the position is monitored less frequently and not with the use of GPS sensor, but taking it from the network.\\
 The approach is auto-adaptive and dynamically changes the frequency and precision of the location updates.
 The algorithm is based on 3 balaced parameters: \textit{distance}(between fence and current location), \textit{device speed} and \textit{direction}.
-Each of these parameters are mapped on a scale from 0 to 5(see APPENDIX TABLES VI,VII,VIII), and multiplied by a coefficient, the total of the three parameters approximate sum indicates 
-the frequency and the accuracy of the position updates, see TABLE I.
-The coefficients provide the importance that is given to each parameter(see 1a,b,c).
-The most influential parameter is the distance from the fence, but also the direction and speed parameters can become important in total evaluation, see (2).
+Each of these parameters are mapped on a scale from 0 to 5(see tables in Appendix Section~\ref{sec:appendix}), and multiplied by a coefficient, the total of the three parameters approximate sum indicates 
+the frequency and the accuracy of the position updates, see Table I.
+The coefficients provide the importance that is given to each parameter(see equation~\ref{formula:1}).
+The most influential parameter is the distance from the fence, but also the direction and speed parameters can become important in total evaluation, see (\ref{formula:2}).
 
-\begin{subequations}\label{grp}
+\begin{subequations}\label{formula:1}
   \begin{align}
     \alpha&=0.8\label{second}\\
     \beta&=0.1\label{third}\\
@@ -176,8 +177,8 @@ The most influential parameter is the distance from the fence, but also the dire
   \end{align}
 \end{subequations}
 
-\begin{equation}
-\boxed{f_i = \alpha f(distance) + \beta f(direction) + \gamma f(speed)}
+\begin{equation}\label{formula:2}
+  \boxed{f_i = \alpha f(distance) + \beta f(direction) + \gamma f(speed)}
 \end{equation}
 
 \begin{table}[h]
@@ -191,12 +192,13 @@ The most influential parameter is the distance from the fence, but also the dire
     2 & 180 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
     1 & 300 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
     0 & 480 &  \tiny$PRIORITY\_LOW\_POWER$ \\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Evaluation strategies}
 \end{table}
 
 \section{Performance evaluation}
+\label{sec:performance}
 \textit{MyAlertLocation} is tested on SO Android 6.0 and hardware device is LG Sprint. The removable Li-Ion battery has a nominal power of 2100 mAh, when fully charged (100\%). \\
 The device has been used only for app testing, no other app has been used in test period. This way is simple get precise estimates on battery power consumption and GPS utilization. \\
 Android 6, furthermore, allows to verify the consumption of these two factors for each application installed.
@@ -223,7 +225,7 @@ The battery saving, compared to polling, remains optimal.
     Strategy & distance (km) & Time(h) & mAh usage & \% battery & time GPS \\ \hline
     Polling & 300 & 20 & 800 & 38 & 20h   \\ \hline
     Better Approach & 300 & 20 & 1 & 0.04 & 13s   \\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Test 1}
 \end{table}
@@ -235,7 +237,7 @@ The battery saving, compared to polling, remains optimal.
     Strategy & distance (km) & Time(h) & mAh usage & \% battery & time GPS \\ \hline
     Polling & 10 & 20 & 800 & 38 & 20h   \\ \hline
     Better Approach & 10 & 20 & 70 & 4 & 80s   \\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Test 2}
 \end{table}
@@ -247,7 +249,7 @@ The battery saving, compared to polling, remains optimal.
     Strategy & distance (km) & Time(h) & mAh usage & \% battery & time GPS \\ \hline
     Polling & 1 & 20 & 800 & 38 & 20h   \\ \hline
     Better Approach & 1 & 20 & 160 & 8 & 5min   \\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Test 3}
 \end{table}
@@ -259,7 +261,7 @@ The battery saving, compared to polling, remains optimal.
     Strategy & distance (km) & Time(h) & mAh usage & \% battery & time GPS \\ \hline
     Polling & IN/OUT-2km & 20 & 800 & 38 & 20h   \\ \hline
     Better Approach & IN/OUT-2km & 20 & 260 & 12 & 7min   \\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Test 4}
 \end{table}
@@ -269,33 +271,38 @@ The battery saving, compared to polling, remains optimal.
 This project shows that it is desirable to use the more expensive services(in terms of the battery) in an intelligent way, otherwise the user could drain battery in a few hours.
 In particular the use of the GPS sensor today is still an issue for smartphones, where some app abuse of GPS sensor. \\
 The goal, in case of geofencing apps, is to use the services in an intelligent way, using GPS only when necessary and if the device is located next to a fence.
-The improvements shown in the foo section is important, but there are margins of improvement.
+The improvements shown in Section~\ref{sec:performance} is important, but there are margins of improvement.
 In the future a possible feature is to check the activities that the user is doing and regular location updates based on the results obtained(it is possible with Google ActivityRecognitionApi).\\
 In the end, others improvements concern a commercial point of view, with a possible integration with leading social networks, such as Twitter, Facebook, Google+.
 
 \bibliographystyle{plain}
 \begin{thebibliography}{15}
 
-\bibitem{NomeRiferimento}
+\bibitem{bib:egigeozone}
+\label{bib:egigeozone}
 \newblock{egmontr},
 \newblock{\href{https://play.google.com/store/apps/details?id=de.egi.geofence.geozone&hl=it}{\textbf{EgiGeoZone Geofence}}}
 \newblock{\textit{Android App on GooglePlay}}, 2016.
 
-\bibitem{NomeRiferimento}
+\bibitem{bib:lbss}
+\label{bib:lbss}
 \newblock{Axel Küpper, Ulrich Bareth, and Behrend Freese},
 \newblock{\href{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.259.1629&rep=rep1&type=pdf}{\textbf{Geofencing and Background Tracking – The Next Features in LBSs}}}
 \newblock{\textit{INFORMATIK}}, Berlin, 2011.
 
-\bibitem{NomeRiferimento}
+\bibitem{bib:proactive}
+\label{bib:proactive}
 \newblock{Axel Küpper, Ulrich Bareth},
-\newblock{\href{http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=6032390}{\textbf{Geofencing and Background Tracking – The Next Features in LBSs}}}
+\newblock{\href{http://ieeexplore.ieee.org/xpl/articleDetails.jsp?tp=&arnumber=6032390}{\textbf{Energy-Efficient Position Tracking in Proactive Location-Based Services for Smartphone Environments}}}
 \newblock{\textit{IEEE 35th Annual Computer Software and Applications Conference}}, Munich, 2011.
 
-\bibitem{NomeRiferimento}
+\bibitem{bib:googlefence}
+\label{bib:googlefence}
 \newblock{\href{https://developer.android.com/training/location/geofencing.html}{\textbf{Creating and Monitoring Geofences}}}
 \newblock{\textit{Google Android Documentation}}, 2016.
 
-\bibitem{NomeRiferimento}
+\bibitem{bib:googlelbs}
+\label{bib:googlelbs}
 \newblock{\href{https://developer.android.com/training/location/receive-location-updates.html}{\textbf{Receiving Location Updates}}}
 \newblock{\textit{Google Android Documentation}}, 2016.
 
@@ -303,6 +310,7 @@ In the end, others improvements concern a commercial point of view, with a possi
 
 \newpage 
 \section{Appendix}
+\label{sec:appendix}
 \begin{table}[h]
   \centering
     \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
@@ -329,7 +337,7 @@ In the end, others improvements concern a commercial point of view, with a possi
     100-60 & 3\\ \hline
     60-20 & 2\\ \hline
     $<$ 20 & 1\\ \hline
-   \end{tabular}
+  \end{tabular}
   \newline\newline
   \caption{Speed evaluation}
 \end{table}
@@ -337,12 +345,13 @@ In the end, others improvements concern a commercial point of view, with a possi
 \begin{table}[h]
   \centering
     \begin{tabular}{|P{2.5cm}|P{2.5cm}|}
-    \hline
-    Direction & f(direction)\\ \hline
-    Yes & 5\\ \hline
-    No & 0\\ \hline
+      \hline
+      Direction & f(direction)\\ \hline
+      Yes & 5\\ \hline
+      No & 0\\ \hline
     \end{tabular}
-  \newline\newline
-  \caption{Direction evaluation}
+    \newline\newline
+    \caption{Direction evaluation}
 \end{table}
+
 \end{document}
