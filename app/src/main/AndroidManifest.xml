@@ -3,7 +3,6 @@
     package="com.sm.app.alert.sghedoni.andrea.dev">
 
 
-    <!-- START PERMISSION, Guardare in futuro se servono tutte e a cosa -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission
@@ -13,7 +12,6 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <!-- END PERMISSION-->
 
     <application
         android:allowBackup="true"
