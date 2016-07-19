@@ -1,1 +1,1 @@
-# Project of Sistem Mobile @ Alma Mater Studiorum
+# Project of Mobile Systems @ Alma Mater Studiorum
