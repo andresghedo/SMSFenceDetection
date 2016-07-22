@@ -1,8 +1,11 @@
 package com.sm.app.alert.sghedoni.andrea.dev.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.HomeFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.InfoFragment;
@@ -22,6 +26,9 @@ import com.sm.app.alert.sghedoni.andrea.dev.fragment.ServiceFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.CreditsFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.FenceListFragment;
 import com.sm.app.alert.sghedoni.andrea.dev.fragment.MapFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  Main and unique Activity in the project.
@@ -64,6 +71,21 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fragment);
         ft.commit();
+
+        boolean permissionFineLocation = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean permissionSendSMS = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED;
+        ArrayList<String> deniedPermissions = new ArrayList<String>();
+
+        if(!permissionFineLocation)
+            deniedPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        if(!permissionSendSMS)
+            deniedPermissions.add(Manifest.permission.SEND_SMS);
+
+        if (deniedPermissions.size() > 0) {
+            String[] deniedPermissionsArray = new String[deniedPermissions.size()];
+            deniedPermissions.toArray(deniedPermissionsArray);
+            Controller.requestPermission((AppCompatActivity) this, 1, deniedPermissionsArray);
+        }
     }
 
     @Override
@@ -181,4 +203,18 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+
+        boolean showWarningToast = false;
+        String toShow = "YOU MUST ACCEPT ALL PERMISSIONS!!";
+        for(int i=0; i<permissions.length; i++) {
+            Log.d(TAG, "Permission: " + permissions[i] + "  |  result:  " + grantResults[i]);
+            if (grantResults[i] == PackageManager.PERMISSION_DENIED)
+                showWarningToast = true;
+        }
+        if(showWarningToast)
+            Toast.makeText(getApplicationContext(), toShow, Toast.LENGTH_LONG).show();
+    }
 }

@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -217,6 +219,11 @@ public class Controller {
     /* Set all match FEnce attribute FALSE in SQLiteDB */
     public static void setAllFencesMatchedFalse() {
         dbManager.setAllFencesMatchedFalse();
+    }
+
+    /* Check for denied permissions */
+    public static void requestPermission(AppCompatActivity activity, int requestId,String[] permissions) {
+        ActivityCompat.requestPermissions(activity,permissions,requestId);
     }
 
 }
