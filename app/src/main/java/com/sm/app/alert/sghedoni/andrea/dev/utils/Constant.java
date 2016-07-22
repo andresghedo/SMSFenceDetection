@@ -30,7 +30,7 @@ public class Constant {
 
     public static final String SEARCH_MY_LOCATION_TEXT                          = "Looking for my location...";
 
-    public static final String TITLE_VIEW_APP                                   = "Alert My Location";
+    public static final String TITLE_VIEW_APP                                   = "SMS Fence Detection";
     public static final String TITLE_VIEW_HOME                                  = "Home";
     public static final String TITLE_VIEW_MAP_GEOFENCES                         = "Map Geofences";
     public static final String TITLE_VIEW_LIST_GEOFENCES                        = "List Geofences";
