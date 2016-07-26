@@ -3,6 +3,7 @@
   <li>Mobile Systems | accademic project @ UniBo - Alma Mater Studiorum
   <li>Android App that allows you to create fences, selecting a center and a range, and capture all ENTER/EXIT events. 
   <li>Whenever app detect any of these events, it is automatically sent an alert SMS to a mobile phone.
+  <li>[See Report Directory for details]
 </ul>
 <h2>Project Goal:</h2>
 The main goal of the project, however, is to compare the battery
@@ -29,3 +30,9 @@ unusable.
     </ul>
   </li>
 </ul>
+<p align="left">
+  <img src="/img/coeff.png" width="50"/>
+</p>
+<p align="left">
+  <img src="/img/formula.png" width="550"/>
+</p>
