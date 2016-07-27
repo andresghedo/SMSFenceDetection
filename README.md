@@ -1,4 +1,7 @@
 # SMS Fence Detection
+<p align="center">
+  <img src="/img/512icon.png" width="400"/>
+</p>
 <ul>
   <li>Mobile Systems | accademic project @ UniBo - Alma Mater Studiorum
   <li>Android App that allows you to create fences, selecting a center and a range, and capture all ENTER/EXIT events. 
@@ -35,4 +38,14 @@ unusable.
 </p>
 <p align="left">
   <img src="/img/formula.png" width="550"/>
+</p>
+<h2>Screenshot</h2>
+<p align="left">
+  <img src="/img/Home.png" width="200"/>
+  <img src="/img/map_fences.png" width="200"/>
+  <img src="/img/list_fences.png" width="200"/>
+  <img src="/img/new_fences.png" width="200"/>
+  <img src="/img/services.png" width="200"/>
+  <img src="/img/services_ba.png" width="200"/>
+  <img src="/img/notification.jpg" width="200"/>
 </p>
