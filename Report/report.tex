@@ -86,7 +86,7 @@ Email: andrea.sghedoni4@studio.unibo.it}}
 
 % The Abstract
 \begin{abstract}
-My Location Alert is a smartphone application developed for the Android operating system.
+SMSFenceDetection is a smartphone application developed for the Android operating system.
 The app allows you to create fences, selecting a center and a range, and capture all ENTER/EXIT events.\\
 Whenever app detect any of these events, it is automatically sent an alert SMS to a mobile (previously selected).\\
 The main goal of the project, however, is to compare the battery consumption of two strategies/services for location monitoring in time.\\
@@ -111,7 +111,7 @@ The main goal project is to implement an intelligent mechanism where current loc
 while controlling the position less frequently (and via network, to a lower consumption) as that the device moves away from the user-selected geofences.
 The approach is based on an auto-adaptive mechanism, where the algorithm tries to use certain resources only when necessary, details will still in Section~\ref{sec:implementation}.
 The app was developed as project part of Mobile Systems exam @ Alma mater Studiorum, Bologna.\\
-The main use case of My Location Alert app is automatically alert a phone number(via SMS) of enter/exit events from a specific geographic area. 
+The main use case of SMSFenceDetection app is automatically alert a phone number(via SMS) of enter/exit events from a specific geographic area. 
 
 \section{Related works}
 In GooglePlay Store there are several apps that deal with the theme of geofencing, one of them is 
@@ -199,7 +199,7 @@ The most influential parameter is the distance from the fence, but also the dire
 
 \section{Performance evaluation}
 \label{sec:performance}
-\textit{MyAlertLocation} is tested on SO Android 6.0 and hardware device is LG Sprint. The removable Li-Ion battery has a nominal power of 2100 mAh, when fully charged (100\%). \\
+\textit{SMSFenceDetection} is tested on SO Android 6.0 and hardware device is LG Sprint. The removable Li-Ion battery has a nominal power of 2100 mAh, when fully charged (100\%). \\
 The device has been used only for app testing, no other app has been used in test period. This way is simple get precise estimates on battery power consumption and GPS utilization. \\
 Android 6, furthermore, allows to verify the consumption of these two factors for each application installed.
 The tests measure the difference between the polling strategy and the auto-adaptive method, in terms of consumed battery (mAh and percentage) and use time of the GPS sensor. \\
